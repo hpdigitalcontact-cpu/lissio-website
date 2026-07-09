@@ -4,6 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="f6drLtkJn7gxX___V6ozdZRv7MvedIduW9C70VOsoiE" />
+<script>
+  // Google Consent Mode v2 — default to denied until the visitor accepts cookies.
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  window.lissioSetConsent = function(granted) {
+    var state = granted ? 'granted' : 'denied';
+    gtag('consent', 'update', {
+      'analytics_storage': state,
+      'ad_storage': state,
+      'ad_user_data': state,
+      'ad_personalization': state
+    });
+    try { localStorage.setItem('lissio_cookie_consent', state); } catch (e) {}
+    var b = document.getElementById('lissio-cookie-banner');
+    if (b) b.style.display = 'none';
+  };
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      var saved = localStorage.getItem('lissio_cookie_consent');
+      if (saved === 'granted' || saved === 'denied') {
+        gtag('consent', 'update', {
+          'analytics_storage': saved, 'ad_storage': saved,
+          'ad_user_data': saved, 'ad_personalization': saved
+        });
+      }
+    } catch (e) {}
+  });
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,7 +49,6 @@
 </template>
 <x-dc>
 <helmet>
-<meta name="google-site-verification" content="f6drLtkJn7gxX___V6ozdZRv7MvedIduW9C70VOsoiE" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PTS98N9Y4"></script>
 <script>
@@ -675,9 +708,24 @@
         </div>
         <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Studio</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><a href="#">Our team</a><a href="#">Jobs</a><a href="#">Journal</a><a href="#">Contact</a></div></div>
         <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Services</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><a href="#">Free MVP preview</a><a href="#">Mobile development</a><a href="#">Product design</a><a href="#">Launch &amp; growth</a></div></div>
-        <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Contact</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span>hello@lissio.studio</span><span>+33 9 80 80 10 29</span><span>Paris · Remote</span></div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Contact</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span>contact@lissio-studio.com</span><span>Paris · Remote</span></div></div>
       </div>
       <div style="padding-top:24px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px;"><span>© 2026 Lissio Studio</span><span>The only studio that shows you your app first.</span></div>
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(244,236,224,0.12); display:flex; flex-wrap:wrap; gap:16px; align-items:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:#A99C8B;">
+        <a href="privacy-policy.html" style="text-decoration:underline;">Privacy Policy</a>
+        <a href="terms.html" style="text-decoration:underline;">Terms of Service</a>
+        <a href="javascript:void(0)" onClick="{{ reopenCookieBanner }}" style="text-decoration:underline;">Cookie Preferences</a>
+      </div>
+      <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(244,236,224,0.12); font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.7; color:#7A6E60;">HP DIGITAL — SARL · SIREN 894 544 295 · SIRET 894 544 295 00013 · TVA FR51894544295 · 270 Chemin des Prés, 06270 Villeneuve-Loubet, France</div>
+    </div>
+
+    <!-- Cookie consent banner (Google Consent Mode v2) -->
+    <div id="lissio-cookie-banner" style="display:{{ cookieBannerDisplay }}; position:fixed; left:20px; right:20px; bottom:20px; z-index:999; background:#211B15; color:#F4ECE0; border-radius:16px; padding:22px 26px; box-shadow:0 20px 50px -20px rgba(0,0,0,0.5); align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; max-width:900px; margin:0 auto;">
+      <div style="font-size:14px; line-height:1.5; max-width:560px;">We use cookies to run analytics (Google Analytics) and improve this site. See our <a href="privacy-policy.html" style="text-decoration:underline; color:#F4ECE0;">Privacy Policy</a>.</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="javascript:void(0)" onClick="{{ declineCookies }}" style="font-size:13px; padding:11px 18px; border:1px solid rgba(244,236,224,0.4); border-radius:100px;">Decline</a>
+        <a href="javascript:void(0)" onClick="{{ acceptCookies }}" style="font-size:13px; padding:11px 18px; background:#BE4E2C; border-radius:100px;">Accept</a>
+      </div>
     </div>
 
 </section>
@@ -686,7 +734,32 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { viewMode: 'desktop' };
+  state = { viewMode: 'desktop', showCookieBanner: false };
+
+  componentDidMount() {
+    try {
+      var saved = localStorage.getItem('lissio_cookie_consent');
+      if (saved === 'granted' || saved === 'denied') {
+        if (window.gtag) {
+          window.gtag('consent', 'update', {
+            analytics_storage: saved, ad_storage: saved,
+            ad_user_data: saved, ad_personalization: saved
+          });
+        }
+      } else {
+        this.setState({ showCookieBanner: true });
+      }
+    } catch (e) {}
+  }
+
+  setCookieConsent(granted) {
+    if (window.lissioSetConsent) window.lissioSetConsent(granted);
+    this.setState({ showCookieBanner: false });
+  }
+
+  reopenCookieBanner() {
+    this.setState({ showCookieBanner: true });
+  }
 
   setView(mode) {
     this.setState({ viewMode: mode });
@@ -720,6 +793,10 @@ class Component extends DCLogic {
         ? 'display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; margin:0 -20px; padding:4px 20px 10px;'
         : '',
       ctaWrap: mobile ? 'nowrap' : 'wrap',
+      cookieBannerDisplay: this.state.showCookieBanner ? 'flex' : 'none',
+      acceptCookies: () => this.setCookieConsent(true),
+      declineCookies: () => this.setCookieConsent(false),
+      reopenCookieBanner: () => this.reopenCookieBanner(),
     };
   }
 }
