@@ -14,6 +14,14 @@
 </template>
 <x-dc>
 <helmet>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0PTS98N9Y4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0PTS98N9Y4');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,36 +30,78 @@
   body { margin: 0; }
   a { color: inherit; text-decoration: none; }
   @keyframes phoneScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (max-width: 680px) {
+    .lp-root h1 { font-size: 30px !important; line-height: 1.18 !important; }
+    .lp-root h2 { font-size: 23px !important; line-height: 1.22 !important; }
+    .lp-root h3 { font-size: 16px !important; line-height: 1.3 !important; }
+    .lp-root .lp-sec { padding-top: 32px !important; padding-bottom: 32px !important; padding-left: 20px !important; padding-right: 20px !important; }
+    .lp-root .lp-banner { padding: 14px 20px !important; }
+    .lp-root .lp-banner span:last-child { font-size: 13px !important; }
+    .lp-nav { position: sticky !important; top: 0 !important; z-index: 30 !important; padding: 14px 18px !important; }
+    .lp-nav-links { display: none !important; }
+    .lp-nav-cta { padding: 9px 14px !important; font-size: 12px !important; }
+    .lp-hero { padding-top: 20px !important; padding-bottom: 24px !important; gap: 24px !important; }
+    .lp-hero-img { height: 300px !important; }
+    .lp-hero-chip { font-size: 11px !important; padding: 6px 12px !important; margin-bottom: 16px !important; }
+    .lp-hero p { font-size: 16px !important; margin-top: 12px !important; }
+    .lp-cta-row { margin-top: 20px !important; }
+    .lp-cta-row a { flex: 1 1 auto !important; text-align: center !important; padding: 14px 18px !important; font-size: 14px !important; }
+    .lp-chips { margin-top: 16px !important; }
+    .lp-chips span { font-size: 10px !important; padding: 5px 10px !important; }
+    .lp-social { margin-top: 20px !important; }
+    .lp-social > div:last-child { font-size: 12px !important; }
+    .lp-logos { padding-top: 28px !important; padding-bottom: 28px !important; }
+    .lp-logos > div:last-child { gap: 16px !important; }
+    .lp-sec .lp-scroll { display: flex !important; grid-template-columns: none !important; overflow-x: auto !important; overflow-y: visible !important; scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch !important; margin: 0 -20px !important; padding: 4px 20px 10px !important; gap: 14px !important; }
+    .lp-sec .lp-scroll::-webkit-scrollbar { display: none; }
+    .lp-sec .lp-scroll > div { flex: 0 0 78% !important; scroll-snap-align: start !important; padding: 24px !important; }
+    .lp-img-pricing { height: 220px !important; }
+    .lp-img-partner { height: 220px !important; }
+    .lp-mvp-note { font-size: 14px !important; text-align: left !important; }
+    .lp-testi-wrap h2 { text-align: left !important; margin-bottom: 20px !important; }
+    .lp-faq-grid { grid-template-columns: 1fr !important; }
+    .lp-stats { grid-template-columns: repeat(2,1fr) !important; }
+    .lp-final-cta a { width: 100% !important; text-align: center !important; }
+    .lp-final-cta > div:last-child { flex-direction: column !important; align-items: stretch !important; }
+    .lp-footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  }
 </style>
 </helmet>
 
-<section style="background:#F4ECE0; color:#211B15; box-shadow:0 30px 80px -30px rgba(60,40,20,0.35); overflow:hidden; font-family:'Space Grotesk',sans-serif;">
+<div style="position:fixed; top:0; left:0; right:0; z-index:999; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; background:#211B15; box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+  <button onClick="{{ setDesktop }}" style="border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; padding:9px 18px; border-radius:100px; background:{{ desktopBtnBg }}; color:{{ desktopBtnColor }};">🖥 Desktop</button>
+  <button onClick="{{ setMobile }}" style="border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; padding:9px 18px; border-radius:100px; background:{{ mobileBtnBg }}; color:{{ mobileBtnColor }};">📱 Mobile</button>
+</div>
+
+<div style="min-height:100vh; background:{{ wrapperBg }}; padding:{{ wrapperPadding }}; transition:background 0.2s;">
+<section class="lp-root" style="{{ previewFrameStyle }} background:#F4ECE0; color:#211B15; box-shadow:0 30px 80px -30px rgba(60,40,20,0.35); overflow:hidden; font-family:'Space Grotesk',sans-serif;">
 
     <!-- Nav -->
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
+    <div class="lp-nav" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1); background:#F4ECE0;">
       <div style="font-family:'Newsreader',serif; font-size:26px; font-weight:500; letter-spacing:-0.01em;">Lissio<span style="color:#BE4E2C;">.</span></div>
-      <div style="display:flex; gap:38px; font-size:15px; color:#3B342C;">
+      <div class="lp-nav-links" style="display:{{ navLinksDisplay }}; gap:38px; font-size:15px; color:#3B342C;">
         <a href="#">How it works</a><a href="#">Work</a><a href="#">Studio</a><a href="#">FAQ</a>
       </div>
-      <a href="#" style="font-size:14px; padding:12px 22px; background:#211B15; color:#F4ECE0; border-radius:100px;">Get my free preview</a>
+      <a href="#" class="lp-nav-cta" style="font-size:14px; padding:12px 22px; background:#211B15; color:#F4ECE0; border-radius:100px;">Get my free preview</a>
     </div>
 
     <!-- Hero -->
-    <div style="padding:clamp(40px,8vw,80px) clamp(16px,5vw,64px) clamp(36px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
+    <div class="lp-hero" style="padding:clamp(40px,8vw,80px) clamp(16px,5vw,64px) clamp(36px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
       <div>
-        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; background:#F7E4D8; border:1px solid #E7BFA9; border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#BE4E2C; margin-bottom:28px;"><span style="width:7px; height:7px; border-radius:50%; background:#BE4E2C; display:inline-block;"></span>The only studio that shows you your app first</div>
-        <h1 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(34px,6vw,74px); line-height:1.05; letter-spacing:-0.02em; margin:0;">See your app on your phone — <span style="font-style:italic; color:#BE4E2C;">before you spend a cent.</span></h1>
+        <div class="lp-hero-chip" style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; background:#F7E4D8; border:1px solid #E7BFA9; border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#BE4E2C; margin-bottom:28px;"><span style="width:7px; height:7px; border-radius:50%; background:#BE4E2C; display:inline-block;"></span>The only studio that shows you your app first</div>
+        <h1 style="font-family:'Newsreader',serif; font-weight:400; font-size:{{ heroTitleSize }}; line-height:1.1; letter-spacing:-0.02em; margin:0;">See your app on your phone — <span style="font-style:italic; color:#BE4E2C;">before you spend a cent.</span></h1>
         <p style="font-size:20px; line-height:1.55; color:#4A4239; max-width:520px; margin:20px 0 0;">We build a real, interactive MVP of your idea and put it straight in your hand. Try it, tap through it, feel it — completely free. Love it? Then we build the rest.</p>
-        <div style="display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;">
+        <div class="lp-cta-row" style="display:flex; gap:14px; margin-top:36px; flex-wrap:{{ ctaWrap }};">
           <a href="#" style="font-size:16px; padding:17px 30px; background:#BE4E2C; color:#F4ECE0; border-radius:100px;">Get my free preview</a>
           <a href="#" style="font-size:16px; padding:17px 30px; border:1px solid #211B15; border-radius:100px;">See how it works</a>
         </div>
-        <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
+        <div class="lp-chips" style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">100% in-house team</span>
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Fair, transparent pricing</span>
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">On-time, every time</span>
         </div>
-        <div style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
+        <div class="lp-social" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
           <div style="display:flex;">
             <div style="width:42px; height:42px; border-radius:50%; border:2px solid #F4ECE0; background:#DDD center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175730_ce5021a1-7b31-42dc-b4c2-3621a1061a5f.png');"></div>
             <div style="width:42px; height:42px; border-radius:50%; border:2px solid #F4ECE0; margin-left:-12px; background:#DDD center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175732_a61946df-3f18-4c05-9e8c-f2a2dece83d4.png');"></div>
@@ -63,19 +113,19 @@
       </div>
       <div style="position:relative;">
         <div style="position:absolute; inset:8% 12%; background:radial-gradient(circle at 50% 40%, #E9B79F, transparent 70%); filter:blur(30px);"></div>
-        <div style="position:relative; height:560px; border-radius:24px; background:#E4D8C6 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260709_143633_82ba2f44-2277-4f78-8e9f-77b23373f7d1.png') center/cover no-repeat;"></div>
+        <div class="lp-hero-img" style="position:relative; height:{{ heroImgHeight }}; border-radius:24px; background:#E4D8C6 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260709_143633_82ba2f44-2277-4f78-8e9f-77b23373f7d1.png') center/cover no-repeat;"></div>
         <div style="position:absolute; left:-18px; bottom:36px; background:#F4ECE0; border:1px solid rgba(33,27,21,0.12); border-radius:14px; padding:16px 20px; box-shadow:0 16px 40px -18px rgba(60,40,20,0.45);"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8C7F70;">Your preview</div><div style="font-family:'Newsreader',serif; font-size:26px; color:#BE4E2C;">Free · 7 days</div></div>
       </div>
     </div>
 
     <!-- Exclusive banner -->
-    <div style="background:#211B15; color:#F4ECE0; padding:18px clamp(16px,5vw,64px); display:flex; align-items:center; justify-content:center; gap:16px; text-align:center;">
+    <div class="lp-banner" style="background:#211B15; color:#F4ECE0; padding:18px clamp(16px,5vw,64px); display:flex; align-items:center; justify-content:center; gap:16px; text-align:center;">
       <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#E9B79F;">Exclusive</span>
       <span style="font-size:17px;">No other agency lets you hold a working version of your app before signing anything. We're the first.</span>
     </div>
 
     <!-- Logos -->
-    <div style="padding:clamp(32px,6vw,56px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
+    <div class="lp-logos" style="padding:clamp(32px,6vw,56px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
       <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#8C7F70; margin-bottom:24px; text-align:center;">Trusted by founders &amp; teams at</div>
       <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:24px; font-family:'Newsreader',serif; font-size:clamp(18px,2.5vw,26px); color:#5A5148;">
         <span>Meridian</span><span>Northwind</span><span>Cadence</span><span>Overpass</span><span>Silva</span><span>Norra</span><span>Halcyon</span>
@@ -83,30 +133,30 @@
     </div>
 
     <!-- How the free MVP works -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
+    <div class="lp-sec lp-mvp" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
       <div style="text-align:center; max-width:720px; margin:0 auto 56px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#BE4E2C; margin-bottom:18px;">The free MVP</div>
         <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,48px); line-height:1.1; margin:0; letter-spacing:-0.01em;">From idea to a real app in your hand — for free.</h2>
         <p style="font-size:18px; line-height:1.55; color:#4A4239; margin:20px 0 0;">Most agencies sell you slides and quotes. We build first, then let you decide with the real thing.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px; background:rgba(33,27,21,0.1); border:1px solid rgba(33,27,21,0.1); border-radius:18px; overflow:hidden;">
-        <div style="background:#F4ECE0; padding:40px;"><div style="font-family:'Newsreader',serif; font-size:40px; color:#BE4E2C;">01</div><h3 style="font-size:22px; margin:18px 0 10px; font-weight:600;">Tell us the idea</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">A single 30-minute call. No brief, no deck required — just talk us through what you want to build.</p></div>
+      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px; background:rgba(33,27,21,0.1); border:1px solid rgba(33,27,21,0.1); border-radius:18px; overflow:hidden; {{ scrollOverride }}">
+        <div style="background:#F4ECE0; padding:40px; border-radius:14px;"><div style="font-family:'Newsreader',serif; font-size:40px; color:#BE4E2C;">01</div><h3 style="font-size:22px; margin:18px 0 10px; font-weight:600;">Tell us the idea</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">A single 30-minute call. No brief, no deck required — just talk us through what you want to build.</p></div>
         <div style="background:#F4ECE0; padding:40px;"><div style="font-family:'Newsreader',serif; font-size:40px; color:#BE4E2C;">02</div><h3 style="font-size:22px; margin:18px 0 10px; font-weight:600;">We build the MVP</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Within a week our team designs and builds a real, tappable version of your core idea — not a mockup.</p></div>
         <div style="background:#F4ECE0; padding:40px;"><div style="font-family:'Newsreader',serif; font-size:40px; color:#BE4E2C;">03</div><h3 style="font-size:22px; margin:18px 0 10px; font-weight:600;">Try it on your phone</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">We install it on your own device. You hold it, tap through it, share it — free. Then decide if we build the rest.</p></div>
       </div>
-      <div style="margin-top:28px; display:flex; align-items:center; justify-content:center; gap:14px; font-size:17px; color:#211B15;"><span style="font-family:'Newsreader',serif; font-style:italic; font-size:22px;">Love it?</span> We build the full app — together. <span style="color:#8C7F70;">Not for you? No problem, you're never charged a thing.</span></div>
+      <div class="lp-mvp-note" style="margin-top:28px; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:14px; font-size:17px; color:#211B15; text-align:center;"><span style="font-family:'Newsreader',serif; font-style:italic; font-size:22px;">Love it?</span> We build the full app — together. <span style="color:#8C7F70;">Not for you? No problem, you're never charged a thing.</span></div>
     </div>
 
     <!-- 6-step process cards -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#EFE6D8;">
-      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px;">
+    <div class="lp-sec lp-steps" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#EFE6D8;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:44px;">
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#BE4E2C; margin-bottom:14px;">How we work</div>
           <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(26px,4vw,44px); margin:0; letter-spacing:-0.01em;">Six steps, from idea to a live app.</h2>
         </div>
         <p style="font-size:15px; color:#4A4239; max-width:320px; margin:0;">A complete, in-house process. Same team from the first sketch to long after launch.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px;">
+      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; {{ scrollOverride }}">
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">1</span><h3 style="font-size:21px; margin:0; font-weight:600;">Discovery</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Needs analysis</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Functional definition</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Tailored strategy</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Targeted advice</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Innovation</div></div></div>
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">2</span><h3 style="font-size:21px; margin:0; font-weight:600;">Design</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Bespoke</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Modern &amp; appealing</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Intuitive &amp; ergonomic</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Interactive prototyping</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Co-design</div></div></div>
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">3</span><h3 style="font-size:21px; margin:0; font-weight:600;">Development</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Bespoke build</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Expert developers</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Robust &amp; scalable code</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Performance &amp; durability</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Cross-platform</div></div></div>
@@ -117,16 +167,16 @@
     </div>
 
     <!-- Fair pricing / in-house -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
+    <div class="lp-sec lp-pricing" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,5vw,56px); align-items:center; margin-bottom:clamp(28px,5vw,52px);">
-        <div style="height:440px; border-radius:20px; overflow:hidden;"><img src="assets/office-team.png" alt="The Lissio team at work in our studio" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+        <div class="lp-img-pricing" style="height:{{ pricingImgHeight }}; border-radius:20px; overflow:hidden;"><img src="assets/office-team.png" alt="The Lissio team at work in our studio" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#BE4E2C; margin-bottom:16px;">Fair pricing · Real team</div>
           <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,46px); line-height:1.1; margin:0 0 20px; letter-spacing:-0.01em;">Fair prices, because nothing is outsourced.</h2>
           <p style="font-size:19px; line-height:1.6; color:#4A4239; margin:0;">Design, development, testing — every part of your app is built by our own team, under one roof, in our Paris studio. No subcontractors, no middlemen, no markup. That's how we keep pricing honest and timelines we can actually hold.</p>
         </div>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;">
+      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; {{ scrollOverride }}">
         <div style="background:#EFE6D8; border-radius:16px; padding:34px;"><div style="font-family:'Newsreader',serif; font-size:34px; color:#BE4E2C; margin-bottom:14px;">100% in-house</div><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Designers, developers and product managers all on the same team. Nothing subcontracted, nothing lost in handoffs.</p></div>
         <div style="background:#EFE6D8; border-radius:16px; padding:34px;"><div style="font-family:'Newsreader',serif; font-size:34px; color:#BE4E2C; margin-bottom:14px;">Transparent cost</div><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">You control the scope, you see the price. No hidden fees, no surprise invoices — the fairest rate for the work, full stop.</p></div>
         <div style="background:#EFE6D8; border-radius:16px; padding:34px;"><div style="font-family:'Newsreader',serif; font-size:34px; color:#BE4E2C; margin-bottom:14px;">Timelines we keep</div><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Fewer hands means fewer delays. We commit to dates up front — and because we own the whole chain, we hold them.</p></div>
@@ -134,8 +184,8 @@
     </div>
 
     <!-- Selected work -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
-      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px;">
+    <div class="lp-sec lp-work" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:44px;">
         <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(26px,4vw,44px); margin:0; letter-spacing:-0.01em;">Recent work</h2>
         <a href="#" style="font-size:14px; color:#BE4E2C; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em;">All projects →</a>
       </div>
@@ -547,13 +597,13 @@
     </div>
 
     <!-- Long-term partnership case study -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#241C15; color:#F4ECE0;">
-      <div style="max-width:640px; margin-bottom:48px;">
+    <div class="lp-sec" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#241C15; color:#F4ECE0;">
+      <div class="lp-partner-head" style="max-width:640px; margin-bottom:48px;">
         <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#E9B79F; margin-bottom:16px;">A partnership, not a delivery</div>
         <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,46px); line-height:1.1; margin:0; letter-spacing:-0.01em;">We don't ship an app and leave. We stay.</h2>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
-        <div style="height:420px; border-radius:20px; background:#3a2f24 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175813_c41e1b4b-17d1-4245-9242-bb90a00af371.png') center/cover no-repeat;"></div>
+        <div class="lp-img-partner" style="height:{{ partnerImgHeight }}; border-radius:20px; background:#3a2f24 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175813_c41e1b4b-17d1-4245-9242-bb90a00af371.png') center/cover no-repeat;"></div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#E9B79F; margin-bottom:12px;">Client for 2 years</div>
           <h3 style="font-family:'Newsreader',serif; font-size:30px; font-weight:500; margin:0 0 16px;">Lumen — Sleep &amp; recovery</h3>
@@ -570,7 +620,7 @@
     </div>
 
     <!-- Stats band -->
-    <div style="padding:clamp(24px,5vw,64px); display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:2px; background:rgba(33,27,21,0.1); border-bottom:1px solid rgba(33,27,21,0.1);">
+    <div class="lp-stats" style="padding:clamp(24px,5vw,64px); display:grid; grid-template-columns:{{ statsCols }}; gap:2px; background:rgba(33,27,21,0.1); border-bottom:1px solid rgba(33,27,21,0.1);">
       <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">40+</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Apps shipped</div></div>
       <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">4.8★</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Average store rating</div></div>
       <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">100%</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Free MVP previews</div></div>
@@ -578,9 +628,9 @@
     </div>
 
     <!-- Testimonials -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
+    <div class="lp-sec lp-testi-wrap" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
       <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:44px; margin:0 0 44px; letter-spacing:-0.01em; text-align:center;">Founders who held their app first.</h2>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px;">
+      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px; {{ scrollOverride }}">
         <div style="background:#EFE6D8; border-radius:16px; padding:32px;"><p style="font-size:16px; line-height:1.6; color:#211B15; margin:0 0 24px;">"I'd been quoted €40k by three agencies for a spec I couldn't picture. Lissio just handed me the app. That changed everything."</p><div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; background:#ccc center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175732_a61946df-3f18-4c05-9e8c-f2a2dece83d4.png');"></div><div><div style="font-size:15px; font-weight:600;">Camille Reyes</div><div style="font-size:13px; color:#8C7F70;">Founder, Norra</div></div></div></div>
         <div style="background:#EFE6D8; border-radius:16px; padding:32px;"><p style="font-size:16px; line-height:1.6; color:#211B15; margin:0 0 24px;">"The preview took six days. Six. My co-founder and I were tapping through our own product before we'd signed anything."</p><div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; background:#ccc center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175734_52c7d817-5826-4235-af20-3009bb33c2d4.png');"></div><div><div style="font-size:15px; font-weight:600;">Tom Vasseur</div><div style="font-size:13px; color:#8C7F70;">CEO, Overpass</div></div></div></div>
         <div style="background:#EFE6D8; border-radius:16px; padding:32px;"><p style="font-size:16px; line-height:1.6; color:#211B15; margin:0 0 24px;">"No slides, no endless scoping. A real thing in my hand, then a clear plan to ship it. It's the only way I'd start again."</p><div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; background:#ccc center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175730_ce5021a1-7b31-42dc-b4c2-3621a1061a5f.png');"></div><div><div style="font-size:15px; font-weight:600;">Julien Marchand</div><div style="font-size:13px; color:#8C7F70;">Founder, Cadence</div></div></div></div>
@@ -588,8 +638,8 @@
     </div>
 
     <!-- FAQ -->
-    <div style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#EFE6D8;">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,5vw,56px); align-items:start;">
+    <div class="lp-sec lp-faq" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#EFE6D8;">
+      <div class="lp-faq-grid" style="display:grid; grid-template-columns:{{ faqCols }}; gap:clamp(24px,5vw,56px); align-items:start;">
         <div>
           <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:44px; margin:0 0 20px; letter-spacing:-0.01em;">Questions?</h2>
           <p style="font-size:16px; line-height:1.6; color:#4A4239; margin:0 0 24px;">Everything you need to know about the free preview and working with us.</p>
@@ -605,7 +655,7 @@
     </div>
 
     <!-- Final CTA -->
-    <div style="padding:clamp(56px,10vw,104px) clamp(16px,5vw,64px); background:#BE4E2C; color:#F4ECE0; text-align:center;">
+    <div class="lp-sec lp-final-cta" style="padding:clamp(56px,10vw,104px) clamp(16px,5vw,64px); background:#BE4E2C; color:#F4ECE0; text-align:center;">
       <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#F7D9C9; margin-bottom:22px;">The only studio that shows you first</div>
       <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,5.5vw,62px); line-height:1.1; margin:0 auto; max-width:840px; letter-spacing:-0.02em;">See your app on your phone. Free. This week.</h2>
       <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:40px; flex-wrap:wrap;">
@@ -615,8 +665,8 @@
     </div>
 
     <!-- Footer -->
-    <div style="padding:clamp(36px,6vw,56px) clamp(16px,5vw,64px) 40px; background:#241C15; color:#A99C8B;">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:32px; padding-bottom:40px; border-bottom:1px solid rgba(244,236,224,0.12);">
+    <div class="lp-sec" style="padding:clamp(36px,6vw,56px) clamp(16px,5vw,64px) 40px; background:#241C15; color:#A99C8B;">
+      <div class="lp-footer-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:32px; padding-bottom:40px; border-bottom:1px solid rgba(244,236,224,0.12);">
         <div>
           <div style="font-family:'Newsreader',serif; font-size:24px; color:#F4ECE0; margin-bottom:14px;">Lissio<span style="color:#BE4E2C;">.</span></div>
           <p style="font-size:15px; line-height:1.6; margin:0; max-width:300px;">More than an agency — a product partner. We build mobile apps you can try before you pay.</p>
@@ -625,10 +675,11 @@
         <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Services</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><a href="#">Free MVP preview</a><a href="#">Mobile development</a><a href="#">Product design</a><a href="#">Launch &amp; growth</a></div></div>
         <div><div style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#F4ECE0; margin-bottom:16px;">Contact</div><div style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span>hello@lissio.studio</span><span>+33 9 80 80 10 29</span><span>Paris · Remote</span></div></div>
       </div>
-      <div style="padding-top:24px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px;"><span>© 2026 Lissio Studio</span><span>The only studio that shows you your app first.</span></div>
+      <div style="padding-top:24px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px;"><span>© 2026 Lissio Studio</span><span>The only studio that shows you your app first.</span></div>
     </div>
 
 </section>
+</div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -654,6 +705,19 @@ class Component extends DCLogic {
       desktopBtnColor: mobile ? '#211B15' : '#F4ECE0',
       mobileBtnBg: mobile ? '#211B15' : '#EFE6D8',
       mobileBtnColor: mobile ? '#F4ECE0' : '#211B15',
+      // Mirrors the @media(max-width:680px) rules so the in-editor Mobile toggle
+      // (which resizes a frame, not the real browser viewport) matches production.
+      heroTitleSize: mobile ? '30px' : 'clamp(34px,6vw,74px)',
+      navLinksDisplay: mobile ? 'none' : 'flex',
+      heroImgHeight: mobile ? '260px' : '560px',
+      pricingImgHeight: mobile ? '220px' : '440px',
+      partnerImgHeight: mobile ? '220px' : '420px',
+      statsCols: mobile ? 'repeat(2,1fr)' : 'repeat(auto-fit,minmax(160px,1fr))',
+      faqCols: mobile ? '1fr' : 'repeat(auto-fit,minmax(280px,1fr))',
+      scrollOverride: mobile
+        ? 'display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; margin:0 -20px; padding:4px 20px 10px;'
+        : '',
+      ctaWrap: mobile ? 'nowrap' : 'wrap',
     };
   }
 }
