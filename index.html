@@ -50,7 +50,7 @@
 <x-dc>
 <helmet>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0PTS98N9Y4"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0PTS98N9Y4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -58,8 +58,8 @@
   gtag('config', 'G-0PTS98N9Y4');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; }
@@ -104,7 +104,7 @@
 </style>
 </helmet>
 
-<div style="position:fixed; top:0; left:0; right:0; z-index:999; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; background:#211B15; box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+<div style="position:fixed; top:0; left:0; right:0; z-index:999; display:{{ viewToggleDisplay }}; align-items:center; justify-content:center; gap:8px; padding:12px; background:#211B15; box-shadow:0 4px 14px rgba(0,0,0,0.15);">
   <button onClick="{{ setDesktop }}" style="border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; padding:9px 18px; border-radius:100px; background:{{ desktopBtnBg }}; color:{{ desktopBtnColor }};">🖥 Desktop</button>
   <button onClick="{{ setMobile }}" style="border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; padding:9px 18px; border-radius:100px; background:{{ mobileBtnBg }}; color:{{ mobileBtnColor }};">📱 Mobile</button>
 </div>
@@ -191,7 +191,7 @@
         </div>
         <p style="font-size:15px; color:#4A4239; max-width:320px; margin:0;">A complete, in-house process. Same team from the first sketch to long after launch.</p>
       </div>
-      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; {{ scrollOverride }}">
+      <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; {{ scrollOverride }}">
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">1</span><h3 style="font-size:21px; margin:0; font-weight:600;">Discovery</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Needs analysis</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Functional definition</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Tailored strategy</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Targeted advice</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Innovation</div></div></div>
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">2</span><h3 style="font-size:21px; margin:0; font-weight:600;">Design</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Bespoke</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Modern &amp; appealing</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Intuitive &amp; ergonomic</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Interactive prototyping</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Co-design</div></div></div>
         <div style="background:#FBF6EE; border:1px solid rgba(33,27,21,0.08); border-radius:16px; padding:32px;"><div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;"><span style="width:36px; height:36px; border-radius:50%; background:#BE4E2C; color:#F4ECE0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px;">3</span><h3 style="font-size:21px; margin:0; font-weight:600;">Development</h3></div><div style="display:flex; flex-direction:column; gap:12px; font-size:15px; color:#4A4239;"><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Bespoke build</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Expert developers</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Robust &amp; scalable code</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Performance &amp; durability</div><div><span style="color:#BE4E2C; margin-right:10px;">✓</span>Cross-platform</div></div></div>
@@ -649,17 +649,37 @@
             <div><div style="font-family:'Newsreader',serif; font-size:38px; color:#F4ECE0;">4.9</div><div style="font-size:13px; color:#A99C8B;">App Store rating</div></div>
           </div>
           <blockquote style="font-family:'Newsreader',serif; font-style:italic; font-size:22px; line-height:1.4; margin:0; color:#F4ECE0;">"Lissio isn't a supplier executing a plan — they think about what the product should be. The free preview sold us in a day."</blockquote>
-          <div style="display:flex; align-items:center; gap:12px; margin-top:20px;"><div style="width:44px; height:44px; border-radius:50%; background:#555 center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175730_ce5021a1-7b31-42dc-b4c2-3621a1061a5f.png');"></div><div><div style="font-size:15px; font-weight:600;">Alexis Baron</div><div style="font-size:13px; color:#A99C8B;">Co-founder, Lumen</div></div></div>
+          <div style="display:flex; align-items:center; gap:12px; margin-top:20px;"><div style="width:44px; height:44px; border-radius:50%; background:#555 center/cover no-repeat url('assets/hugo-photo.png');"></div><div><div style="font-size:15px; font-weight:600;">Hugo</div><div style="font-size:13px; color:#A99C8B;">Co-founder, Lissio</div></div></div>
         </div>
       </div>
     </div>
 
     <!-- Stats band -->
     <div class="lp-stats" style="padding:clamp(24px,5vw,64px); display:grid; grid-template-columns:{{ statsCols }}; gap:2px; background:rgba(33,27,21,0.1); border-bottom:1px solid rgba(33,27,21,0.1);">
-      <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">40+</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Apps shipped</div></div>
+      <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">40+</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Apps shipped last year</div></div>
       <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">4.8★</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Average store rating</div></div>
       <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">100%</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Free MVP previews</div></div>
-      <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">9</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Senior people, in-house</div></div>
+      <div style="background:#F4ECE0; padding:32px 24px; text-align:center;"><div style="font-family:'Newsreader',serif; font-size:clamp(28px,4vw,44px); color:#BE4E2C;">4</div><div style="font-size:14px; color:#4A4239; margin-top:6px;">Senior people, in-house</div></div>
+    </div>
+
+    <!-- Book a free consultation -->
+    <div class="lp-sec" style="position:relative; padding:clamp(56px,9vw,96px) clamp(16px,5vw,64px); background:#211B15; color:#F4ECE0; overflow:hidden;">
+      <div style="position:absolute; top:-120px; right:-80px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(190,78,44,0.35), transparent 70%); filter:blur(10px); pointer-events:none;"></div>
+      <div style="position:absolute; bottom:-160px; left:-100px; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle, rgba(190,78,44,0.2), transparent 70%); filter:blur(10px); pointer-events:none;"></div>
+      <div style="position:relative; max-width:920px; margin:0 auto; text-align:center;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; background:rgba(244,236,224,0.08); border:1px solid rgba(244,236,224,0.16); border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#E9B79F; margin-bottom:28px;"><span style="width:7px; height:7px; border-radius:50%; background:#BE4E2C; display:inline-block;"></span>Free · No hassle · 30 minutes</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:0 auto 20px; letter-spacing:-0.02em; max-width:760px;">Book a free consultation, get started on your <span style="font-style:italic; color:#E9B79F;">free MVP.</span></h2>
+        <p style="font-size:18px; line-height:1.6; color:#D8CDBE; margin:0 auto 40px; max-width:560px;">One short call, no pitch deck, no commitment. If it's a fit, we start building your preview that week.</p>
+        <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+          <a href="https://calendly.com/lissio-studio/intro" target="_blank" rel="noopener" style="font-size:16px; padding:18px 34px; background:#F4ECE0; color:#211B15; border-radius:100px; display:inline-flex; align-items:center; gap:10px;">📅 Book my free call</a>
+          <a href="mailto:contact@lissio-studio.com" style="font-size:16px; padding:18px 34px; border:1px solid rgba(244,236,224,0.35); color:#F4ECE0; border-radius:100px;">Or email us</a>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; margin-top:44px; font-size:13px; color:#A99C8B;">
+          <span>✓ No payment required</span>
+          <span>✓ Real MVP in your hand within a week</span>
+          <span>✓ Cancel anytime, zero risk</span>
+        </div>
+      </div>
     </div>
 
     <!-- Testimonials -->
@@ -695,7 +715,7 @@
       <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,5.5vw,62px); line-height:1.1; margin:0 auto; max-width:840px; letter-spacing:-0.02em;">See your app on your phone. Free. This week.</h2>
       <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:40px; flex-wrap:wrap;">
         <a href="#" style="font-size:16px; padding:18px 34px; background:#F4ECE0; color:#211B15; border-radius:100px;">Get my free preview</a>
-        <div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; border:2px solid #F4ECE0; background:#999 center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175730_ce5021a1-7b31-42dc-b4c2-3621a1061a5f.png');"></div><div style="text-align:left;"><div style="font-size:14px;">Book a call with Logan</div><div style="font-size:12px; color:#F7D9C9;">Founder, Lissio</div></div></div>
+        <a href="https://calendly.com/lissio-studio/intro" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; border:2px solid #F4ECE0; background:#999 center/cover no-repeat url('assets/hugo-photo.png');"></div><div style="text-align:left;"><div style="font-size:14px;">Hugo</div><div style="font-size:12px; color:#F7D9C9;">Co-founder, Lissio</div></div></a>
       </div>
     </div>
 
@@ -734,9 +754,14 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { viewMode: 'desktop', showCookieBanner: false };
+  state = { viewMode: 'desktop', showCookieBanner: false, inEditor: false };
 
   componentDidMount() {
+    // The desktop/mobile toggle is an editing aid — only ever show it when
+    // this DC is running inside the design tool, never on the public site.
+    try {
+      this.setState({ inEditor: document.body?.hasAttribute('data-dc-editor-on') || window.parent !== window });
+    } catch (e) {}
     try {
       var saved = localStorage.getItem('lissio_cookie_consent');
       if (saved === 'granted' || saved === 'denied') {
@@ -793,6 +818,7 @@ class Component extends DCLogic {
         ? 'display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; margin:0 -20px; padding:4px 20px 10px;'
         : '',
       ctaWrap: mobile ? 'nowrap' : 'wrap',
+      viewToggleDisplay: this.state.inEditor ? 'flex' : 'none',
       cookieBannerDisplay: this.state.showCookieBanner ? 'flex' : 'none',
       acceptCookies: () => this.setCookieConsent(true),
       declineCookies: () => this.setCookieConsent(false),
