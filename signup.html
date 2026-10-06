@@ -49,7 +49,8 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./fp-db.js?v=20261006b"></script>
+<script src="./fp-db.js?v=20261006zg"></script>
+<style>@media (max-width: 900px) { [data-m="wa"] { right:14px !important; bottom:16px !important; } [data-m="walabel"] { display:none !important; } [data-m="wa"] > span:last-child { width:48px !important; height:48px !important; } }</style>
 </helmet>
 
 <div style="position:fixed; inset:0; overflow:hidden; z-index:0" aria-hidden="true">
@@ -112,7 +113,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
         </div>
 
         <p style="font-size:12.5px; color:#5C6B62; text-align:center; margin:14px 0 6px">By signing up, you accept our <a href="#">Terms of Service</a>.</p>
-        <p style="font-size:13.5px; text-align:center; margin:0"><a href="./login.html?v=20261006b" style="font-weight:600; text-decoration:underline">I already have an account</a></p>
+        <p style="font-size:13.5px; text-align:center; margin:0"><a href="./login.html?v=20261006zg" style="font-weight:600; text-decoration:underline">I already have an account</a></p>
       </div>
     </sc-if>
 
@@ -131,6 +132,14 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
     </sc-if>
   </div>
 </div>
+
+<a data-m="wa" href="https://wa.me/33777375418?text=Hi%20Field%20Pilot!%20" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" style="position:fixed; right:20px; bottom:20px; z-index:95; display:flex; align-items:center; gap:10px; text-decoration:none">
+  <span data-m="walabel" style="display:block; background:#fff; color:#0E2419; border:1px solid #E3E8E1; border-radius:12px; padding:8px 12px; box-shadow:0 8px 24px rgba(14,36,25,0.12); font-family:'Inter',sans-serif; line-height:1.3; max-width:230px">
+    <span style="display:block; font-size:12.5px; font-weight:600">Onboarding, bug or idea?</span>
+    <span style="display:block; font-size:11.5px; color:#5C6B62">Chat with a real human · 24/7</span>
+  </span>
+  <span style="width:52px; height:52px; flex-shrink:0; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(37,211,102,0.35)" style-hover="transform:scale(1.06)"><svg viewBox="0 0 24 24" style="width:26px; height:26px"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"></path></svg></span>
+</a>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
@@ -170,7 +179,7 @@ class Component extends DCLogic {
     if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'workspace created' });
     if (!data.session) return this.setState({ error: 'Almost there — confirm your email from the link we just sent, then log in.' });
     this.setState({ done: true, error: '' });
-    this._t = setTimeout(() => { window.location.href = './app.html?v=20261006b'; }, 1400);
+    this._t = setTimeout(() => { window.location.href = './app.html?v=20261006zg'; }, 1400);
   };
 
   componentWillUnmount() { clearTimeout(this._t); }
