@@ -166,11 +166,11 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
     </div>
     <div style="display:flex; align-items:center; gap:14px">
       <sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}">
-      <a href="./login.html?v=20261006e" data-m="hide-mobile" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; border:1px solid #E3E8E1; background:transparent; color:#0E2419; white-space:nowrap; transition:border-color .15s ease" style-hover="border-color:#0E2419; color:#0E2419">Log in</a>
-      <a href="./signup.html?v=20261006e" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; border:1px solid transparent; background:#0E2419; color:#fff; white-space:nowrap; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#fff">Try for free</a>
+      <a href="./login.html?v=20261006f" data-m="hide-mobile" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; border:1px solid #E3E8E1; background:transparent; color:#0E2419; white-space:nowrap; transition:border-color .15s ease" style-hover="border-color:#0E2419; color:#0E2419">Log in</a>
+      <a href="./signup.html?v=20261006f" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; border:1px solid transparent; background:#0E2419; color:#fff; white-space:nowrap; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#fff">Try for free</a>
       </sc-if>
       <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
-        <a href="./app.html?v=20261006e" title="{{ sessionEmail }}" style="display:inline-flex; align-items:center; gap:10px; padding:5px 6px 5px 5px; border-radius:999px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; white-space:nowrap; transition:border-color .15s ease, box-shadow .15s ease" style-hover="border-color:#1F8A4C; box-shadow:0 6px 18px rgba(14,36,25,0.10); color:#0E2419">
+        <a href="./app.html?v=20261006f" title="{{ sessionEmail }}" style="display:inline-flex; align-items:center; gap:10px; padding:5px 6px 5px 5px; border-radius:999px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; white-space:nowrap; transition:border-color .15s ease, box-shadow .15s ease" style-hover="border-color:#1F8A4C; box-shadow:0 6px 18px rgba(14,36,25,0.10); color:#0E2419">
           <span style="width:34px; height:34px; border-radius:50%; background:linear-gradient(155deg,#8FD14F,#1F8A4C); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; color:#0E2419; flex-shrink:0">{{ sessionInitials }}</span>
           <span data-m="hide-mobile" style="display:flex; flex-direction:column; line-height:1.15; padding-right:4px">
             <span style="font-size:13.5px; font-weight:600">{{ sessionName }}</span>
@@ -208,8 +208,8 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
     </nav>
     <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px">
       <sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}">
-      <a href="./signup.html?v=20261006e" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; background:#0E2419; color:#fff; font-weight:600; font-size:15.5px">Try for free</a>
-      <a href="./login.html?v=20261006e" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; font-weight:600; font-size:15.5px">Log in</a>
+      <a href="./signup.html?v=20261006f" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; background:#0E2419; color:#fff; font-weight:600; font-size:15.5px">Try for free</a>
+      <a href="./login.html?v=20261006f" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; font-weight:600; font-size:15.5px">Log in</a>
       </sc-if>
       <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex; align-items:center; gap:12px; padding:14px; border-radius:12px; background:#fff; border:1px solid #E3E8E1">
@@ -219,7 +219,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
             <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:#166B3A">Logged in · {{ sessionCompany }}</span>
           </span>
         </div>
-        <a href="./app.html?v=20261006e" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; background:#0E2419; color:#fff; font-weight:600; font-size:15.5px">Open my CRM →</a>
+        <a href="./app.html?v=20261006f" style="display:flex; align-items:center; justify-content:center; padding:15px; border-radius:10px; background:#0E2419; color:#fff; font-weight:600; font-size:15.5px">Open my CRM →</a>
       </sc-if>
       <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62; text-align:center; margin-top:4px">No credit card · free crew app</div>
     </div>
@@ -237,7 +237,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
         <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.02em; line-height:1.08; font-size:clamp(34px,4.4vw,54px); margin:18px 0 20px; text-wrap:pretty">The simple lawn care software <span style="color:#166B3A">built to grow your business.</span></h1>
         <p style="font-size:18px; color:#5C6B62; max-width:480px; margin:0 0 30px; text-wrap:pretty">Schedule jobs, plan routes, manage your crew, send quotes and automate invoices — everything you need to run your lawn care or landscaping business in one simple app. Free on iOS &amp; Android for your crew.</p>
         <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
-          <a href="./signup.html?v=20261006e" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#0E2419; color:#fff; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#fff">Try for free — no credit card required</a>
+          <a href="./signup.html?v=20261006f" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#0E2419; color:#fff; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#fff">Try for free — no credit card required</a>
           <a href="#product" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:transparent; color:#0E2419; border:1px solid #E3E8E1; transition:border-color .15s ease" style-hover="border-color:#0E2419; color:#0E2419">See how it works</a>
         </div>
         <div data-m="herostats" style="margin-top:26px; padding-top:22px; border-top:1px solid #E3E8E1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px">
@@ -606,7 +606,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
             <span style="display:inline-flex; align-items:center; padding:9px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.25); color:#fff">Android</span>
             <span style="display:inline-flex; align-items:center; padding:9px 14px; border-radius:10px; background:rgba(143,209,79,0.16); color:#8FD14F">FREE FOR EVERY CREW MEMBER</span>
           </div>
-          <a href="./signup.html?v=20261006e" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#fff; color:#163C2A; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,0.15); color:#163C2A">Try for free</a>
+          <a href="./signup.html?v=20261006f" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#fff; color:#163C2A; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,0.15); color:#163C2A">Try for free</a>
         </div>
         <div style="display:flex; justify-content:center">
         <div data-m="mockphone" style="width:300px; background:#0E2419; border-radius:46px; padding:10px; box-shadow:0 30px 60px rgba(0,0,0,0.4)">
@@ -750,7 +750,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
             <li style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:#0E2419"><span style="color:#1F8A4C; font-weight:700; flex-shrink:0; width:16px">✓</span><span>Crew mobile app</span></li>
             <li style="display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.4; color:#8A978F"><span style="flex-shrink:0; width:16px; height:16px; margin-top:2px; border-radius:50%; border:1.4px solid #B9C4BB; color:#B9C4BB; font-size:9px; display:flex; align-items:center; justify-content:center">✕</span><span>Analytics</span></li>
           </ul>
-          <a href="./signup.html?v=20261006e" style="display:flex; align-items:center; justify-content:center; padding:14px 18px; border-radius:10px; background:#fff; color:#0E2419; border:1px solid #0E2419; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; white-space:nowrap; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#0E2419">Try for free</a>
+          <a href="./signup.html?v=20261006f" style="display:flex; align-items:center; justify-content:center; padding:14px 18px; border-radius:10px; background:#fff; color:#0E2419; border:1px solid #0E2419; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; white-space:nowrap; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(14,36,25,0.18); color:#0E2419">Try for free</a>
         </div>
         <div data-m="pcard" style="background:#fff; border-radius:16px; padding:30px 24px 24px; display:flex; flex-direction:column; text-align:center; position:relative">
           <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#5C6B62; font-weight:600">Solo Plus</div>
@@ -870,7 +870,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
       <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.02em; line-height:1.08; font-size:clamp(30px,4.4vw,50px); margin:16px auto 14px; max-width:680px">Grow the business. Get your evenings back.</h2>
       <p style="color:rgba(255,255,255,0.65); font-size:16.5px; margin-bottom:32px">The #1 app for lawn care &amp; landscaping businesses. Try it for free — no credit card required.</p>
       <div style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap">
-        <a href="./signup.html?v=20261006e" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#fff; color:#163C2A; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,0.15); color:#163C2A">Try for free</a>
+        <a href="./signup.html?v=20261006f" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:#fff; color:#163C2A; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,0.15); color:#163C2A">Try for free</a>
         <a href="#product" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:13px 22px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.25); color:#fff" style-hover="border-color:#fff; color:#fff">See how it works</a>
       </div>
     </div>
@@ -882,7 +882,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
     <div style="font-size:13px; font-weight:600">Try it free today</div>
     <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62">no card · free crew app</div>
   </div>
-  <a href="./signup.html?v=20261006e" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:14px 20px; border-radius:10px; background:#0E2419; color:#fff">Try for free</a>
+  <a href="./signup.html?v=20261006f" style="display:inline-flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; padding:14px 20px; border-radius:10px; background:#0E2419; color:#fff">Try for free</a>
 </div>
 
 <footer style="padding:56px 0 40px">
@@ -948,6 +948,12 @@ class Component extends DCLogic {
       const where = a.textContent.trim().replace(/\s+/g, ' ').slice(0, 40);
       if (typeof window.gtag === 'function') window.gtag('event', 'signup_start', { location: where });
       if (typeof window.fbq === 'function') window.fbq('track', 'StartTrial', { value: 0, currency: 'USD', predicted_ltv: 588, content_name: where });
+      const newTab = e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1 || a.target === '_blank';
+      if (!newTab && typeof window.fbq === 'function') {
+        e.preventDefault();
+        const go = a.href;
+        setTimeout(() => { window.location.href = go; }, 350);
+      }
     };
     document.addEventListener('click', this.onCta);
     this.t1 = setInterval(() => {
