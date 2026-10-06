@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'); fbq('track', 'PageView'); }
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2178287276369092&ev=PageView&noscript=1" alt="" /></noscript>
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#163C2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<title>Try for free — Field Pilot</title>
+<meta name="robots" content="noindex">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TPCXXB6W73"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-TPCXXB6W73');
+</script>
+<style>
+  body { margin:0; background:#163C2A; color:#0E2419; font-family:'Inter',sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#166B3A; text-decoration:none; }
+  a:hover { color:#0E2419; }
+  input, select, button { font-family:inherit; }
+  input:focus, select:focus { outline:none; border-color:#1F8A4C !important; box-shadow:0 0 0 3px rgba(31,138,76,0.14); }
+  input::placeholder { color:#8A978F; }
+  @media (max-width: 600px) {
+    [data-m~="stage"] { padding:16px 12px 28px !important; align-items:flex-start !important; }
+    [data-m~="card"] { padding:24px 18px 22px !important; border-radius:20px !important; }
+    [data-m~="row2"] { grid-template-columns:1fr !important; }
+    [data-m~="title"] { font-size:26px !important; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./fp-db.js?v=20261006b"></script>
+</helmet>
+
+<div style="position:fixed; inset:0; overflow:hidden; z-index:0" aria-hidden="true">
+  <img src="./photos/crm-today.png" alt="" style="position:absolute; inset:-30px; width:calc(100% + 60px); height:calc(100% + 60px); object-fit:cover; object-position:top left; filter:blur(7px) saturate(0.9); transform:scale(1.03)" />
+  <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(14,36,25,0.38), rgba(14,36,25,0.62))"></div>
+</div>
+
+<div data-m="stage" style="position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 16px">
+  <div data-m="card" style="width:100%; max-width:468px; background:#F6F7F2; border-radius:24px; padding:34px 34px 28px; box-shadow:0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08)">
+
+    <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <a href="./index.html" style="display:flex; align-items:center; justify-content:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; color:#0E2419; white-space:nowrap">
+          <span style="width:32px; height:32px; border-radius:9px; background:#1F8A4C; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+            <svg viewBox="6 3 20 26" style="width:15px; height:20px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg>
+          </span>
+          Field Pilot
+        </a>
+        <h1 data-m="title" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.08; font-size:30px; text-align:center; margin:20px 0 6px">Try for free</h1>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; text-align:center; margin-bottom:22px">No credit card · ready in 1 minute</div>
+
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <div data-m="row2" style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+            <input type="text" autocomplete="given-name" placeholder="First name" value="{{ firstName }}" onInput="{{ setFirstName }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+            <input type="text" autocomplete="family-name" placeholder="Last name" value="{{ lastName }}" onInput="{{ setLastName }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+          </div>
+          <input type="text" autocomplete="organization" placeholder="Company name" value="{{ company }}" onInput="{{ setCompany }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:10px">
+            <select value="{{ dial }}" onChange="{{ setDial }}" aria-label="Country code" style="width:100%; padding:13px 10px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419">
+              <option value="+1 US">🇺🇸 +1</option>
+              <option value="+1 CA">🇨🇦 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+61">🇦🇺 +61</option>
+            </select>
+            <input type="tel" autocomplete="tel-national" placeholder="Phone" value="{{ phone }}" onInput="{{ setPhone }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+          </div>
+          <select value="{{ heard }}" onChange="{{ setHeard }}" aria-label="How did you hear about us?" style="width:100%; padding:13px 12px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:{{ heardColor }}">
+            <option value="">How did you hear about us?</option>
+            <option value="google">Google search</option>
+            <option value="facebook">Facebook / Instagram</option>
+            <option value="youtube">YouTube</option>
+            <option value="friend">Another lawn care owner</option>
+            <option value="other">Other</option>
+          </select>
+          <input type="email" autocomplete="email" placeholder="Work email" value="{{ email }}" onInput="{{ setEmail }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+          <div style="position:relative">
+            <input type="{{ pwType }}" autocomplete="new-password" placeholder="Password (8+ characters)" value="{{ password }}" onInput="{{ setPassword }}" style="width:100%; padding:13px 70px 13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+            <button type="button" onClick="{{ togglePw }}" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); border:none; background:transparent; padding:8px 10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; cursor:pointer">{{ pwLabel }}</button>
+          </div>
+
+          <div style="font-size:13.5px; font-weight:600; margin:6px 0 0">How many gardeners, including you?</div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px">
+            <button type="button" onClick="{{ pickSolo }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sSolo.bg }}; color:{{ sSolo.fg }}; border:1px solid {{ sSolo.br }}">Just me</button>
+            <button type="button" onClick="{{ pickCrew }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sCrew.bg }}; color:{{ sCrew.fg }}; border:1px solid {{ sCrew.br }}">2–5</button>
+            <button type="button" onClick="{{ pickBiz }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sBiz.bg }}; color:{{ sBiz.fg }}; border:1px solid {{ sBiz.br }}">6 or more</button>
+          </div>
+
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#C24545; min-height:16px; margin-top:2px">{{ error }}</div>
+          <button type="button" onClick="{{ submit }}" style="width:100%; padding:16px 22px; border:none; border-radius:12px; background:#0E2419; color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 10px 24px rgba(14,36,25,0.25)">Try for free</button>
+        </div>
+
+        <p style="font-size:12.5px; color:#5C6B62; text-align:center; margin:14px 0 6px">By signing up, you accept our <a href="#">Terms of Service</a>.</p>
+        <p style="font-size:13.5px; text-align:center; margin:0"><a href="./login.html?v=20261006b" style="font-weight:600; text-decoration:underline">I already have an account</a></p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; padding:24px 6px 10px">
+        <div style="width:56px; height:56px; border-radius:16px; background:rgba(31,138,76,0.12); display:flex; align-items:center; justify-content:center; margin:0 auto 18px">
+          <svg viewBox="0 0 24 24" fill="none" style="width:26px; height:26px"><path d="M4 12l5 5L20 6" stroke="#1F8A4C" stroke-width="3" stroke-linecap="round"></path></svg>
+        </div>
+        <h1 data-m="title" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.1; font-size:28px; margin:0 0 8px">{{ doneTitle }}</h1>
+        <p style="color:#5C6B62; font-size:15px; margin:0 0 22px">Opening your workspace…</p>
+        <div style="height:5px; border-radius:4px; background:#E3E8E1; overflow:hidden; max-width:260px; margin:0 auto">
+          <div style="height:100%; width:100%; background:#1F8A4C; border-radius:4px; transform-origin:left; animation:fpLoad 1.4s cubic-bezier(.4,0,.2,1) both"></div>
+        </div>
+        <style>@keyframes fpLoad { from { transform:scaleX(0); } to { transform:scaleX(1); } }</style>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { firstName: '', lastName: '', company: '', dial: '+1 US', phone: '', heard: '', email: '', password: '', showPw: false, size: '', error: '', done: false };
+
+  pill(on) { return on ? { bg: '#0E2419', fg: '#ffffff', br: '#0E2419' } : { bg: '#ffffff', fg: '#0E2419', br: '#E3E8E1' }; }
+
+  set(key) { return (e) => this.setState({ [key]: e.target.value, error: '' }); }
+
+  submit = () => {
+    const s = this.state;
+    if (!s.firstName.trim() || !s.lastName.trim()) return this.setState({ error: 'Add your first and last name.' });
+    if (!s.company.trim()) return this.setState({ error: 'Add your company name.' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.email.trim())) return this.setState({ error: 'Enter a valid email address.' });
+    if (s.password.length < 8) return this.setState({ error: 'Password needs at least 8 characters.' });
+    if (!s.size) return this.setState({ error: 'Tell us how many gardeners you are.' });
+    this.createAccount(s);
+  };
+
+  createAccount = async (s) => {
+    this.setState({ error: 'Creating your workspace…' });
+    const db = window.getFPDB ? await window.getFPDB() : null;
+    if (!db) return this.setState({ error: 'Connection problem — please try again.' });
+    const { data, error } = await db.auth.signUp({
+      email: s.email.trim(),
+      password: s.password,
+      options: {
+        data: { company: s.company.trim(), team_size: s.size, first_name: s.firstName.trim(), last_name: s.lastName.trim(), phone: (s.dial + ' ' + s.phone).trim(), heard: s.heard },
+        emailRedirectTo: location.origin + '/app.html'
+      }
+    });
+    if (error) {
+      const msg = /registered|exists/i.test(error.message) ? 'An account already exists with this email — log in instead.' : error.message;
+      return this.setState({ error: msg });
+    }
+    if (typeof window.gtag === 'function') window.gtag('event', 'signup_complete', { team_size: s.size, source: s.heard || 'none' });
+    if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'workspace created' });
+    if (!data.session) return this.setState({ error: 'Almost there — confirm your email from the link we just sent, then log in.' });
+    this.setState({ done: true, error: '' });
+    this._t = setTimeout(() => { window.location.href = './app.html?v=20261006b'; }, 1400);
+  };
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      isForm: !s.done,
+      isDone: s.done,
+      doneTitle: (s.company.trim() || 'Your company') + ' is set up.',
+      firstName: s.firstName, lastName: s.lastName, company: s.company, dial: s.dial,
+      phone: s.phone, heard: s.heard, email: s.email, password: s.password, error: s.error,
+      heardColor: s.heard ? '#0E2419' : '#8A978F',
+      setFirstName: this.set('firstName'), setLastName: this.set('lastName'), setCompany: this.set('company'),
+      setDial: this.set('dial'), setPhone: this.set('phone'), setHeard: this.set('heard'),
+      setEmail: this.set('email'), setPassword: this.set('password'),
+      pwType: s.showPw ? 'text' : 'password',
+      pwLabel: s.showPw ? 'Hide' : 'Show',
+      togglePw: () => this.setState(x => ({ showPw: !x.showPw })),
+      sSolo: this.pill(s.size === 'solo'), sCrew: this.pill(s.size === 'crew'), sBiz: this.pill(s.size === 'biz'),
+      pickSolo: () => this.setState({ size: 'solo', error: '' }),
+      pickCrew: () => this.setState({ size: 'crew', error: '' }),
+      pickBiz: () => this.setState({ size: 'biz', error: '' }),
+      submit: this.submit
+    };
+  }
+}
+</script>
+</body>
+</html>

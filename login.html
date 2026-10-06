@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'); fbq('track', 'PageView'); }
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2178287276369092&ev=PageView&noscript=1" alt="" /></noscript>
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#163C2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<title>Log in — Field Pilot</title>
+<meta name="robots" content="noindex">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TPCXXB6W73"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-TPCXXB6W73');
+</script>
+<style>
+  body { margin:0; background:#163C2A; color:#0E2419; font-family:'Inter',sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#166B3A; text-decoration:none; }
+  a:hover { color:#0E2419; }
+  input, button { font-family:inherit; }
+  input:focus { outline:none; border-color:#1F8A4C !important; box-shadow:0 0 0 3px rgba(31,138,76,0.14); }
+  input::placeholder { color:#8A978F; }
+  @media (max-width: 600px) {
+    [data-m~="stage"] { padding:16px 12px 28px !important; }
+    [data-m~="card"] { padding:26px 18px 22px !important; border-radius:20px !important; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./fp-db.js?v=20261006c"></script>
+</helmet>
+
+<div style="position:fixed; inset:0; overflow:hidden; z-index:0" aria-hidden="true">
+  <img src="./photos/crm-today.png" alt="" style="position:absolute; inset:-30px; width:calc(100% + 60px); height:calc(100% + 60px); object-fit:cover; object-position:top left; filter:blur(7px) saturate(0.9); transform:scale(1.03)" />
+  <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(14,36,25,0.38), rgba(14,36,25,0.62))"></div>
+</div>
+
+<div data-m="stage" style="position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 16px">
+  <div data-m="card" style="width:100%; max-width:420px; background:#F6F7F2; border-radius:24px; padding:34px 32px 26px; box-shadow:0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08)">
+    <a href="./index.html" style="display:flex; align-items:center; justify-content:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; color:#0E2419; white-space:nowrap">
+      <span style="width:32px; height:32px; border-radius:9px; background:#1F8A4C; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+        <svg viewBox="6 3 20 26" style="width:15px; height:20px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg>
+      </span>
+      Field Pilot
+    </a>
+
+    <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.08; font-size:28px; text-align:center; margin:20px 0 22px">Welcome back</h1>
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <input type="email" autocomplete="email" placeholder="Email" value="{{ email }}" onInput="{{ setEmail }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+          <div style="position:relative">
+            <input type="{{ pwType }}" autocomplete="current-password" placeholder="Password" value="{{ password }}" onInput="{{ setPassword }}" onKeyDown="{{ onKey }}" style="width:100%; padding:13px 70px 13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+            <button type="button" onClick="{{ togglePw }}" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); border:none; background:transparent; padding:8px 10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; cursor:pointer">{{ pwLabel }}</button>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#C24545; min-height:16px">{{ error }}</div>
+          <button type="button" onClick="{{ login }}" style="width:100%; padding:15px 22px; border:none; border-radius:12px; background:#0E2419; color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 10px 24px rgba(14,36,25,0.25)">{{ loginLabel }}</button>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; font-size:13.5px">
+          <button type="button" onClick="{{ toForgot }}" style="border:none; background:transparent; padding:0; font-size:13.5px; color:#166B3A; text-decoration:underline; cursor:pointer">I forgot my password</button>
+          <a href="./signup.html?v=20261006c" style="font-weight:600">Sign up</a>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isForgot }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.08; font-size:26px; text-align:center; margin:20px 0 8px">Reset your password</h1>
+        <p style="color:#5C6B62; font-size:14.5px; text-align:center; margin:0 0 20px">{{ resetText }}</p>
+        <sc-if value="{{ resetNotSent }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <input type="email" autocomplete="email" placeholder="Email" value="{{ email }}" onInput="{{ setEmail }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#C24545; min-height:16px">{{ error }}</div>
+            <button type="button" onClick="{{ sendReset }}" style="width:100%; padding:15px 22px; border:none; border-radius:12px; background:#0E2419; color:#fff; font-weight:700; font-size:16px; cursor:pointer">Send reset link</button>
+          </div>
+        </sc-if>
+        <div style="text-align:center; margin-top:16px">
+          <button type="button" onClick="{{ toLogin }}" style="border:none; background:transparent; padding:0; font-size:13.5px; font-weight:600; color:#166B3A; cursor:pointer">← Back to log in</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'login', email: '', password: '', showPw: false, error: '', loading: false, resetSent: false };
+
+  validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }
+
+  login = () => {
+    const s = this.state;
+    if (!this.validEmail(s.email)) return this.setState({ error: 'Enter a valid email address.' });
+    if (!s.password) return this.setState({ error: 'Enter your password.' });
+    if (typeof window.gtag === 'function') window.gtag('event', 'login');
+    this.setState({ loading: true, error: '' });
+    this.doLogin(s.email.trim(), s.password);
+  };
+
+  componentDidMount() { this.autoRedirectIfLoggedIn(); }
+
+  autoRedirectIfLoggedIn = async () => {
+    const db = window.getFPDB ? await window.getFPDB() : null;
+    if (!db) return;
+    const { data } = await db.auth.getSession();
+    if (data && data.session && window.fpIsLiveHost && window.fpIsLiveHost()) window.location.replace('./app.html?v=20261006c');
+  };
+
+  doLogin = async (email, password) => {
+    const db = window.getFPDB ? await window.getFPDB() : null;
+    if (!db) return this.setState({ loading: false, error: 'Connection problem — please try again.' });
+    const { error } = await db.auth.signInWithPassword({ email, password });
+    if (error) {
+      const msg = /invalid/i.test(error.message) ? 'Wrong email or password.' : /confirm/i.test(error.message) ? 'Confirm your email first — check your inbox.' : error.message;
+      return this.setState({ loading: false, error: msg });
+    }
+    window.location.href = './app.html?v=20261006c';
+  };
+
+  sendReset = () => {
+    if (!this.validEmail(this.state.email)) return this.setState({ error: 'Enter a valid email address.' });
+    this.setState({ resetSent: true, error: '' });
+    if (window.getFPDB) window.getFPDB().then(db => { if (db) db.auth.resetPasswordForEmail(this.state.email.trim(), { redirectTo: location.origin + '/login.html' }); });
+  };
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      isLogin: s.view === 'login',
+      isForgot: s.view === 'forgot',
+      email: s.email, password: s.password, error: s.error,
+      setEmail: (e) => this.setState({ email: e.target.value, error: '' }),
+      setPassword: (e) => this.setState({ password: e.target.value, error: '' }),
+      onKey: (e) => { if (e.key === 'Enter') this.login(); },
+      pwType: s.showPw ? 'text' : 'password',
+      pwLabel: s.showPw ? 'Hide' : 'Show',
+      togglePw: () => this.setState(x => ({ showPw: !x.showPw })),
+      loginLabel: s.loading ? 'Logging in…' : 'Log in',
+      login: this.login,
+      toForgot: () => this.setState({ view: 'forgot', error: '', resetSent: false }),
+      toLogin: () => this.setState({ view: 'login', error: '' }),
+      resetNotSent: !s.resetSent,
+      resetText: s.resetSent ? 'If an account exists for ' + s.email.trim() + ', a reset link is on its way. Check your inbox.' : 'Enter your email and we\u2019ll send you a link to choose a new password.',
+      sendReset: this.sendReset
+    };
+  }
+}
+</script>
+</body>
+</html>

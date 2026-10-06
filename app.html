@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'); fbq('track', 'PageView'); }
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2178287276369092&ev=PageView&noscript=1" alt="" /></noscript>
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#163C2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#F6F7F2; color:#0E2419; font-family:'Inter',sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#166B3A; }
+  input, select { font-family:inherit; }
+  input:focus, select:focus { outline:none; border-color:#1F8A4C !important; }
+  @media (max-width: 900px) {
+    [data-m="shell"] { grid-template-columns:1fr !important; }
+    [data-m="side"] { display:none !important; }
+    [data-m="kpis"], [data-m="cols2"], [data-m="cols3"] { grid-template-columns:1fr !important; }
+    [data-m="main"] { padding:20px 16px 96px !important; }
+    [data-m="tabs"] { display:flex !important; }
+    [data-m="week"] { grid-template-columns:1fr !important; }
+    [data-m="chead"] { display:none !important; }
+    [data-m="crow"] { display:flex !important; flex-wrap:wrap; align-items:center !important; gap:8px 10px !important; padding:16px !important; }
+    [data-m="crow"] > *:first-child { flex:1 0 100%; }
+    [data-m="crow"] > * { font-size:12.5px !important; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./fp-db.js?v=20261006e"></script>
+</helmet>
+
+<div data-m="shell" style="display:grid; grid-template-columns:248px 1fr; min-height:100vh">
+  <aside data-m="side" style="background:#163C2A; color:#fff; padding:22px 16px; display:flex; flex-direction:column; gap:26px">
+    <a href="./index.html" style="display:flex; align-items:center; gap:9px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.01em; white-space:nowrap; color:#fff" style-hover="color:#8FD14F">
+      <span style="width:28px; height:28px; border-radius:8px; background:#1F8A4C; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+        <svg viewBox="6 3 20 26" style="width:12px; height:16px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg>
+      </span>
+      Field Pilot
+    </a>
+
+    <div style="background:rgba(255,255,255,0.07); border-radius:12px; padding:12px 13px">
+      <div style="font-size:13.5px; font-weight:600">{{ companyName }}</div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em; color:rgba(255,255,255,0.6); margin-top:2px">{{ companyMeta }}</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:6px">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; color:#8FD14F; margin-bottom:4px">OPERATIONS</div>
+      <button type="button" onClick="{{ goToday }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navToday.fg }}; background:{{ navToday.bg }}">Today</button>
+      <button type="button" onClick="{{ goClients }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navClients.fg }}; background:{{ navClients.bg }}">Customers &amp; properties</button>
+      <button type="button" onClick="{{ goSchedule }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navSchedule.fg }}; background:{{ navSchedule.bg }}">Schedule</button>
+      <button type="button" onClick="{{ goRounds }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navRounds.fg }}; background:{{ navRounds.bg }}">Routes</button>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em; color:#8FD14F; margin:14px 0 4px">FINANCE</div>
+      <button type="button" onClick="{{ goQuotes }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navQuotes.fg }}; background:{{ navQuotes.bg }}">Quotes</button>
+      <button type="button" onClick="{{ goInvoices }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navInvoices.fg }}; background:{{ navInvoices.bg }}">Invoices</button>
+      <button type="button" onClick="{{ goAnalytics }}" style="text-align:left; padding:11px 13px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; cursor:pointer; color:{{ navAnalytics.fg }}; background:{{ navAnalytics.bg }}">Analytics</button>
+    </div>
+
+    <div style="margin-top:auto; display:flex; align-items:center; gap:10px; border-top:1px solid rgba(255,255,255,0.12); padding-top:16px">
+      <sc-if value="{{ isDemo }}" hint-placeholder-val="{{ true }}">
+        <img src="./photos/mike.jpg" alt="Mike Halloran" style="width:34px; height:34px; border-radius:50%; object-fit:cover" />
+      </sc-if>
+      <sc-if value="{{ live }}" hint-placeholder-val="{{ false }}">
+        <span style="width:34px; height:34px; border-radius:50%; background:linear-gradient(155deg,#8FD14F,#1F8A4C); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:13px; color:#0E2419; flex-shrink:0">{{ ownerInitials }}</span>
+      </sc-if>
+      <div style="min-width:0; flex:1">
+        <div style="font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ ownerName }}</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:rgba(255,255,255,0.6)">{{ ownerRole }}</div>
+      </div>
+      <sc-if value="{{ live }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ logout }}" style="border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.8); border-radius:8px; padding:6px 9px; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.05em; cursor:pointer">LOG OUT</button>
+      </sc-if>
+    </div>
+  </aside>
+
+  <main data-m="main" style="padding:26px 32px 48px; max-width:1280px; width:100%; min-width:0">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:26px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A">Monday · Aug 10</div>
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.02em; line-height:1.1; font-size:28px; margin:6px 0 0">{{ pageTitle }}</h1>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px">
+        <button type="button" onClick="{{ openNewQuote }}" style="padding:12px 18px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; font-family:'Inter',sans-serif; font-weight:600; font-size:14.5px; cursor:pointer">New quote</button>
+        <button type="button" onClick="{{ openNewClient }}" style="padding:12px 18px; border-radius:10px; border:none; background:#0E2419; color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:14.5px; cursor:pointer">+ New customer</button>
+      </div>
+    </div>
+
+    <sc-if value="{{ isToday }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div data-m="kpis" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px">
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Visits today</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; margin-top:8px">18 <span style="font-size:15px; color:#5C6B62; font-weight:500">/ 24</span></div>
+            <div style="height:6px; border-radius:4px; background:#DCE6DA; margin-top:12px; overflow:hidden"><div style="height:100%; width:75%; background:#1F8A4C; border-radius:4px"></div></div>
+          </div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Crews out</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; margin-top:8px">3</div>
+            <div style="font-size:12.5px; color:#5C6B62; margin-top:10px">6 crew members on the field</div>
+          </div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Active properties</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; margin-top:8px">{{ gardenCount }}</div>
+            <div style="font-size:12.5px; color:#5C6B62; margin-top:10px">recurring maintenance</div>
+          </div>
+          <div style="background:#0E2419; color:#fff; border-radius:16px; padding:20px">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#8FD14F">Revenue this month</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; margin-top:8px">$18,240</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.7); margin-top:10px">+12% vs last month</div>
+          </div>
+        </div>
+
+        <div data-m="cols2" style="display:grid; grid-template-columns:1.3fr 1fr; gap:22px">
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px">Today's routes</div>
+              <button type="button" onClick="{{ goRounds }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; cursor:pointer">SEE ALL →</button>
+            </div>
+            <sc-for list="{{ crews }}" as="crew" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0; border-top:1px solid #E3E8E1">
+                <div>
+                  <div style="font-size:14px; font-weight:600">{{ crew.name }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:2px">{{ crew.meta }}</div>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px">
+                  <div style="width:90px; height:6px; border-radius:4px; background:#DCE6DA; overflow:hidden"><div style="height:100%; border-radius:4px; background:#1F8A4C; width:{{ crew.pct }}"></div></div>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ crew.statusColor }}">{{ crew.status }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:22px">
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:8px">Needs you</div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>2 quotes waiting to be sent</span><button type="button" onClick="{{ goQuotes }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer">OPEN</button></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>$420 outstanding on 1 invoice</span><button type="button" onClick="{{ goInvoices }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer">OPEN</button></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#C24545">Issue flagged at Wilson Estate</span><button type="button" onClick="{{ goClients }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer">OPEN</button></div>
+            </div>
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:8px">Done in the last hour</div>
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Villa Smith · mow, hedges</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A">4 PHOTOS</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Parker Residence · mow</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A">2 PHOTOS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:16px">
+          <input type="text" value="{{ query }}" onInput="{{ setQuery }}" placeholder="Search a client, a street, a city…" style="flex:1; min-width:240px; max-width:420px; padding:13px 15px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:14.5px; color:#0E2419" />
+          <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; color:#5C6B62">
+            <span>{{ clientCount }} CUSTOMERS</span>
+            <span>{{ recurringTotal }} / MONTH RECURRING</span>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; box-shadow:0 1px 2px rgba(14,36,25,0.04); overflow:hidden">
+          <div data-m="chead" style="display:grid; grid-template-columns:1.5fr 1.1fr 0.9fr 0.9fr 0.8fr; gap:12px; padding:14px 22px; background:#F6F7F2; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">
+            <span>Customer · property</span><span>Service</span><span>Frequency</span><span>Next visit</span><span>Per month</span>
+          </div>
+          <sc-for list="{{ clients }}" as="client" hint-placeholder-count="4">
+            <div data-m="crow" onClick="{{ client.open }}" style="display:grid; grid-template-columns:1.5fr 1.1fr 0.9fr 0.9fr 0.8fr; gap:12px; align-items:center; padding:16px 22px; border-top:1px solid #E3E8E1; cursor:pointer" style-hover="background:#F6F7F2">
+              <div>
+                <div style="font-size:14px; font-weight:600">{{ client.name }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:2px">{{ client.address }} · {{ client.city }} {{ client.zip }}</div>
+              </div>
+              <span style="font-size:13.5px">{{ client.service }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:4px 10px; border-radius:20px; background:rgba(31,138,76,0.1); color:#166B3A; justify-self:start">{{ client.frequency }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5C6B62">{{ client.next }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600">{{ client.monthly }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isClient }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <button type="button" onClick="{{ goClients }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; cursor:pointer; padding:0; margin-bottom:16px">← ALL CUSTOMERS</button>
+
+        <div style="background:#0E2419; color:#fff; border-radius:16px; padding:24px; margin-bottom:22px; display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap">
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px">{{ current.name }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.65); margin-top:5px">{{ current.address }} · {{ current.city }} {{ current.zip }}</div>
+            <div style="display:flex; gap:9px; flex-wrap:wrap; margin-top:16px">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:rgba(143,209,79,0.18); color:#8FD14F">{{ current.service }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:rgba(143,209,79,0.18); color:#8FD14F">{{ current.frequency }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8)">{{ current.crew }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8)">CLIENT SINCE {{ current.since }}</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:26px; flex-wrap:wrap">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:rgba(255,255,255,0.55)">PER MONTH</div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; margin-top:4px">{{ current.monthly }}</div>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:rgba(255,255,255,0.55)">BILLED YTD</div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; margin-top:4px">{{ current.ytd }}</div>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:rgba(255,255,255,0.55)">PER VISIT</div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; margin-top:4px">{{ current.price }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-m="cols2" style="display:grid; grid-template-columns:1.25fr 1fr; gap:22px">
+          <div style="display:flex; flex-direction:column; gap:22px">
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:24px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:16px">Getting on site</div>
+              <div data-m="access" style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+                <div style="background:#F6F7F2; border:1px solid #E3E8E1; border-radius:12px; padding:13px 15px">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:#5C6B62">GATE CODE</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:17px; font-weight:600; margin-top:4px">{{ current.gate }}</div>
+                </div>
+                <div style="background:#F6F7F2; border:1px solid #E3E8E1; border-radius:12px; padding:13px 15px">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:#5C6B62">DOG ON SITE</div>
+                  <div style="font-size:14px; font-weight:600; margin-top:5px">{{ current.dog }}</div>
+                </div>
+                <div style="background:#F6F7F2; border:1px solid #E3E8E1; border-radius:12px; padding:13px 15px">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:#5C6B62">PARKING</div>
+                  <div style="font-size:14px; font-weight:600; margin-top:5px">{{ current.parking }}</div>
+                </div>
+                <div style="background:#F6F7F2; border:1px solid #E3E8E1; border-radius:12px; padding:13px 15px">
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:#5C6B62">WATER / POWER</div>
+                  <div style="font-size:14px; font-weight:600; margin-top:5px">{{ current.utilities }}</div>
+                </div>
+              </div>
+              <div style="margin-top:14px; border:1px solid rgba(232,162,61,0.4); background:rgba(232,162,61,0.09); border-radius:12px; padding:13px 15px">
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; color:#B5761F">SPECIAL NOTE — SHOWN IN THE CREW APP</div>
+                <div style="font-size:14px; margin-top:5px">{{ current.note }}</div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:24px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:14px">Tasks per visit</div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap">
+                <sc-for list="{{ current.tasks }}" as="task" hint-placeholder-count="3">
+                  <span style="font-size:13.5px; background:#F6F7F2; border:1px solid #E3E8E1; border-radius:10px; padding:9px 13px">{{ task }}</span>
+                </sc-for>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A; margin-top:14px">{{ current.duration }} AVERAGE ON SITE</div>
+            </div>
+
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:24px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">History</div>
+              <div style="display:flex; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Aug 10 · done in 52 min · {{ current.crew }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A">4 PHOTOS</span></div>
+              <div style="display:flex; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Aug 3 · done in 47 min · {{ current.crew }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A">3 PHOTOS</span></div>
+              <div style="display:flex; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Jul 27 · hedges reported overgrown</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#E8A23D">ISSUE</span></div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:22px">
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">Contact</div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Name</span><span style="font-weight:600">{{ current.contact }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Phone</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12.5px">{{ current.phone }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Email</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12.5px">{{ current.email }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Prefers</span><span style="font-weight:600">{{ current.prefers }}</span></div>
+            </div>
+
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">Billing</div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Payment</span><span style="font-weight:600">{{ current.payment }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Terms</span><span style="font-weight:600">{{ current.terms }}</span></div>
+              <div style="display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#5C6B62">Status</span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:4px 10px; border-radius:20px; background:{{ current.billBg }}; color:{{ current.billFg }}">{{ current.billStatus }}</span></div>
+            </div>
+
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">Upcoming visits</div>
+              <div style="display:flex; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Mon, Aug 17 · {{ current.crew }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">8:00</span></div>
+              <div style="display:flex; justify-content:space-between; padding:11px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Mon, Aug 24 · {{ current.crew }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">8:00</span></div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A; margin-top:12px">generated automatically from the frequency</div>
+              <div style="display:flex; gap:10px; margin-top:16px">
+                <button type="button" onClick="{{ openNewQuote }}" style="flex:1; padding:12px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; cursor:pointer">Draft a quote</button>
+                <button type="button" onClick="{{ goInvoices }}" style="flex:1; padding:12px; border-radius:10px; border:none; background:#0E2419; color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; cursor:pointer">Invoice visits</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:18px">
+          <div style="display:flex; align-items:center; gap:8px">
+            <button type="button" onClick="{{ prevWeek }}" style="width:38px; height:38px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; font-size:15px; cursor:pointer">←</button>
+            <div style="background:#fff; border:1px solid #E3E8E1; border-radius:10px; padding:10px 16px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.05em">{{ weekLabel }}</div>
+            <button type="button" onClick="{{ nextWeek }}" style="width:38px; height:38px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; color:#0E2419; font-size:15px; cursor:pointer">→</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; color:#5C6B62">
+            <span>{{ weekVisits }} VISITS · {{ weekHours }} PLANNED</span>
+            <span style="display:inline-flex; align-items:center; gap:7px"><span style="width:9px; height:9px; border-radius:3px; background:#1F8A4C"></span>CREW 1</span>
+            <span style="display:inline-flex; align-items:center; gap:7px"><span style="width:9px; height:9px; border-radius:3px; background:#8FD14F"></span>CREW 2</span>
+            <span style="display:inline-flex; align-items:center; gap:7px"><span style="width:9px; height:9px; border-radius:3px; background:#E8A23D"></span>CREW 3</span>
+          </div>
+        </div>
+
+        <div data-m="week" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; align-items:start">
+          <sc-for list="{{ days }}" as="day" hint-placeholder-count="6">
+            <div style="background:#fff; border:1px solid {{ day.border }}; border-radius:16px; padding:14px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px">
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; color:{{ day.labelColor }}">{{ day.name }}</span>
+                <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px">{{ day.date }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; min-height:60px">
+                <sc-for list="{{ day.visits }}" as="visit" hint-placeholder-count="3">
+                  <div style="background:#F6F7F2; border-left:3px solid {{ visit.color }}; border-radius:8px; padding:8px 10px">
+                    <div style="font-size:12.5px; font-weight:600; line-height:1.25">{{ visit.garden }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#5C6B62; margin-top:2px">{{ visit.meta }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.05em; color:#5C6B62; border-top:1px solid #E3E8E1; margin-top:12px; padding-top:10px">{{ day.summary }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div data-m="cols2" style="display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:22px">
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">What's coming after</div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Week of Aug 24 · generated</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">24 VISITS</span></div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Week of Aug 31 · generated</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">22 VISITS</span></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A; margin-top:12px">recurring visits are created 8 weeks ahead — you only touch exceptions</div>
+          </div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:6px">Needs a decision</div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span style="color:#C24545">Maple Court missed Monday</span><button type="button" onClick="{{ rescheduleMaple }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer">MOVE TO THU</button></div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Crew 3 is short one crew member Friday</span><button type="button" onClick="{{ rebalanceCrew }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer">REBALANCE</button></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isRounds }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin-bottom:22px">
+          <sc-for list="{{ rounds }}" as="r" hint-placeholder-count="3">
+            <div onClick="{{ r.select }}" style="border-radius:16px; padding:22px; cursor:pointer; transition:box-shadow .2s ease, border-color .2s ease; background:{{ r.cardBg }}; border:1px solid {{ r.cardBorder }}; box-shadow:{{ r.cardShadow }}">
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; text-wrap:pretty; color:{{ r.titleColor }}">{{ r.name }}</div>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:5px 0 12px">
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:{{ r.metaColor }}">{{ r.meta }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; padding:4px 9px; border-radius:20px; white-space:nowrap; background:{{ r.chipBg }}; color:{{ r.chipFg }}">{{ r.chipLabel }}</span>
+              </div>
+              <sc-for list="{{ r.stops }}" as="s" hint-placeholder-count="4">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; border-top:1px solid {{ r.rule }}; font-size:13.5px; color:{{ s.rowColor }}">
+                  <span>{{ s.label }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; white-space:nowrap; color:{{ s.statusColor }}">{{ s.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:22px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:16px">
+            <div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px">{{ sel.name }} · route</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:3px">{{ sel.routeMeta }}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+              <div style="display:flex; gap:12px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.05em; color:#5C6B62">
+                <span style="display:flex; align-items:center; gap:6px"><span style="width:8px; height:8px; border-radius:50%; background:#1F8A4C"></span>DONE</span>
+                <span style="display:flex; align-items:center; gap:6px"><span style="width:8px; height:8px; border-radius:50%; background:#E8A23D"></span>NOW</span>
+                <span style="display:flex; align-items:center; gap:6px"><span style="width:8px; height:8px; border-radius:50%; background:#C24545"></span>DELAYED</span>
+                <span style="display:flex; align-items:center; gap:6px"><span style="width:8px; height:8px; border-radius:50%; background:#5C6B62"></span>NEXT</span>
+              </div>
+              <a href="{{ sel.mapsUrl }}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:7px; padding:10px 15px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; font-weight:600; font-size:13.5px; color:#0E2419; white-space:nowrap" style-hover="border-color:#0E2419; color:#0E2419">Open in Google Maps ↗</a>
+            </div>
+          </div>
+
+          <div style="position:relative; border-radius:14px; overflow:hidden; border:1px solid #E3E8E1; line-height:0">
+            <svg viewBox="0 0 1200 620" style="width:100%; height:auto; display:block; font-family:'IBM Plex Mono',monospace">
+              <rect width="1200" height="620" fill="#EEF2E9"></rect>
+              <path d="M0 486 C 160 470, 250 540, 420 528 S 760 596, 1000 566 L 1200 578 L 1200 620 L 0 620 Z" fill="#D9E6EC"></path>
+              <path d="M0 486 C 160 470, 250 540, 420 528 S 760 596, 1000 566 L 1200 578" fill="none" stroke="#C3D8E1" stroke-width="3"></path>
+              <rect x="60" y="60" width="150" height="118" rx="10" fill="#DEEAD3"></rect>
+              <rect x="820" y="70" width="196" height="140" rx="10" fill="#DEEAD3"></rect>
+              <rect x="430" y="300" width="176" height="120" rx="10" fill="#DEEAD3"></rect>
+              <g fill="#E5EBE0">
+                <rect x="300" y="70" width="120" height="80" rx="6"></rect>
+                <rect x="470" y="80" width="140" height="66" rx="6"></rect>
+                <rect x="140" y="250" width="110" height="94" rx="6"></rect>
+                <rect x="700" y="270" width="150" height="90" rx="6"></rect>
+                <rect x="900" y="300" width="130" height="76" rx="6"></rect>
+                <rect x="240" y="420" width="120" height="70" rx="6"></rect>
+                <rect x="640" y="440" width="140" height="60" rx="6"></rect>
+                <rect x="1040" y="420" width="120" height="80" rx="6"></rect>
+              </g>
+              <g stroke="#D3DED0" stroke-width="26" fill="none" stroke-linecap="round">
+                <path d="M-10 220 H1210"></path>
+                <path d="M-10 396 H1210"></path>
+                <path d="M264 -10 V630"></path>
+                <path d="M676 -10 V630"></path>
+                <path d="M1002 -10 V630"></path>
+              </g>
+              <g stroke="#F8F9F5" stroke-width="18" fill="none" stroke-linecap="round">
+                <path d="M-10 220 H1210"></path>
+                <path d="M-10 396 H1210"></path>
+                <path d="M264 -10 V630"></path>
+                <path d="M676 -10 V630"></path>
+                <path d="M1002 -10 V630"></path>
+              </g>
+              <g stroke="#DCE4D9" stroke-width="10" fill="none" stroke-linecap="round">
+                <path d="M-10 116 H1210"></path>
+                <path d="M-10 520 H1210"></path>
+                <path d="M120 -10 V630"></path>
+                <path d="M430 -10 V630"></path>
+                <path d="M860 -10 V630"></path>
+                <path d="M1130 -10 V630"></path>
+                <path d="M264 300 L 676 116"></path>
+              </g>
+              <g stroke="#FAFBF8" stroke-width="5" fill="none" stroke-linecap="round">
+                <path d="M-10 116 H1210"></path>
+                <path d="M-10 520 H1210"></path>
+                <path d="M120 -10 V630"></path>
+                <path d="M430 -10 V630"></path>
+                <path d="M860 -10 V630"></path>
+                <path d="M1130 -10 V630"></path>
+                <path d="M264 300 L 676 116"></path>
+              </g>
+              <g fill="#9BAC9E" font-size="23" letter-spacing="1.5">
+                <text x="20" y="210">OAK RIDGE RD</text>
+                <text x="20" y="386">HILLTOP DR</text>
+                <text x="690" y="600">RIVERSIDE DR</text>
+                <text x="278" y="40">BIRCH LN</text>
+              </g>
+              <text x="82" y="128" fill="#8FA98A" font-size="23" letter-spacing="1.5">FREEDOM PARK</text>
+              <text x="846" y="252" fill="#8FA98A" font-size="23" letter-spacing="1.5">GREENWAY</text>
+
+              <polyline points="{{ sel.points }}" fill="none" stroke="#0E2419" stroke-opacity="0.14" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></polyline>
+              <polyline points="{{ sel.points }}" fill="none" stroke="#1F8A4C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></polyline>
+
+            </svg>
+            <sc-for list="{{ sel.stops }}" as="s" hint-placeholder-count="4">
+              <div style="position:absolute; display:flex; align-items:center; gap:9px; flex-direction:{{ s.dir }}; transform:{{ s.shift }}; left:{{ s.left }}; top:{{ s.top }}">
+                <span style="width:30px; height:30px; flex-shrink:0; margin:0 -15px; border-radius:50%; border:3px solid #fff; box-shadow:0 2px 6px rgba(14,36,25,0.25); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; line-height:1; color:#fff; background:{{ s.color }}">{{ s.index }}</span>
+                <span style="background:#fff; border:1px solid #E3E8E1; border-radius:8px; padding:6px 10px; font-size:12.5px; font-weight:600; line-height:1.2; white-space:nowrap; color:#0E2419; box-shadow:0 2px 6px rgba(14,36,25,0.12)">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">
+            <span>{{ sel.driveTotal }}</span>
+            <button type="button" onClick="{{ optimize }}" style="border:none; background:transparent; color:#166B3A; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; cursor:pointer; padding:0">OPTIMIZE ORDER →</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isQuotes }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; box-shadow:0 1px 2px rgba(14,36,25,0.04); overflow:hidden">
+        <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="3">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:18px 22px; border-bottom:1px solid #E3E8E1">
+            <div>
+              <div style="font-size:14.5px; font-weight:600">{{ q.client }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:2px">{{ q.detail }}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px">
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px">{{ q.total }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:{{ q.badgeBg }}; color:{{ q.badgeFg }}">{{ q.status }}</span>
+              <button type="button" onClick="{{ q.action }}" style="padding:11px 16px; border-radius:10px; border:none; background:{{ q.btnBg }}; color:{{ q.btnFg }}; font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; cursor:pointer">{{ q.btnLabel }}</button>
+            </div>
+          </div>
+        </sc-for>
+        <div style="padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">SENT QUOTES AUTO-CONVERT INTO A PROPERTY + RECURRING VISITS ONCE SIGNED</span>
+          <button type="button" onClick="{{ openNewQuote }}" style="padding:12px 18px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer">+ Draft a quote</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div data-m="kpis" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:22px">
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Paid this month</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">$17,820</div></div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Outstanding</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px; color:#E8A23D">$420</div></div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Ready to send</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">6 visits</div></div>
+        </div>
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; box-shadow:0 1px 2px rgba(14,36,25,0.04); overflow:hidden">
+          <sc-for list="{{ invoices }}" as="inv" hint-placeholder-count="4">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:18px 22px; border-bottom:1px solid #E3E8E1">
+              <div>
+                <div style="font-size:14.5px; font-weight:600">{{ inv.client }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:2px">{{ inv.detail }}</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:16px">
+                <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px">{{ inv.total }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 11px; border-radius:20px; background:{{ inv.badgeBg }}; color:{{ inv.badgeFg }}">{{ inv.status }}</span>
+                <button type="button" onClick="{{ inv.action }}" style="padding:11px 16px; border-radius:10px; border:none; background:{{ inv.btnBg }}; color:{{ inv.btnFg }}; font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; cursor:pointer">{{ inv.btnLabel }}</button>
+              </div>
+            </div>
+          </sc-for>
+          <div style="padding:18px 22px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">COMPLETED VISITS BECOME INVOICE LINES AUTOMATICALLY · REMINDERS GO OUT ON DAY 7 AND DAY 14</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAnalytics }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div data-m="kpis" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px">
+          <div style="background:#0E2419; color:#fff; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#8FD14F">Revenue YTD</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">$142,600</div></div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Avg per visit</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">$68</div></div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Visits completed</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">2,096</div></div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:20px"><div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">Quotes signed</div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; margin-top:8px">78%</div></div>
+        </div>
+        <div data-m="cols2" style="display:grid; grid-template-columns:1.4fr 1fr; gap:22px">
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:24px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:20px">Revenue per month</div>
+            <div style="display:flex; align-items:flex-end; gap:14px; height:200px">
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#DCE6DA; border-radius:8px 8px 0 0; height:46%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">MAR</span></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#DCE6DA; border-radius:8px 8px 0 0; height:58%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">APR</span></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#8FD14F; border-radius:8px 8px 0 0; height:70%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">MAY</span></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#8FD14F; border-radius:8px 8px 0 0; height:76%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">JUN</span></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#1F8A4C; border-radius:8px 8px 0 0; height:88%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">JUL</span></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:8px; height:100%"><div style="background:#1F8A4C; border-radius:8px 8px 0 0; height:96%"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; text-align:center">AUG</span></div>
+            </div>
+          </div>
+          <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:24px; box-shadow:0 1px 2px rgba(14,36,25,0.04)">
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; margin-bottom:8px">Best properties</div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Wilson Estate</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600">$1,120 / mo</span></div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Villa Johnson</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600">$780 / mo</span></div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Parker Residence</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600">$540 / mo</span></div>
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid #E3E8E1; font-size:13.5px"><span>Villa Smith</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600">$275 / mo</span></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </main>
+</div>
+
+<nav data-m="tabs" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:70; gap:8px; padding:10px 12px; background:rgba(22,60,42,0.97); backdrop-filter:blur(10px); overflow-x:auto; scrollbar-width:none">
+  <button type="button" onClick="{{ goToday }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navToday.fg }}; background:{{ navToday.bg }}">Today</button>
+  <button type="button" onClick="{{ goClients }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navClients.fg }}; background:{{ navClients.bg }}">Clients</button>
+  <button type="button" onClick="{{ goSchedule }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navSchedule.fg }}; background:{{ navSchedule.bg }}">Schedule</button>
+  <button type="button" onClick="{{ goRounds }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navRounds.fg }}; background:{{ navRounds.bg }}">Routes</button>
+  <button type="button" onClick="{{ goQuotes }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navQuotes.fg }}; background:{{ navQuotes.bg }}">Quotes</button>
+  <button type="button" onClick="{{ goInvoices }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navInvoices.fg }}; background:{{ navInvoices.bg }}">Invoices</button>
+  <button type="button" onClick="{{ goAnalytics }}" style="flex:0 0 auto; padding:11px 15px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; white-space:nowrap; color:{{ navAnalytics.fg }}; background:{{ navAnalytics.bg }}">Analytics</button>
+</nav>
+
+<sc-if value="{{ showNewClient }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:80; background:rgba(14,36,25,0.45); display:flex; align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto">
+    <div style="background:#F6F7F2; border-radius:20px; width:100%; max-width:560px; padding:28px">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A">New customer · 30 seconds</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; margin-top:6px">Add a property to the route</div>
+        </div>
+        <button type="button" onClick="{{ closeModals }}" style="border:none; background:transparent; font-size:20px; color:#5C6B62; cursor:pointer; line-height:1">×</button>
+      </div>
+
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:7px">Customer name</label>
+      <input type="text" value="{{ formName }}" onInput="{{ setFormName }}" placeholder="Villa Rousseau" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:15px; margin-bottom:16px" />
+
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:7px">Address</label>
+      <input type="text" value="{{ formAddress }}" onInput="{{ setFormAddress }}" placeholder="1420 Oak Ridge Rd, Charlotte NC" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:15px; margin-bottom:18px" />
+
+      <div style="font-size:13px; font-weight:600; margin-bottom:9px">Type of maintenance</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px">
+        <button type="button" onClick="{{ pickLawn }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ svcLawn.bg }}; color:{{ svcLawn.fg }}; border:1px solid {{ svcLawn.br }}">Lawn maintenance</button>
+        <button type="button" onClick="{{ pickLandscaping }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ svcLand.bg }}; color:{{ svcLand.fg }}; border:1px solid {{ svcLand.br }}">Landscaping</button>
+        <button type="button" onClick="{{ pickBoth }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ svcBoth.bg }}; color:{{ svcBoth.fg }}; border:1px solid {{ svcBoth.br }}">Full maintenance</button>
+      </div>
+
+      <div style="font-size:13px; font-weight:600; margin-bottom:9px">Frequency</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px">
+        <button type="button" onClick="{{ pickWeekly }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ freqW.bg }}; color:{{ freqW.fg }}; border:1px solid {{ freqW.br }}">Weekly</button>
+        <button type="button" onClick="{{ pickBiweekly }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ freqB.bg }}; color:{{ freqB.fg }}; border:1px solid {{ freqB.br }}">Bi-weekly</button>
+        <button type="button" onClick="{{ pickMonthly }}" style="padding:12px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:{{ freqM.bg }}; color:{{ freqM.fg }}; border:1px solid {{ freqM.br }}">Monthly</button>
+      </div>
+
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:7px">Price per visit</label>
+      <input type="text" value="{{ formPrice }}" onInput="{{ setFormPrice }}" placeholder="65" style="width:140px; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:15px; margin-bottom:22px" />
+
+      <div style="background:#fff; border:1px solid #E3E8E1; border-radius:12px; padding:14px; font-size:13.5px; color:#5C6B62; margin-bottom:20px">{{ formSummary }}</div>
+
+      <div style="display:flex; gap:12px">
+        <button type="button" onClick="{{ closeModals }}" style="padding:15px 20px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:15px; cursor:pointer">Cancel</button>
+        <button type="button" onClick="{{ saveClient }}" style="flex:1; padding:15px 20px; border-radius:10px; border:none; background:#0E2419; color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:15px; cursor:pointer">Save &amp; schedule visits</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ showNewQuote }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:80; background:rgba(14,36,25,0.45); display:flex; align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto">
+    <div style="background:#F6F7F2; border-radius:20px; width:100%; max-width:520px; padding:28px">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A">New quote</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; margin-top:6px">Draft it, send it, done</div>
+        </div>
+        <button type="button" onClick="{{ closeModals }}" style="border:none; background:transparent; font-size:20px; color:#5C6B62; cursor:pointer; line-height:1">×</button>
+      </div>
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:7px">Client</label>
+      <input type="text" value="{{ quoteClient }}" onInput="{{ setQuoteClient }}" placeholder="Villa Rousseau" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:15px; margin-bottom:16px" />
+      <div style="background:#fff; border:1px solid #E3E8E1; border-radius:12px; padding:16px; margin-bottom:18px">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 0; font-size:14px"><span>Weekly mowing</span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600">$180 / mo</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 0; border-top:1px solid #E3E8E1; font-size:14px"><span>Hedge trimming</span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600">$95 / mo</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 0 0; border-top:1px dashed #E3E8E1; margin-top:6px; font-size:14px; font-weight:700"><span>Total / month</span><span style="font-family:'IBM Plex Mono',monospace">$275</span></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-bottom:20px">SENT FOR E-SIGNATURE · REMINDER AFTER 3 DAYS · SIGNED QUOTES CREATE THE PROPERTY</div>
+      <div style="display:flex; gap:12px">
+        <button type="button" onClick="{{ closeModals }}" style="padding:15px 20px; border-radius:10px; border:1px solid #E3E8E1; background:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:15px; cursor:pointer">Save draft</button>
+        <button type="button" onClick="{{ sendQuote }}" style="flex:1; padding:15px 20px; border-radius:10px; border:none; background:#1F8A4C; color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:15px; cursor:pointer">Send to client →</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:90; background:#0E2419; color:#fff; padding:14px 20px; border-radius:12px; font-size:14px; box-shadow:0 12px 30px rgba(14,36,25,0.3)">{{ toast }}</div>
+</sc-if>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#0E2419"></rect><circle cx="150" cy="150" r="62" fill="#8FD14F"></circle><text x="150" y="168" text-anchor="middle" font-family="monospace" font-size="42" fill="#0E2419">CRM</text></svg>
+</template></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1380,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  ROUNDS = [
+    {
+      name: 'Crew 1 — James & Mike', meta: '8 PROPERTIES · 7H10', chip: 'ON TRACK', tone: 'ok',
+      drive: '4.8 mi of driving · 31 min between stops',
+      stops: [
+        { time: '8:00', name: 'Villa Smith', addr: '92 Maple Court, Charlotte NC', status: 'DONE', x: 14, y: 22, drive: 'start of route' },
+        { time: '8:52', name: 'Parker Residence', addr: '7 Birch Lane, Charlotte NC', status: 'DONE', x: 40, y: 34, drive: '6 min drive · 1.1 mi' },
+        { time: '10:03', name: 'Wilson Estate', addr: '340 Hilltop Dr, Charlotte NC', status: 'NOW', x: 62, y: 58, drive: '11 min drive · 2.0 mi' },
+        { time: '10:22', name: 'Smith Garden', addr: '18 Oak Ridge Rd, Charlotte NC', status: 'NEXT', x: 86, y: 78, drive: '4 min drive · 0.8 mi' }
+      ]
+    },
+    {
+      name: 'Crew 2 — Daniel & Tom', meta: '9 PROPERTIES · 7H35', chip: 'ON TRACK', tone: 'ok',
+      drive: '6.2 mi of driving · 38 min between stops',
+      stops: [
+        { time: '8:10', name: 'Villa Johnson', addr: '18 Oak Ridge Rd, Charlotte NC', status: 'DONE', x: 18, y: 76, drive: 'start of route' },
+        { time: '9:30', name: 'Oakwood House', addr: '55 Oakwood Ave, Charlotte NC', status: 'NOW', x: 46, y: 52, drive: '9 min drive · 1.7 mi' },
+        { time: '10:45', name: 'Riverside Villa', addr: '210 Riverside Dr, Charlotte NC', status: 'NEXT', x: 78, y: 24, drive: '13 min drive · 2.6 mi' }
+      ]
+    },
+    {
+      name: 'Crew 3 — Chris & Alex', meta: '7 PROPERTIES · 1 DELAYED', chip: 'DELAYED', tone: 'bad',
+      drive: '5.4 mi of driving · 34 min between stops',
+      stops: [
+        { time: '8:00', name: 'Green Acres', addr: '1 Green Acres Rd, Charlotte NC', status: 'DONE', x: 20, y: 40, drive: 'start of route' },
+        { time: '9:15', name: 'Maple Court', addr: '92 Maple Court, Charlotte NC', status: 'DELAYED', x: 54, y: 22, drive: '8 min drive · 1.4 mi' },
+        { time: '11:00', name: 'Hilltop Garden', addr: '340 Hilltop Dr, Charlotte NC', status: 'NEXT', x: 80, y: 66, drive: '15 min drive · 2.9 mi' }
+      ]
+    }
+  ];
+
+  state = {
+    crewId: 0,
+    view: 'today',
+    week: 0,
+    currentId: 0,
+    showNewClient: false,
+    showNewQuote: false,
+    toast: '',
+    form: { name: '', address: '', service: 'lawn', freq: 'weekly', price: '65' },
+    quoteClient: '',
+    query: '',
+    live: false,
+    company: null,
+    user: null,
+    dbQuotes: [],
+    dbInvoices: [],
+    clients: [
+      { name: 'Villa Johnson', address: '18 Oak Ridge Rd', city: 'Charlotte NC', zip: '28203', contact: 'Mrs. Johnson', phone: '(704) 555-0142', email: 'j.johnson@mail.com', prefers: 'Text message', service: 'Full maintenance', frequency: 'WEEKLY', next: 'Mon 17', price: '$95', monthly: '$380', ytd: '$3,040', crew: 'Crew 2', since: 'MAR 2023', gate: '4932', dog: 'Yes — Buddy, friendly golden retriever', parking: 'Driveway, left side', utilities: 'Outdoor tap by the shed', duration: '52 MIN', tasks: ['Mow lawn', 'Trim hedges', 'Check irrigation', 'Blow paths'], payment: 'Card on file', terms: 'Net 15', billStatus: 'UP TO DATE', note: 'Call before entering — the dog is out in the morning.' },
+      { name: 'Parker Residence', address: '7 Birch Lane', city: 'Charlotte NC', zip: '28211', contact: 'Dan Parker', phone: '(704) 555-0188', email: 'dan.parker@mail.com', prefers: 'Phone call', service: 'Lawn maintenance', frequency: 'BI-WEEKLY', next: 'Tue 18', price: '$65', monthly: '$130', ytd: '$1,040', crew: 'Crew 1', since: 'JUN 2024', gate: '1180', dog: 'No', parking: 'Street only, no driveway', utilities: 'Tap at the back of the house', duration: '47 MIN', tasks: ['Mow lawn', 'Edge borders', 'Blow paths'], payment: 'Bank transfer', terms: 'Net 30', billStatus: 'UNPAID $420', note: 'Bins are out front on Tuesdays — do not block them.' },
+      { name: 'Wilson Estate', address: '340 Hilltop Dr', city: 'Charlotte NC', zip: '28207', contact: 'Estate manager', phone: '(704) 555-0110', email: 'ops@wilsonestate.com', prefers: 'Email', service: 'Full maintenance', frequency: 'WEEKLY', next: 'Mon 17', price: '$280', monthly: '$1,120', ytd: '$8,960', crew: 'Crew 1', since: 'JAN 2022', gate: '2200', dog: 'Two guard dogs — kennelled on visit days', parking: 'Service entrance, north gate', utilities: 'Irrigation controller in the garage', duration: '2H10', tasks: ['Mow lawn', 'Trim hedges', 'Prune trees', 'Check irrigation', 'Beds weeding'], payment: 'Card on file', terms: 'Net 15', billStatus: 'UP TO DATE', note: 'Hedges reported overgrown on Jul 27 — quote for extra trimming pending.' },
+      { name: 'Villa Smith', address: '92 Maple Court', city: 'Charlotte NC', zip: '28226', contact: 'Ray Smith', phone: '(704) 555-0175', email: 'ray.smith@mail.com', prefers: 'Text message', service: 'Landscaping', frequency: 'MONTHLY', next: 'Sep 1', price: '$140', monthly: '$140', ytd: '$1,120', crew: 'Crew 3', since: 'SEP 2024', gate: '3922', dog: 'No', parking: 'Driveway, room for the trailer', utilities: 'No outdoor tap — bring water', duration: '1H05', tasks: ['Beds weeding', 'Mulch', 'Prune shrubs'], payment: 'Bank transfer', terms: 'Net 30', billStatus: 'UP TO DATE', note: 'Side gate only — the front gate stays locked.' }
+    ]
+  };
+
+  nav(active) {
+    return active ? { bg: 'rgba(143,209,79,0.18)', fg: '#ffffff' } : { bg: 'transparent', fg: 'rgba(255,255,255,0.75)' };
+  }
+
+  pill(active) {
+    return active ? { bg: '#0E2419', fg: '#ffffff', br: '#0E2419' } : { bg: '#ffffff', fg: '#0E2419', br: '#E3E8E1' };
+  }
+
+  go = (view) => () => this.setState({ view: view, showNewClient: false, showNewQuote: false });
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2600);
+  }
+
+  saveClient = () => {
+    const f = this.state.form;
+    if (!f.name.trim()) { this.flash('Give the customer a name first.'); return; }
+    const serviceLabel = f.service === 'lawn' ? 'Lawn maintenance' : f.service === 'landscaping' ? 'Landscaping' : 'Full maintenance';
+    const entry = {
+      name: f.name.trim(),
+      address: f.address.trim() || 'address to complete',
+      city: 'Charlotte NC',
+      zip: '—',
+      contact: 'contact to complete',
+      phone: '—', email: '—', prefers: 'Text message',
+      monthly: '$' + (f.price || '0'), ytd: '$0', crew: 'Unassigned', since: 'AUG 2026',
+      dog: 'Not recorded', parking: 'Not recorded', utilities: 'Not recorded',
+      duration: '—', tasks: ['Mow lawn'], payment: 'Not set', terms: 'Net 15', billStatus: 'NEW',
+      service: serviceLabel,
+      frequency: f.freq === 'weekly' ? 'WEEKLY' : f.freq === 'biweekly' ? 'BI-WEEKLY' : 'MONTHLY',
+      next: 'Mon 17',
+      price: '$' + (f.price || '0'),
+      gate: '—',
+      note: 'no access note yet'
+    };
+    if (this.state.live && this.db) {
+      this.db.from('customers').insert({
+        name: entry.name, address: f.address.trim() || null, service: f.service, frequency: f.freq, price_per_visit: Number(f.price) || 0
+      }).select().single().then(({ data, error }) => {
+        if (error) return this.flash('Could not save — ' + error.message);
+        this.setState(s => ({
+          clients: [this.fromRow(data)].concat(s.clients),
+          showNewClient: false, view: 'clients', currentId: 0,
+          form: { name: '', address: '', service: 'lawn', freq: 'weekly', price: '65' }
+        }));
+        this.flash(entry.name + ' saved');
+      });
+      return;
+    }
+    this.setState(s => ({
+      clients: [entry].concat(s.clients),
+      showNewClient: false,
+      view: 'clients',
+      form: { name: '', address: '', service: 'lawn', freq: 'weekly', price: '65' }
+    }));
+    this.flash(entry.name + ' added · recurring visits scheduled');
+  };
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  async componentDidMount() {
+    const db = window.getFPDB ? await window.getFPDB() : null;
+    if (!db) return;
+    this.db = db;
+    const { data } = await db.auth.getSession();
+    const session = data && data.session;
+    if (!session) {
+      if (window.fpIsLiveHost && window.fpIsLiveHost()) window.location.href = './login.html?v=20261006e';
+      return;
+    }
+    const user = session.user;
+    const [co, cu, qu, inv] = await Promise.all([
+      db.from('companies').select('*').eq('owner_id', user.id).maybeSingle(),
+      db.from('customers').select('*').order('created_at', { ascending: false }),
+      db.from('quotes').select('*').order('created_at', { ascending: false }),
+      db.from('invoices').select('*').order('created_at', { ascending: false })
+    ]);
+    this.setState({
+      live: true,
+      user: user,
+      company: co.data || { name: (user.user_metadata && user.user_metadata.company) || 'My company' },
+      clients: (cu.data || []).map(r => this.fromRow(r)),
+      dbQuotes: qu.data || [],
+      dbInvoices: inv.data || [],
+      currentId: 0
+    });
+  }
+
+  trackTrialOnce(db, user) {
+    const meta = user.user_metadata || {};
+    const key = 'fp_trial_' + user.id;
+    let seen = false;
+    try { seen = localStorage.getItem(key) === '1'; } catch (e) {}
+    if (meta.trial_tracked || seen) return;
+    if (!meta.company) return;
+    const fire = () => {
+      if (typeof window.fbq !== 'function') return false;
+      if (typeof window.gtag === 'function') window.gtag('event', 'trial_start', { team_size: meta.team_size || 'unknown' });
+      try { localStorage.setItem(key, '1'); } catch (e) {}
+      db.auth.updateUser({ data: { trial_tracked: true } });
+      return true;
+    };
+    let n = 0;
+    const tick = () => { if (!fire() && n++ < 40) setTimeout(tick, 250); };
+    tick();
+  }
+
+  fromRow(r) {
+    const price = Number(r.price_per_visit) || 0;
+    const per = r.frequency === 'weekly' ? 4 : r.frequency === 'biweekly' ? 2 : 1;
+    const svc = r.service === 'landscaping' ? 'Landscaping' : r.service === 'both' || r.service === 'full' ? 'Full maintenance' : 'Lawn maintenance';
+    const since = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
+    return {
+      id: r.id, name: r.name, address: r.address || 'address to complete', city: r.city || '—', zip: r.zip || '—',
+      contact: '—', phone: r.phone || '—', email: r.email || '—', prefers: 'Text message',
+      service: svc, frequency: r.frequency === 'biweekly' ? 'BI-WEEKLY' : r.frequency === 'monthly' ? 'MONTHLY' : 'WEEKLY',
+      next: '—', price: '$' + price, monthly: '$' + (price * per), ytd: '$0', crew: r.crew || 'Unassigned', since: since,
+      gate: r.gate_code || '—', dog: r.dog_name || 'Not recorded', parking: 'Not recorded', utilities: 'Not recorded',
+      duration: '—', tasks: ['Mow lawn'], payment: 'Not set', terms: 'Net 15', billStatus: 'NEW', note: r.access_notes || 'no access note yet'
+    };
+  }
+
+  logout = async () => {
+    if (this.db) await this.db.auth.signOut();
+    window.location.href = './login.html?v=20261006e';
+  };
+
+  saveQuoteLive = async () => {
+    const name = this.state.quoteClient.trim() || 'New customer';
+    const { data, error } = await this.db.from('quotes').insert({ customer_name: name, detail: 'WEEKLY MOWING + HEDGE TRIMMING', total: 275, status: 'sent' }).select().single();
+    if (error) return this.flash('Could not save the quote — ' + error.message);
+    this.setState(s => ({ dbQuotes: [data].concat(s.dbQuotes), showNewQuote: false, view: 'quotes', quoteClient: '' }));
+    this.flash('Quote saved and sent to ' + name);
+  };
+
+  setQuoteStatus = async (q, status, msg) => {
+    const { error } = await this.db.from('quotes').update({ status: status }).eq('id', q.id);
+    if (error) return this.flash(error.message);
+    this.setState(s => ({ dbQuotes: s.dbQuotes.map(x => x.id === q.id ? Object.assign({}, x, { status: status }) : x) }));
+    this.flash(msg);
+  };
+
+  stopColor(status) {
+    return status === 'DONE' ? '#1F8A4C' : status === 'NOW' ? '#E8A23D' : status === 'DELAYED' ? '#C24545' : '#5C6B62';
+  }
+
+  selectedRound() {
+    const r = this.ROUNDS[this.state.crewId] || this.ROUNDS[0];
+    return {
+      name: r.name.split(' — ')[0],
+      routeMeta: r.stops.length + ' STOPS SHOWN · ' + r.stops[0].time + ' → ' + r.stops[r.stops.length - 1].time,
+      points: r.stops.map(p => (p.x * 12).toFixed(0) + ',' + (p.y * 6.2).toFixed(0)).join(' '),
+      driveTotal: r.drive.toUpperCase(),
+      mapsUrl: 'https://www.google.com/maps/dir/' + r.stops.map(p => encodeURIComponent(p.addr)).join('/'),
+      stops: r.stops.map((p, i) => ({
+        index: i + 1,
+        label: p.time + ' \u00b7 ' + p.name,
+        color: this.stopColor(p.status),
+        left: p.x + '%',
+        top: p.y + '%',
+        dir: p.x < 62 ? 'row' : 'row-reverse',
+        shift: p.x < 62 ? 'translate(0,-50%)' : 'translate(-100%,-50%)'
+      }))
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const f = s.form;
+    const titles = { today: 'Today', clients: 'Customers & properties', client: 'Customer file', schedule: 'Schedule', rounds: "Today's routes", quotes: 'Quotes', invoices: 'Invoices & billing', analytics: 'Analytics' };
+    const C1 = '#1F8A4C', C2 = '#8FD14F', C3 = '#E8A23D';
+    const weeks = [
+      {
+        label: 'THIS WEEK · AUG 10 → 15',
+        visits: 24,
+        hours: '38H',
+        days: [
+          { name: 'MON', date: '10', today: true, visits: [
+            { garden: 'Villa Smith', meta: '8:00 · CREW 1 · DONE', color: C1 },
+            { garden: 'Parker Residence', meta: '8:52 · CREW 1 · DONE', color: C1 },
+            { garden: 'Villa Johnson', meta: '8:10 · CREW 2', color: C2 },
+            { garden: 'Maple Court', meta: '9:15 · CREW 3 · DELAYED', color: C3 }
+          ] },
+          { name: 'TUE', date: '11', today: false, visits: [
+            { garden: 'Wilson Estate', meta: '8:00 · CREW 1', color: C1 },
+            { garden: 'Oakwood House', meta: '9:30 · CREW 2', color: C2 },
+            { garden: 'Green Acres', meta: '11:00 · CREW 3', color: C3 }
+          ] },
+          { name: 'WED', date: '12', today: false, visits: [
+            { garden: 'Riverside Villa', meta: '8:00 · CREW 2', color: C2 },
+            { garden: 'Hilltop Garden', meta: '10:00 · CREW 3', color: C3 }
+          ] },
+          { name: 'THU', date: '13', today: false, visits: [
+            { garden: 'Villa Smith', meta: '8:00 · CREW 1', color: C1 },
+            { garden: 'Birch Lane 12', meta: '9:40 · CREW 1', color: C1 },
+            { garden: 'Green Acres', meta: '13:00 · CREW 2', color: C2 }
+          ] },
+          { name: 'FRI', date: '14', today: false, visits: [
+            { garden: 'Villa Johnson', meta: '8:00 · CREW 2', color: C2 },
+            { garden: 'Wilson Estate', meta: '10:30 · CREW 1', color: C1 }
+          ] },
+          { name: 'SAT', date: '15', today: false, visits: [
+            { garden: 'Maple Court', meta: '9:00 · CREW 3 · LANDSCAPING', color: C3 }
+          ] }
+        ]
+      },
+      {
+        label: 'NEXT WEEK · AUG 17 → 22',
+        visits: 26,
+        hours: '41H',
+        days: [
+          { name: 'MON', date: '17', today: false, visits: [
+            { garden: 'Villa Johnson', meta: '8:00 · CREW 1', color: C1 },
+            { garden: 'Wilson Estate', meta: '9:20 · CREW 1', color: C1 },
+            { garden: 'Villa Smith', meta: '8:30 · CREW 2', color: C2 },
+            { garden: 'Green Acres', meta: '10:00 · CREW 3', color: C3 }
+          ] },
+          { name: 'TUE', date: '18', today: false, visits: [
+            { garden: 'Parker Residence', meta: '8:00 · CREW 1', color: C1 },
+            { garden: 'Oakwood House', meta: '9:30 · CREW 2', color: C2 }
+          ] },
+          { name: 'WED', date: '19', today: false, visits: [
+            { garden: 'Riverside Villa', meta: '8:00 · CREW 2', color: C2 },
+            { garden: 'Hilltop Garden', meta: '10:15 · CREW 3', color: C3 },
+            { garden: 'Birch Lane 12', meta: '13:00 · CREW 1', color: C1 }
+          ] },
+          { name: 'THU', date: '20', today: false, visits: [
+            { garden: 'Villa Smith', meta: '8:00 · CREW 1', color: C1 },
+            { garden: 'Green Acres', meta: '11:00 · CREW 3', color: C3 }
+          ] },
+          { name: 'FRI', date: '21', today: false, visits: [
+            { garden: 'Villa Johnson', meta: '8:00 · CREW 2', color: C2 },
+            { garden: 'Wilson Estate', meta: '10:30 · CREW 1', color: C1 }
+          ] },
+          { name: 'SAT', date: '22', today: false, visits: [] }
+        ]
+      }
+    ];
+    const wk = weeks[s.week] || weeks[0];
+    const serviceLabel = f.service === 'lawn' ? 'Lawn maintenance' : f.service === 'landscaping' ? 'Landscaping' : 'Full maintenance';
+    const freqLabel = f.freq === 'weekly' ? 'every week' : f.freq === 'biweekly' ? 'every two weeks' : 'every month';
+    const badge = (kind) => kind === 'ok'
+      ? { bg: 'rgba(31,138,76,0.12)', fg: '#166B3A' }
+      : kind === 'warn'
+        ? { bg: 'rgba(232,162,61,0.16)', fg: '#B5761F' }
+        : { bg: '#F6F7F2', fg: '#5C6B62' };
+
+    const money = (n) => '$' + (Number(n) || 0).toLocaleString('en-US');
+    const qVM = (q) => {
+      const st = String(q.status || 'draft').toUpperCase();
+      const kind = st === 'SIGNED' ? 'ok' : st === 'SENT' ? 'warn' : 'n';
+      const btn = st === 'DRAFT' ? { l: 'Send', bg: '#1F8A4C', fg: '#fff', a: () => this.setQuoteStatus(q, 'sent', 'Quote sent to ' + q.customer_name) }
+        : st === 'SENT' ? { l: 'Mark signed', bg: '#fff', fg: '#0E2419', a: () => this.setQuoteStatus(q, 'signed', 'Quote marked as signed') }
+        : { l: 'Signed', bg: '#0E2419', fg: '#fff', a: () => this.flash('Signed on ' + new Date(q.created_at).toLocaleDateString('en-US')) };
+      return { client: q.customer_name, detail: (q.detail || '') + ' · ' + new Date(q.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase(), total: money(q.total), status: st, badgeBg: badge(kind).bg, badgeFg: badge(kind).fg, btnBg: btn.bg, btnFg: btn.fg, btnLabel: btn.l, action: btn.a };
+    };
+    const iVM = (v) => {
+      const st = String(v.status || 'ready').toUpperCase();
+      const kind = st === 'PAID' ? 'ok' : st === 'UNPAID' ? 'warn' : 'n';
+      return { client: v.customer_name, detail: v.detail || '', total: money(v.total), status: st, badgeBg: badge(kind).bg, badgeFg: badge(kind).fg, btnBg: '#fff', btnFg: '#0E2419', btnLabel: 'Open', action: () => this.flash(v.customer_name + ' · ' + money(v.total)) };
+    };
+
+    const quotes = s.live ? s.dbQuotes.map(qVM) : [
+      { client: 'Villa Rousseau', detail: 'WEEKLY MOWING + HEDGES · DRAFTED TODAY', total: '$275', status: 'DRAFT', badgeBg: badge('n').bg, badgeFg: badge('n').fg, btnBg: '#1F8A4C', btnFg: '#fff', btnLabel: 'Send', action: () => this.flash('Quote sent to Villa Rousseau for e-signature') },
+      { client: 'Green Acres', detail: 'FULL MAINTENANCE · SENT 2 DAYS AGO', total: '$420', status: 'SENT', badgeBg: badge('warn').bg, badgeFg: badge('warn').fg, btnBg: '#fff', btnFg: '#0E2419', btnLabel: 'Remind', action: () => this.flash('Reminder sent to Green Acres') },
+      { client: 'Maple Court', detail: 'LANDSCAPING · SIGNED YESTERDAY', total: '$1,180', status: 'SIGNED', badgeBg: badge('ok').bg, badgeFg: badge('ok').fg, btnBg: '#0E2419', btnFg: '#fff', btnLabel: 'Create property', action: () => this.flash('Property created from the signed quote') }
+    ];
+
+    const invoices = s.live ? s.dbInvoices.map(iVM) : [
+      { client: 'Wilson Estate', detail: '4 VISITS IN AUGUST · AUTO-BUILT', total: '$1,120', status: 'READY', badgeBg: badge('n').bg, badgeFg: badge('n').fg, btnBg: '#1F8A4C', btnFg: '#fff', btnLabel: 'Send', action: () => this.flash('Invoice sent to Wilson Estate') },
+      { client: 'Parker Residence', detail: 'SENT AUG 6 · DUE AUG 20', total: '$420', status: 'UNPAID', badgeBg: badge('warn').bg, badgeFg: badge('warn').fg, btnBg: '#fff', btnFg: '#0E2419', btnLabel: 'Remind', action: () => this.flash('Payment reminder sent to Parker Residence') },
+      { client: 'Villa Johnson', detail: 'PAID AUG 4 · CARD', total: '$780', status: 'PAID', badgeBg: badge('ok').bg, badgeFg: badge('ok').fg, btnBg: '#fff', btnFg: '#0E2419', btnLabel: 'Receipt', action: () => this.flash('Receipt re-sent to Villa Johnson') },
+      { client: 'Villa Smith', detail: 'PAID JUL 30 · TRANSFER', total: '$275', status: 'PAID', badgeBg: badge('ok').bg, badgeFg: badge('ok').fg, btnBg: '#fff', btnFg: '#0E2419', btnLabel: 'Receipt', action: () => this.flash('Receipt re-sent to Villa Smith') }
+    ];
+
+    return {
+      pageTitle: titles[s.view] || 'Today',
+      isToday: s.view === 'today',
+      isClients: s.view === 'clients',
+      isClient: s.view === 'client',
+      isSchedule: s.view === 'schedule',
+      isRounds: s.view === 'rounds',
+      rounds: this.ROUNDS.map((r, i) => {
+        const on = i === s.crewId;
+        return {
+          name: r.name,
+          meta: r.meta,
+          select: () => this.setState({ crewId: i }),
+          cardBg: on ? '#163C2A' : '#ffffff',
+          cardBorder: on ? '#163C2A' : '#E3E8E1',
+          cardShadow: on ? '0 10px 28px rgba(14,36,25,0.18)' : '0 1px 2px rgba(14,36,25,0.04)',
+          titleColor: on ? '#ffffff' : '#0E2419',
+          metaColor: on ? 'rgba(255,255,255,0.6)' : '#5C6B62',
+          chipLabel: r.chip,
+          chipBg: r.tone === 'bad' ? 'rgba(194,69,69,0.14)' : on ? 'rgba(143,209,79,0.2)' : 'rgba(31,138,76,0.1)',
+          chipFg: r.tone === 'bad' ? '#C24545' : on ? '#8FD14F' : '#166B3A',
+          rule: on ? 'rgba(255,255,255,0.14)' : '#E3E8E1',
+          stops: r.stops.map(p => ({
+            label: p.time + ' \u00b7 ' + p.name,
+            status: p.status,
+            statusColor: p.status === 'NEXT' ? (on ? 'rgba(255,255,255,0.55)' : '#5C6B62') : this.stopColor(p.status),
+            rowColor: p.status === 'NEXT' ? (on ? 'rgba(255,255,255,0.55)' : '#5C6B62') : (on ? '#ffffff' : '#0E2419')
+          }))
+        };
+      }),
+      sel: this.selectedRound(),
+      optimize: () => this.flash('Route re-ordered — 12 min of driving saved'),
+      navSchedule: this.nav(s.view === 'schedule'),
+      goSchedule: this.go('schedule'),
+      weekLabel: wk.label,
+      weekVisits: wk.visits,
+      weekHours: wk.hours,
+      days: wk.days.map(d => ({
+        name: d.today ? 'TODAY' : d.name,
+        date: d.date,
+        visits: d.visits,
+        border: d.today ? '#1F8A4C' : '#E3E8E1',
+        labelColor: d.today ? '#166B3A' : '#5C6B62',
+        summary: d.visits.length ? d.visits.length + (d.visits.length === 1 ? ' PROPERTY' : ' PROPERTIES') : 'FREE DAY'
+      })),
+      prevWeek: () => this.setState({ week: 0 }),
+      nextWeek: () => this.setState({ week: 1 }),
+      rescheduleMaple: () => this.flash('Maple Court moved to Thursday · crew 3 notified'),
+      rebalanceCrew: () => this.flash('Friday rebalanced across crews 1 and 2'),
+      isQuotes: s.view === 'quotes',
+      isInvoices: s.view === 'invoices',
+      isAnalytics: s.view === 'analytics',
+      navToday: this.nav(s.view === 'today'),
+      navClients: this.nav(s.view === 'clients' || s.view === 'client'),
+      navRounds: this.nav(s.view === 'rounds'),
+      navQuotes: this.nav(s.view === 'quotes'),
+      navInvoices: this.nav(s.view === 'invoices'),
+      navAnalytics: this.nav(s.view === 'analytics'),
+      goToday: this.go('today'),
+      goClients: this.go('clients'),
+      goRounds: this.go('rounds'),
+      goQuotes: this.go('quotes'),
+      goInvoices: this.go('invoices'),
+      goAnalytics: this.go('analytics'),
+      gardenCount: s.live ? s.clients.length : s.clients.length + 20,
+      crews: [
+        { name: 'Crew 1 — James & Mike', meta: '8 PROPERTIES · 7H10', pct: '100%', status: 'ON TRACK', statusColor: '#166B3A' },
+        { name: 'Crew 2 — Daniel & Tom', meta: '9 PROPERTIES · 7H35', pct: '78%', status: 'ON TRACK', statusColor: '#166B3A' },
+        { name: 'Crew 3 — Chris & Alex', meta: '7 PROPERTIES · 1 DELAYED', pct: '45%', status: 'DELAYED', statusColor: '#C24545' }
+      ],
+      query: s.query,
+      setQuery: (e) => this.setState({ query: e.target.value }),
+      clientCount: s.clients.length,
+      recurringTotal: '$' + s.clients.reduce((t, c) => t + (parseInt(String(c.monthly).replace(/[^0-9]/g, ''), 10) || 0), 0).toLocaleString('en-US'),
+      clients: s.clients
+        .map((c, i) => Object.assign({}, c, { open: () => this.setState({ view: 'client', currentId: i }) }))
+        .filter(c => {
+          const q = s.query.trim().toLowerCase();
+          if (!q) return true;
+          return (c.name + ' ' + c.address + ' ' + c.city + ' ' + c.zip + ' ' + c.service).toLowerCase().indexOf(q) > -1;
+        }),
+      current: (() => {
+        const c = s.clients[s.currentId] || s.clients[0] || { name: 'No customers yet', address: '', city: '', zip: '', billStatus: '', tasks: [] };
+        const late = String(c.billStatus).indexOf('UNPAID') > -1;
+        return Object.assign({}, c, {
+          billBg: late ? 'rgba(232,162,61,0.16)' : 'rgba(31,138,76,0.12)',
+          billFg: late ? '#B5761F' : '#166B3A'
+        });
+      })(),
+      quotes: quotes,
+      invoices: invoices,
+      live: s.live,
+      isDemo: !s.live,
+      companyName: s.live ? (s.company && s.company.name) || 'My company' : 'Halloran Lawn & Garden',
+      companyMeta: s.live ? s.clients.length + (s.clients.length === 1 ? ' CUSTOMER' : ' CUSTOMERS') : '3 CREWS · 24 PROPERTIES',
+      ownerName: (() => {
+        if (!s.live) return 'Mike Halloran';
+        const m = (s.user && s.user.user_metadata) || {};
+        return ((m.first_name || '') + ' ' + (m.last_name || '')).trim() || (s.user && s.user.email) || 'Owner';
+      })(),
+      ownerInitials: (() => {
+        const m = (s.user && s.user.user_metadata) || {};
+        const a = ((m.first_name || '')[0] || '') + ((m.last_name || '')[0] || '');
+        return (a || ((s.user && s.user.email) || 'F')[0]).toUpperCase();
+      })(),
+      ownerRole: 'OWNER',
+      logout: this.logout,
+      showNewClient: s.showNewClient,
+      showNewQuote: s.showNewQuote,
+      toast: s.toast,
+      openNewClient: () => this.setState({ showNewClient: true, showNewQuote: false }),
+      openNewQuote: () => this.setState({ showNewQuote: true, showNewClient: false }),
+      closeModals: () => this.setState({ showNewClient: false, showNewQuote: false }),
+      formName: f.name,
+      formAddress: f.address,
+      formPrice: f.price,
+      formSummary: (f.name.trim() || 'This property') + ' · ' + serviceLabel.toLowerCase() + ' ' + freqLabel + ' · $' + (f.price || '0') + ' per visit. Field Pilot will generate the visits and add them to a crew round.',
+      setFormName: (e) => this.setState({ form: Object.assign({}, f, { name: e.target.value }) }),
+      setFormAddress: (e) => this.setState({ form: Object.assign({}, f, { address: e.target.value }) }),
+      setFormPrice: (e) => this.setState({ form: Object.assign({}, f, { price: e.target.value.replace(/[^0-9]/g, '') }) }),
+      svcLawn: this.pill(f.service === 'lawn'),
+      svcLand: this.pill(f.service === 'landscaping'),
+      svcBoth: this.pill(f.service === 'both'),
+      pickLawn: () => this.setState({ form: Object.assign({}, f, { service: 'lawn' }) }),
+      pickLandscaping: () => this.setState({ form: Object.assign({}, f, { service: 'landscaping' }) }),
+      pickBoth: () => this.setState({ form: Object.assign({}, f, { service: 'both' }) }),
+      freqW: this.pill(f.freq === 'weekly'),
+      freqB: this.pill(f.freq === 'biweekly'),
+      freqM: this.pill(f.freq === 'monthly'),
+      pickWeekly: () => this.setState({ form: Object.assign({}, f, { freq: 'weekly' }) }),
+      pickBiweekly: () => this.setState({ form: Object.assign({}, f, { freq: 'biweekly' }) }),
+      pickMonthly: () => this.setState({ form: Object.assign({}, f, { freq: 'monthly' }) }),
+      saveClient: this.saveClient,
+      quoteClient: s.quoteClient,
+      setQuoteClient: (e) => this.setState({ quoteClient: e.target.value }),
+      sendQuote: () => { if (s.live && this.db) return this.saveQuoteLive(); this.setState({ showNewQuote: false, view: 'quotes' }); this.flash('Quote sent for e-signature'); }
+    };
+  }
+}
+</script>
+</body>
+</html>
