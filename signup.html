@@ -15,6 +15,7 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,do
 if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'); fbq('track', 'PageView'); }
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2178287276369092&ev=PageView&noscript=1" alt="" /></noscript>
+<script src="./fp-track.js?v=20261008b" defer></script>
 <link rel="icon" href="./favicon.ico" sizes="any">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="icon" href="./favicon.png" sizes="64x64">
@@ -42,15 +43,27 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
   input:focus, select:focus { outline:none; border-color:#1F8A4C !important; box-shadow:0 0 0 3px rgba(31,138,76,0.14); }
   input::placeholder { color:#8A978F; }
   @media (max-width: 600px) {
-    [data-m~="stage"] { padding:16px 12px 28px !important; align-items:flex-start !important; }
-    [data-m~="card"] { padding:24px 18px 22px !important; border-radius:20px !important; }
-    [data-m~="row2"] { grid-template-columns:1fr !important; }
-    [data-m~="title"] { font-size:26px !important; }
+    [data-m~="stage"] { min-height:100dvh !important; padding:10px 10px 12px !important; align-items:center !important; }
+    [data-m~="card"] { padding:16px 16px 14px !important; border-radius:18px !important; }
+    [data-m~="logo"] { font-size:17px !important; gap:8px !important; }
+    [data-m~="logo"] > span { width:26px !important; height:26px !important; border-radius:7px !important; }
+    [data-m~="title"] { font-size:23px !important; margin:8px 0 3px !important; }
+    [data-m~="sub"] { font-size:10px !important; margin-bottom:12px !important; }
+    [data-m~="fstack"] { gap:7px !important; }
+    [data-m~="row2"], [data-m~="rowphone"] { gap:7px !important; }
+    [data-m~="card"] input, [data-m~="card"] select { padding-top:10px !important; padding-bottom:10px !important; }
+    [data-m~="qlabel"] { font-size:12.5px !important; margin:3px 0 0 !important; }
+    [data-m~="sizes"] { gap:6px !important; }
+    [data-m~="sizes"] > button { padding:10px 4px !important; font-size:14px !important; }
+    [data-m~="err"] { min-height:0 !important; margin:0 !important; }
+    [data-m~="cta"] { padding:14px 18px !important; }
+    [data-m~="terms"] { font-size:11.5px !important; margin:9px 0 3px !important; }
+    [data-m~="have"] { font-size:12.5px !important; }
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./fp-db.js?v=20261006zg"></script>
-<style>@media (max-width: 900px) { [data-m="wa"] { right:14px !important; bottom:16px !important; } [data-m="walabel"] { display:none !important; } [data-m="wa"] > span:last-child { width:48px !important; height:48px !important; } }</style>
+<script src="./fp-db.js?v=20261008b"></script>
+<style>@media (max-width: 900px) { [data-m="wa"] { gap:8px !important; right:14px !important; bottom:16px !important; } [data-m="walabel"] { display:none !important; } [data-m="walabelm"] { display:none !important; } [data-m="walabelm-x"] { display:block !important; } [data-m="wa"] > span:last-child { width:48px !important; height:48px !important; } }</style>
 </helmet>
 
 <div style="position:fixed; inset:0; overflow:hidden; z-index:0" aria-hidden="true">
@@ -63,22 +76,22 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
 
     <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
       <div>
-        <a href="./index.html" style="display:flex; align-items:center; justify-content:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; color:#0E2419; white-space:nowrap">
+        <a data-m="logo" href="./index.html" style="display:flex; align-items:center; justify-content:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; color:#0E2419; white-space:nowrap">
           <span style="width:32px; height:32px; border-radius:9px; background:#1F8A4C; display:flex; align-items:center; justify-content:center; flex-shrink:0">
             <svg viewBox="6 3 20 26" style="width:15px; height:20px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg>
           </span>
           Field Pilot
         </a>
         <h1 data-m="title" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.08; font-size:30px; text-align:center; margin:20px 0 6px">Try for free</h1>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; text-align:center; margin-bottom:22px">No credit card · ready in 1 minute</div>
+        <div data-m="sub" style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; text-align:center; margin-bottom:22px">No credit card · ready in 1 minute</div>
 
-        <div style="display:flex; flex-direction:column; gap:10px">
+        <div data-m="fstack" style="display:flex; flex-direction:column; gap:10px">
           <div data-m="row2" style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
             <input type="text" autocomplete="given-name" placeholder="First name" value="{{ firstName }}" onInput="{{ setFirstName }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
             <input type="text" autocomplete="family-name" placeholder="Last name" value="{{ lastName }}" onInput="{{ setLastName }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
           </div>
           <input type="text" autocomplete="organization" placeholder="Company name" value="{{ company }}" onInput="{{ setCompany }}" style="width:100%; padding:13px 14px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419" />
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:10px">
+          <div data-m="rowphone" style="display:grid; grid-template-columns:104px 1fr; gap:10px">
             <select value="{{ dial }}" onChange="{{ setDial }}" aria-label="Country code" style="width:100%; padding:13px 10px; border:1px solid #E3E8E1; border-radius:10px; background:#fff; font-size:16px; color:#0E2419">
               <option value="+1 US">🇺🇸 +1</option>
               <option value="+1 CA">🇨🇦 +1</option>
@@ -101,19 +114,19 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
             <button type="button" onClick="{{ togglePw }}" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); border:none; background:transparent; padding:8px 10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#166B3A; cursor:pointer">{{ pwLabel }}</button>
           </div>
 
-          <div style="font-size:13.5px; font-weight:600; margin:6px 0 0">How many gardeners, including you?</div>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px">
+          <div data-m="qlabel" style="font-size:13.5px; font-weight:600; margin:6px 0 0">How many gardeners, including you?</div>
+          <div data-m="sizes" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px">
             <button type="button" onClick="{{ pickSolo }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sSolo.bg }}; color:{{ sSolo.fg }}; border:1px solid {{ sSolo.br }}">Just me</button>
             <button type="button" onClick="{{ pickCrew }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sCrew.bg }}; color:{{ sCrew.fg }}; border:1px solid {{ sCrew.br }}">2–5</button>
             <button type="button" onClick="{{ pickBiz }}" style="padding:12px 6px; border-radius:10px; font-weight:600; font-size:14.5px; cursor:pointer; background:{{ sBiz.bg }}; color:{{ sBiz.fg }}; border:1px solid {{ sBiz.br }}">6 or more</button>
           </div>
 
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#C24545; min-height:16px; margin-top:2px">{{ error }}</div>
-          <button type="button" onClick="{{ submit }}" style="width:100%; padding:16px 22px; border:none; border-radius:12px; background:#0E2419; color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 10px 24px rgba(14,36,25,0.25)">Try for free</button>
+          <div data-m="err" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#C24545; min-height:16px; margin-top:2px">{{ error }}</div>
+          <button data-m="cta" type="button" onClick="{{ submit }}" style="width:100%; padding:16px 22px; border:none; border-radius:12px; background:#0E2419; color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease" style-hover="transform:translateY(-1px); box-shadow:0 10px 24px rgba(14,36,25,0.25)">Try for free</button>
         </div>
 
-        <p style="font-size:12.5px; color:#5C6B62; text-align:center; margin:14px 0 6px">By signing up, you accept our <a href="#">Terms of Service</a>.</p>
-        <p style="font-size:13.5px; text-align:center; margin:0"><a href="./login.html?v=20261006zg" style="font-weight:600; text-decoration:underline">I already have an account</a></p>
+        <p data-m="terms" style="font-size:12.5px; color:#5C6B62; text-align:center; margin:14px 0 6px">By signing up, you accept our <a href="#">Terms of Service</a>.</p>
+        <p data-m="have" style="font-size:13.5px; text-align:center; margin:0"><a href="./login.html?v=20261008b" style="font-weight:600; text-decoration:underline">I already have an account</a></p>
       </div>
     </sc-if>
 
@@ -137,6 +150,7 @@ if (!window.__fpPixel) { window.__fpPixel = true; fbq('init', '2178287276369092'
   <span data-m="walabel" style="display:block; background:#fff; color:#0E2419; border:1px solid #E3E8E1; border-radius:12px; padding:8px 12px; box-shadow:0 8px 24px rgba(14,36,25,0.12); font-family:'Inter',sans-serif; line-height:1.3; max-width:230px">
     <span style="display:block; font-size:12.5px; font-weight:600">Onboarding, bug or idea?</span>
     <span style="display:block; font-size:11.5px; color:#5C6B62">Chat with a real human · 24/7</span>
+  <span data-m="walabelm" style="display:none; background:#fff; color:#0E2419; border:1px solid #E3E8E1; border-radius:999px; padding:7px 11px; box-shadow:0 6px 18px rgba(14,36,25,0.12); font-family:'Inter',sans-serif; font-size:12px; font-weight:600; white-space:nowrap">Questions? Chat 24/7</span>
   </span>
   <span style="width:52px; height:52px; flex-shrink:0; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(37,211,102,0.35)" style-hover="transform:scale(1.06)"><svg viewBox="0 0 24 24" style="width:26px; height:26px"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"></path></svg></span>
 </a>
@@ -179,7 +193,7 @@ class Component extends DCLogic {
     if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'workspace created' });
     if (!data.session) return this.setState({ error: 'Almost there — confirm your email from the link we just sent, then log in.' });
     this.setState({ done: true, error: '' });
-    this._t = setTimeout(() => { window.location.href = './app.html?v=20261006zg'; }, 1400);
+    this._t = setTimeout(() => { window.location.href = './app.html?v=20261008b'; }, 1400);
   };
 
   componentWillUnmount() { clearTimeout(this._t); }

@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /analytics.html
 Allow: /
 
-Sitemap: https://lissio-studio.com/sitemap.xml
+Sitemap: https://field-pilot.co/sitemap.xml

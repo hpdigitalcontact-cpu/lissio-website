@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="robots" content="noindex, nofollow">
+<script src="./fp-track.js?v=20261008b" defer></script>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#F6F7F2; color:#0E2419; font-family:'Inter',sans-serif; line-height:1.45; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#166B3A; text-decoration:none; }
+  a:hover { color:#0E2419; }
+  input, button, select { font-family:inherit; }
+  input:focus { outline:none; border-color:#1F8A4C !important; box-shadow:0 0 0 3px rgba(31,138,76,0.14); }
+  @media (max-width: 1100px) {
+    [data-m~="kpis"] { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+    [data-m~="main"] { grid-template-columns:1fr !important; }
+    [data-m~="tri"] { grid-template-columns:1fr 1fr !important; }
+  }
+  @media (max-width: 720px) {
+    [data-m~="wrap"] { padding:14px 12px 40px !important; }
+    [data-m~="top"] { padding:12px !important; }
+    [data-m~="kpis"] { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:10px !important; }
+    [data-m~="tri"] { grid-template-columns:1fr !important; }
+    [data-m~="hideM"] { display:none !important; }
+    [data-m~="picker"] { left:0 !important; right:auto !important; width:calc(100vw - 24px) !important; grid-template-columns:1fr !important; }
+    [data-m~="kval"] { font-size:21px !important; }
+  }
+</style>
+</helmet>
+
+<sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background:#163C2A">
+    <div style="width:100%; max-width:360px; background:#fff; border-radius:20px; padding:32px 28px; text-align:center; box-shadow:0 30px 60px rgba(0,0,0,0.25)">
+      <div style="display:flex; align-items:center; justify-content:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.02em">
+        <span style="width:30px; height:30px; border-radius:8px; background:#1F8A4C; display:flex; align-items:center; justify-content:center"><svg viewBox="6 3 20 26" style="width:14px; height:18px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg></span>
+        Field Pilot
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#166B3A; font-weight:600; margin-top:22px">Private analytics</div>
+      <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:24px; letter-spacing:-0.02em; margin:8px 0 20px">Enter your access code</div>
+      <input type="password" inputMode="numeric" autoComplete="off" maxLength="4" value="{{ pin }}" onInput="{{ setPin }}" placeholder="••••" style="width:100%; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:28px; letter-spacing:.5em; padding:14px 10px 14px 24px; border:1px solid #E3E8E1; border-radius:12px; background:#F6F7F2; color:#0E2419">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#C24545; min-height:18px; margin-top:10px">{{ pinError }}</div>
+      <button type="button" onClick="{{ unlock }}" style="width:100%; margin-top:6px; padding:14px; border:none; border-radius:10px; background:#0E2419; color:#fff; font-weight:600; font-size:15px; cursor:pointer">{{ unlockLabel }}</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ unlocked }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div data-m="top" style="position:sticky; top:0; z-index:40; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 24px; background:#163C2A; color:#fff">
+      <div style="display:flex; align-items:center; gap:12px; min-width:0">
+        <span style="width:28px; height:28px; border-radius:8px; background:#1F8A4C; display:flex; align-items:center; justify-content:center; flex-shrink:0"><svg viewBox="6 3 20 26" style="width:13px; height:17px"><rect x="9" y="5" width="5.6" height="22" rx="2.8" fill="#fff"></rect><rect x="9" y="5" width="15" height="5.6" rx="2.8" fill="#fff"></rect><rect x="9" y="13.2" width="11" height="5.6" rx="2.8" fill="#8FD14F"></rect></svg></span>
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; white-space:nowrap">Analytics</span>
+        <span data-m="hideM" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.6); white-space:nowrap">Last refresh · {{ lastRefresh }}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px">
+        <span style="display:inline-flex; align-items:center; gap:7px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:600; background:rgba(143,209,79,0.16); color:#8FD14F; padding:7px 11px; border-radius:20px; white-space:nowrap"><span style="width:7px; height:7px; border-radius:50%; background:#8FD14F; box-shadow:0 0 0 3px rgba(143,209,79,0.25)"></span>{{ liveLabel }}</span>
+        <button type="button" onClick="{{ refresh }}" style="padding:8px 12px; border-radius:9px; border:1px solid rgba(255,255,255,0.22); background:transparent; color:#fff; font-size:13px; font-weight:600; cursor:pointer">↻</button>
+        <button type="button" onClick="{{ lock }}" style="padding:8px 12px; border-radius:9px; border:1px solid rgba(255,255,255,0.22); background:transparent; color:#fff; font-size:13px; font-weight:600; cursor:pointer">Lock</button>
+      </div>
+    </div>
+
+    <div data-m="wrap" style="max-width:1320px; margin:0 auto; padding:20px 24px 56px">
+      <sc-if value="{{ notice }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; background:#FFF6E6; border:1px solid #F1D29A; border-radius:12px; padding:12px 16px; margin-bottom:16px; font-size:13.5px; color:#6B4A12">
+          <span>{{ notice }}</span>
+          <sc-if value="{{ canDemo }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ useDemo }}" style="padding:8px 12px; border-radius:8px; border:1px solid #E3C27F; background:#fff; color:#6B4A12; font-weight:600; font-size:12.5px; cursor:pointer; white-space:nowrap; flex-shrink:0">Preview with sample data</button>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; position:relative">
+        <button type="button" onClick="{{ togglePicker }}" style="display:inline-flex; align-items:center; gap:8px; padding:9px 13px; border-radius:10px; border:1px solid {{ pickerBorder }}; background:#fff; color:#0E2419; font-weight:600; font-size:13.5px; cursor:pointer; box-shadow:0 1px 2px rgba(14,36,25,0.05); white-space:nowrap; flex-shrink:0">
+          <svg viewBox="0 0 24 24" fill="none" style="width:15px; height:15px"><rect x="3.5" y="5" width="17" height="15" rx="2.5" stroke="#0E2419" stroke-width="1.7"></rect><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#0E2419" stroke-width="1.7" stroke-linecap="round"></path></svg>
+          {{ rangeLabel }} <span style="color:#5C6B62">▾</span>
+        </button>
+        <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 13px; border-radius:10px; background:#EEF2EC; font-size:13px; font-weight:500; color:#5C6B62; white-space:nowrap; flex-shrink:0">vs {{ prevLabel }}</span>
+        <span data-m="hideM" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-left:4px; white-space:nowrap">{{ rangeDates }}</span>
+
+        <sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+          <div data-m="picker" style="position:absolute; top:46px; left:0; z-index:30; width:520px; display:grid; grid-template-columns:180px 1fr; background:#fff; border:1px solid #E3E8E1; border-radius:14px; box-shadow:0 20px 50px rgba(14,36,25,0.18); overflow:hidden">
+            <div style="padding:10px; border-right:1px solid #E3E8E1; display:flex; flex-direction:column; gap:2px">
+              <sc-for list="{{ presets }}" as="p" hint-placeholder-count="6">
+                <button type="button" onClick="{{ p.pick }}" style="text-align:left; padding:9px 11px; border:none; border-radius:8px; font-size:13.5px; font-weight:{{ p.fw }}; background:{{ p.bg }}; color:#0E2419; cursor:pointer">{{ p.label }}</button>
+              </sc-for>
+            </div>
+            <div style="padding:16px">
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62; margin-bottom:10px">Custom range</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+                <label style="font-size:12px; color:#5C6B62">From<input type="date" value="{{ cFrom }}" max="{{ todayISO }}" onInput="{{ setCFrom }}" style="display:block; width:100%; margin-top:5px; padding:10px; border:1px solid #E3E8E1; border-radius:9px; font-size:14px; color:#0E2419"></label>
+                <label style="font-size:12px; color:#5C6B62">To<input type="date" value="{{ cTo }}" max="{{ todayISO }}" onInput="{{ setCTo }}" style="display:block; width:100%; margin-top:5px; padding:10px; border:1px solid #E3E8E1; border-radius:9px; font-size:14px; color:#0E2419"></label>
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px">
+                <button type="button" onClick="{{ togglePicker }}" style="padding:9px 14px; border-radius:9px; border:1px solid #E3E8E1; background:#fff; font-weight:600; font-size:13px; cursor:pointer">Cancel</button>
+                <button type="button" onClick="{{ applyCustom }}" style="padding:9px 14px; border-radius:9px; border:none; background:#0E2419; color:#fff; font-weight:600; font-size:13px; cursor:pointer">Apply</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div data-m="kpis" style="display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px; margin-bottom:16px">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="12">
+          <button type="button" onClick="{{ k.pick }}" style="text-align:left; background:#fff; border:1px solid {{ k.border }}; border-radius:14px; padding:14px 14px 10px; cursor:{{ k.cursor }}; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0; color:#0E2419">
+            <div style="font-size:12.5px; font-weight:600; color:#5C6B62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border-bottom:1px dotted #C9D3C6; display:inline-block; max-width:100%">{{ k.label }}</div>
+            <div style="display:flex; align-items:baseline; gap:8px; margin-top:6px; flex-wrap:wrap">
+              <span data-m="kval" style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; letter-spacing:-0.02em; white-space:nowrap">{{ k.value }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; color:{{ k.dColor }}; white-space:nowrap">{{ k.delta }}</span>
+            </div>
+            <svg viewBox="0 0 120 30" preserveAspectRatio="none" style="display:block; width:100%; height:26px; margin-top:4px"><polyline points="{{ k.spark }}" fill="none" stroke="#1F8A4C" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline></svg>
+          </button>
+        </sc-for>
+      </div>
+
+      <div data-m="main" style="display:grid; grid-template-columns:minmax(0,1.75fr) minmax(0,1fr); gap:16px; margin-bottom:16px">
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:18px 20px 14px; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap">
+            <div>
+              <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block">{{ chartTitle }}</div>
+              <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; letter-spacing:-0.02em; margin-top:4px">{{ chartTotal }}</div>
+            </div>
+            <div style="display:flex; gap:2px; background:#F6F7F2; border-radius:10px; padding:3px; flex-wrap:nowrap; flex-shrink:0">
+              <sc-for list="{{ metricTabs }}" as="t" hint-placeholder-count="4">
+                <button type="button" onClick="{{ t.pick }}" style="padding:6px 9px; border:none; border-radius:8px; white-space:nowrap; font-size:12.5px; font-weight:600; cursor:pointer; background:{{ t.bg }}; color:{{ t.fg }}">{{ t.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:relative; margin-top:12px">
+            <svg viewBox="0 0 1000 260" preserveAspectRatio="none" style="display:block; width:100%; height:240px">
+              <line x1="0" y1="10" x2="1000" y2="10" stroke="#EEF2EC" stroke-width="1"></line>
+              <line x1="0" y1="130" x2="1000" y2="130" stroke="#EEF2EC" stroke-width="1"></line>
+              <line x1="0" y1="250" x2="1000" y2="250" stroke="#E3E8E1" stroke-width="1"></line>
+              <path d="{{ prevPath }}" fill="none" stroke="#8FD14F" stroke-width="2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"></path>
+              <path d="{{ areaPath }}" fill="rgba(31,138,76,0.08)" stroke="none"></path>
+              <path d="{{ linePath }}" fill="none" stroke="#1F8A4C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+            </svg>
+            <div style="position:absolute; left:0; top:0; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; background:rgba(255,255,255,0.85); padding:0 4px">{{ yMax }}</div>
+            <div style="position:absolute; left:0; top:112px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62; background:rgba(255,255,255,0.85); padding:0 4px">{{ yMid }}</div>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:6px; margin-top:6px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#5C6B62">
+            <sc-for list="{{ xLabels }}" as="x" hint-placeholder-count="6"><span>{{ x }}</span></sc-for>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:12px; font-size:12px; color:#5C6B62">
+            <span style="display:inline-flex; align-items:center; gap:7px; white-space:nowrap"><span style="width:14px; height:3px; border-radius:2px; background:#1F8A4C"></span>{{ rangeLabel }}</span>
+            <span style="display:inline-flex; align-items:center; gap:7px; white-space:nowrap"><span style="width:14px; height:0; border-top:2px dashed #8FD14F"></span>{{ prevLabel }}</span>
+          </div>
+        </div>
+
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:18px 20px; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0">
+          <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block; margin-bottom:14px">Conversion funnel</div>
+          <div style="display:flex; flex-direction:column; gap:6px">
+            <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="5">
+              <div style="padding:10px 12px; border-radius:10px; background:{{ f.bg }}">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13.5px">
+                  <span style="color:#166B3A; font-weight:500">{{ f.label }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-weight:600">{{ f.value }} <span style="color:#5C6B62; font-weight:500">· {{ f.pct }}</span></span>
+                </div>
+                <div style="height:5px; border-radius:4px; background:#E3E8E1; margin-top:8px; overflow:hidden"><div style="height:100%; border-radius:4px; background:#1F8A4C; width:{{ f.w }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="border-top:1px solid #E3E8E1; margin-top:14px; padding-top:12px; display:flex; flex-direction:column; gap:8px; font-size:13px">
+            <div style="display:flex; justify-content:space-between"><span style="color:#5C6B62">Paid subscribers (all time)</span><strong style="font-family:'IBM Plex Mono',monospace">{{ paidTotal }}</strong></div>
+            <div style="display:flex; justify-content:space-between"><span style="color:#5C6B62">Estimated MRR</span><strong style="font-family:'IBM Plex Mono',monospace">{{ mrr }}</strong></div>
+            <div style="display:flex; justify-content:space-between"><span style="color:#5C6B62">Accounts (all time)</span><strong style="font-family:'IBM Plex Mono',monospace">{{ accountsTotal }}</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-m="tri" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:16px">
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:18px 20px; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0">
+          <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block; margin-bottom:14px">Sessions by source</div>
+          <sc-for list="{{ sources }}" as="r" hint-placeholder-count="4">
+            <div style="margin-bottom:11px">
+              <div style="display:flex; justify-content:space-between; gap:10px; font-size:12.5px"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ r.label }}</span><span style="font-family:'IBM Plex Mono',monospace; color:#5C6B62; white-space:nowrap">{{ r.value }} · {{ r.pct }}</span></div>
+              <div style="height:7px; border-radius:4px; background:#EEF2EC; margin-top:5px; overflow:hidden"><div style="height:100%; border-radius:4px; background:#1F8A4C; width:{{ r.w }}"></div></div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noSources }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#5C6B62">No sessions in this period.</div></sc-if>
+        </div>
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:18px 20px; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0">
+          <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block; margin-bottom:14px">Campaigns (utm_campaign)</div>
+          <sc-for list="{{ campaigns }}" as="r" hint-placeholder-count="3">
+            <div style="margin-bottom:11px">
+              <div style="display:flex; justify-content:space-between; gap:10px; font-size:12.5px"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ r.label }}</span><span style="font-family:'IBM Plex Mono',monospace; color:#5C6B62; white-space:nowrap">{{ r.value }} · {{ r.pct }}</span></div>
+              <div style="height:7px; border-radius:4px; background:#EEF2EC; margin-top:5px; overflow:hidden"><div style="height:100%; border-radius:4px; background:#8FD14F; width:{{ r.w }}"></div></div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noCampaigns }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#5C6B62">No tagged campaign yet. Add <span style="font-family:'IBM Plex Mono',monospace">?utm_source=facebook&amp;utm_campaign=…</span> to your ad URLs.</div></sc-if>
+        </div>
+        <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; padding:18px 20px; box-shadow:0 1px 2px rgba(14,36,25,0.04); min-width:0">
+          <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block; margin-bottom:14px">Devices &amp; pages</div>
+          <div style="display:flex; height:10px; border-radius:6px; overflow:hidden; background:#EEF2EC">
+            <div style="background:#1F8A4C; width:{{ mobilePct }}"></div>
+            <div style="background:#8FD14F; width:{{ desktopPct }}"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12.5px; margin:8px 0 16px">
+            <span style="display:inline-flex; align-items:center; gap:6px"><span style="width:9px; height:9px; border-radius:3px; background:#1F8A4C"></span>Mobile · {{ mobilePct }}</span>
+            <span style="display:inline-flex; align-items:center; gap:6px"><span style="width:9px; height:9px; border-radius:3px; background:#8FD14F"></span>Desktop · {{ desktopPct }}</span>
+          </div>
+          <sc-for list="{{ pages }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-top:1px solid #EEF2EC; font-size:13px"><span>{{ r.label }}</span><span style="font-family:'IBM Plex Mono',monospace; color:#5C6B62">{{ r.value }} views</span></div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#fff; border:1px solid #E3E8E1; border-radius:16px; box-shadow:0 1px 2px rgba(14,36,25,0.04); overflow:hidden">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:16px 20px; border-bottom:1px solid #E3E8E1">
+          <div>
+            <div style="font-size:13.5px; font-weight:600; border-bottom:1px dotted #C9D3C6; display:inline-block">Accounts</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62; margin-top:4px">{{ signupsMeta }}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+            <div style="display:flex; gap:3px; background:#F6F7F2; border-radius:9px; padding:3px">
+              <button type="button" onClick="{{ scopeRange }}" style="padding:7px 11px; border:none; border-radius:7px; font-size:12.5px; font-weight:600; cursor:pointer; background:{{ scopeR.bg }}; color:{{ scopeR.fg }}">This period</button>
+              <button type="button" onClick="{{ scopeAll }}" style="padding:7px 11px; border:none; border-radius:7px; font-size:12.5px; font-weight:600; cursor:pointer; background:{{ scopeA.bg }}; color:{{ scopeA.fg }}">All time</button>
+            </div>
+            <input type="search" value="{{ search }}" onInput="{{ setSearch }}" placeholder="Search name, company, email…" style="width:230px; max-width:100%; padding:9px 12px; border:1px solid #E3E8E1; border-radius:9px; font-size:13.5px; background:#fff">
+            <button type="button" onClick="{{ exportCsv }}" style="padding:9px 12px; border-radius:9px; border:1px solid #E3E8E1; background:#fff; font-size:12.5px; font-weight:600; cursor:pointer">Export CSV</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <div style="min-width:980px">
+            <div style="display:grid; grid-template-columns:118px 1.1fr 1.2fr 1.5fr 76px 96px 1fr 84px 24px; gap:12px; padding:10px 20px; background:#F6F7F2; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5C6B62">
+              <span>Created</span><span>Owner</span><span>Company</span><span>Contact</span><span>Team</span><span>Plan</span><span>Heard via</span><span>Customers</span><span></span>
+            </div>
+            <sc-for list="{{ signups }}" as="u" hint-placeholder-count="4">
+              <div style="border-top:1px solid #EEF2EC">
+                <div onClick="{{ u.toggle }}" style="display:grid; grid-template-columns:118px 1.1fr 1.2fr 1.5fr 76px 96px 1fr 84px 24px; gap:12px; align-items:center; padding:12px 20px; cursor:pointer; font-size:13.5px" style-hover="background:#F9FAF7">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#5C6B62">{{ u.created }}</span>
+                  <span style="font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.owner }}</span>
+                  <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.company }}</span>
+                  <span style="min-width:0"><span style="display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.email }}</span><span style="display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5C6B62">{{ u.phone }}</span></span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:12px">{{ u.team }}</span>
+                  <span><span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600; padding:4px 8px; border-radius:20px; background:{{ u.planBg }}; color:{{ u.planFg }}; white-space:nowrap">{{ u.plan }}</span></span>
+                  <span style="font-size:12.5px; color:#5C6B62; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.heard }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-weight:600">{{ u.nCustomers }}</span>
+                  <span style="color:#5C6B62">{{ u.chev }}</span>
+                </div>
+                <sc-if value="{{ u.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:4px 20px 18px 150px; background:#F9FAF7">
+                    <div style="display:flex; gap:18px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#5C6B62; padding:10px 0 12px">
+                      <span>Last login · {{ u.lastLogin }}</span><span>{{ u.nVisits }} visits</span><span>{{ u.nQuotes }} quotes</span><span>{{ u.nInvoices }} invoices</span><span>Account value · {{ u.value }}/mo</span>
+                    </div>
+                    <sc-for list="{{ u.customers }}" as="c" hint-placeholder-count="2">
+                      <div style="display:grid; grid-template-columns:1.2fr 1.6fr 1fr 0.8fr 70px; gap:12px; padding:9px 12px; background:#fff; border:1px solid #E3E8E1; border-radius:10px; margin-bottom:6px; font-size:13px">
+                        <strong>{{ c.name }}</strong><span style="color:#5C6B62">{{ c.addr }}</span><span>{{ c.service }}</span><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#166B3A">{{ c.freq }}</span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; text-align:right">{{ c.price }}</span>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ u.noCustomers }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#5C6B62">No customer added yet.</div></sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noSignups }}" hint-placeholder-val="{{ false }}"><div style="padding:22px 20px; font-size:13.5px; color:#5C6B62; border-top:1px solid #EEF2EC">No account matches.</div></sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  URL = 'https://hgelspdlugknazuqnygg.supabase.co/rest/v1/rpc/fp_admin_stats';
+  KEY = 'sb_publishable_NGlQXNGiNXe12q6zrVgTvA_EPO1JBAd';
+  PRICES = { plus: 29, team: 69, business: 99 };
+  PLAN_NAMES = { solo_free: 'Solo Free', plus: 'Solo Plus', team: 'Team', business: 'Business' };
+
+  state = {
+    locked: true, pin: '', pinError: '', checking: false, code: '',
+    range: 'today', cFrom: '', cTo: '', pickerOpen: false, metric: 'sessions',
+    data: null, demo: false, notice: '', canDemo: false, last: null,
+    search: '', scope: 'all', openId: null
+  };
+
+  componentDidMount() {
+    let saved = '';
+    try { saved = sessionStorage.getItem('fp_admin_code') || ''; } catch (e) {}
+    const iso = this.iso(new Date());
+    this.setState({ cFrom: iso, cTo: iso });
+    if (saved) this.setState({ code: saved, locked: false }, () => this.load());
+    this._iv = setInterval(() => { if (!this.state.locked && !this.state.demo && !document.hidden) this.load(true); }, 60000);
+  }
+  componentWillUnmount() { clearInterval(this._iv); }
+
+  iso(d) { const z = n => String(n).padStart(2, '0'); return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); }
+  dayStart(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+  addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+
+  bounds() {
+    const s = this.state, t0 = this.dayStart(new Date()), tomorrow = this.addDays(t0, 1);
+    let from, to;
+    if (s.range === 'today') { from = t0; to = tomorrow; }
+    else if (s.range === 'yesterday') { from = this.addDays(t0, -1); to = t0; }
+    else if (s.range === '7d') { from = this.addDays(t0, -6); to = tomorrow; }
+    else if (s.range === '30d') { from = this.addDays(t0, -29); to = tomorrow; }
+    else if (s.range === '90d') { from = this.addDays(t0, -89); to = tomorrow; }
+    else {
+      from = this.dayStart(new Date(s.cFrom + 'T00:00:00'));
+      to = this.addDays(this.dayStart(new Date(s.cTo + 'T00:00:00')), 1);
+      if (!(to > from)) to = this.addDays(from, 1);
+    }
+    const span = to - from;
+    return { from, to, prevFrom: new Date(from - span), span };
+  }
+
+  async rpc(code, from, to) {
+    const res = await fetch(this.URL, {
+      method: 'POST',
+      headers: { apikey: this.KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_code: code, p_from: from.toISOString(), p_to: to.toISOString() })
+    });
+    let j = null;
+    try { j = await res.json(); } catch (e) {}
+    if (res.ok) return { ok: true, data: j };
+    const msg = (j && (j.message || j.hint)) || ('HTTP ' + res.status);
+    if (/denied/i.test(msg)) return { ok: false, kind: 'denied' };
+    if (res.status === 404 || /Could not find the function|does not exist/i.test(msg)) return { ok: false, kind: 'missing' };
+    return { ok: false, kind: 'error', msg: msg };
+  }
+
+  unlock = async () => {
+    const pin = this.state.pin.trim();
+    if (pin.length !== 4) return this.setState({ pinError: 'Enter the 4-digit code.' });
+    this.setState({ checking: true, pinError: '' });
+    const b = this.bounds();
+    let r;
+    try { r = await this.rpc(pin, b.prevFrom, b.to); } catch (e) { r = { ok: false, kind: 'error', msg: 'Network error' }; }
+    if (!r.ok && r.kind === 'denied') return this.setState({ checking: false, pinError: 'Wrong code.', pin: '' });
+    try { sessionStorage.setItem('fp_admin_code', pin); localStorage.setItem('fp_notrack', '1'); } catch (e) {}
+    this.setState({ checking: false, locked: false, code: pin, pin: '' });
+    this.applyResult(r);
+  };
+
+  applyResult(r) {
+    if (r.ok) return this.setState({ data: r.data, demo: false, notice: '', canDemo: false, last: new Date() });
+    if (r.kind === 'missing') return this.setState({ data: null, notice: 'Analytics tables are not set up yet — run supabase/migration-003-analytics.sql in Supabase (SQL Editor → Run), then refresh.', canDemo: true, last: new Date() });
+    this.setState({ notice: 'Could not load data: ' + (r.msg || 'unknown error'), canDemo: true, last: new Date() });
+  }
+
+  load = async (quiet) => {
+    if (this.state.demo) return this.setState({ data: this.demoData(), last: new Date() });
+    const b = this.bounds();
+    let r;
+    try { r = await this.rpc(this.state.code, b.prevFrom, b.to); } catch (e) { r = { ok: false, kind: 'error', msg: 'Network error' }; }
+    if (!r.ok && r.kind === 'denied') { try { sessionStorage.removeItem('fp_admin_code'); } catch (e) {} return this.setState({ locked: true, code: '', pinError: 'Please enter the code again.' }); }
+    this.applyResult(r);
+  };
+
+  demoData() {
+    const b = this.bounds(), now = Date.now(), sessions = [], actions = [], pages = [], signups = [];
+    const srcs = ['facebook', 'facebook', 'facebook', 'instagram', 'google', 'direct', 'direct', 'chatgpt.com'];
+    const camps = ['fall-lawn-us', 'fall-lawn-us', 'retargeting', null, null];
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const total = Math.round((b.to - b.prevFrom) / 3600e3 * 2.4);
+    for (let i = 0; i < total; i++) {
+      const t0 = b.prevFrom.getTime() + rnd() * (b.to - b.prevFrom);
+      if (t0 > now) continue;
+      const h = new Date(t0).getHours(); if ((h < 6 || h > 22) && rnd() < 0.7) continue;
+      const dur = rnd() < 0.42 ? rnd() * 8 : 20 + rnd() * 260;
+      const pv = dur < 10 ? 1 : 1 + Math.floor(rnd() * 3);
+      const s = 's' + i, src = srcs[Math.floor(rnd() * srcs.length)];
+      sessions.push({ s: s, v: 'v' + Math.floor(i * 0.82), t0: new Date(t0).toISOString(), t1: new Date(t0 + dur * 1000).toISOString(), pv: pv, src: src, camp: /face|insta/.test(src) ? camps[Math.floor(rnd() * camps.length)] : null, dev: rnd() < 0.79 ? 'mobile' : 'desktop', lp: 'landing' });
+      pages.push({ t: new Date(t0).toISOString(), p: 'landing', s: s });
+      if (pv > 1 && rnd() < 0.38) { actions.push({ t: new Date(t0 + 15000).toISOString(), k: 'try_click', s: s }); pages.push({ t: new Date(t0 + 16000).toISOString(), p: 'signup', s: s }); }
+    }
+    const names = [['Mike', 'Halloran', 'Halloran Lawn & Garden', 'team'], ['Rick', 'Delgado', 'Delgado Landscaping', 'plus'], ['Dave', 'Morrison', 'GreenEdge Lawn Co', 'solo_free'], ['Tom', 'Becker', 'Becker Yard Care', 'solo_free'], ['Chris', 'Nolan', 'Nolan Outdoor', 'business']];
+    names.forEach((n, i) => signups.push({ id: 'd' + i, company: n[2], team_size: ['solo', 'crew', 'biz'][i % 3], plan: n[3], created_at: new Date(now - i * 9 * 3600e3).toISOString(), email: n[0].toLowerCase() + '@' + n[2].split(' ')[0].toLowerCase() + '.com', first_name: n[0], last_name: n[1], phone: '+1 704 555 01' + (40 + i), heard: ['Facebook', 'Google', 'Instagram', 'A friend', 'Facebook'][i], last_sign_in_at: new Date(now - i * 3600e3).toISOString(), n_customers: 3 - (i % 3), n_visits: 12 - i, n_quotes: i % 3, n_invoices: i % 2, customers: [{ name: 'Smith Residence', address: '92 Maple Ct', city: 'Charlotte', service: 'Lawn mowing', frequency: 'weekly', price: 65 }, { name: 'Villa Johnson', address: '18 Oak Ridge Rd', city: 'Charlotte', service: 'Full maintenance', frequency: 'biweekly', price: 95 }].slice(0, 3 - (i % 3)) }));
+    return { sessions, actions, pages, signups, live: 3 };
+  }
+
+  fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
+  fmtDur(sec) { if (!isFinite(sec) || sec <= 0) return '0s'; const m = Math.floor(sec / 60), s = Math.round(sec % 60); return m ? m + 'm ' + s + 's' : s + 's'; }
+  fmtPct(x) { return isFinite(x) ? (x * 100).toFixed(x < 0.1 && x > 0 ? 1 : 0) + '%' : '0%'; }
+  short(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+
+  compute() {
+    const s = this.state, d = s.data || { sessions: [], actions: [], pages: [], signups: [], live: 0 };
+    const b = this.bounds(), from = +b.from, to = +b.to, pf = +b.prevFrom, now = Date.now();
+    const inCur = t => t >= from && t < to, inPrev = t => t >= pf && t < from;
+    const S = (d.sessions || []).map(x => ({ ...x, a: Date.parse(x.t0), z: Date.parse(x.t1) }));
+    const cur = S.filter(x => inCur(x.a)), prev = S.filter(x => inPrev(x.a));
+    const A = (d.actions || []).map(x => ({ ...x, a: Date.parse(x.t) }));
+    const P = (d.pages || []).map(x => ({ ...x, a: Date.parse(x.t) }));
+    const U = (d.signups || []).map(x => ({ ...x, a: Date.parse(x.created_at) }));
+
+    const agg = (ss, t) => {
+      const vis = new Set(ss.map(x => x.v)).size;
+      const dur = ss.length ? ss.reduce((m, x) => m + Math.max(0, (x.z - x.a) / 1000), 0) / ss.length : 0;
+      const pv = ss.reduce((m, x) => m + (x.pv || 0), 0);
+      const bounce = ss.length ? ss.filter(x => (x.pv || 0) <= 1 && (x.z - x.a) < 10000).length / ss.length : 0;
+      const tries = A.filter(x => t(x.a) && x.k === 'try_click');
+      const trySess = new Set(tries.map(x => x.s)).size;
+      const signupPage = new Set(P.filter(x => t(x.a) && x.p === 'signup').map(x => x.s)).size;
+      const sign = U.filter(x => t(x.a));
+      const paid = sign.filter(x => x.plan && x.plan !== 'solo_free').length;
+      return { vis, sess: ss.length, dur, pps: ss.length ? pv / ss.length : 0, bounce, tries: tries.length, trySess, signupPage, sign: sign.length, paid, conv: vis ? sign.length / vis : 0, tryRate: ss.length ? trySess / ss.length : 0, pv };
+    };
+    const c = agg(cur, inCur), p = agg(prev, inPrev);
+
+    const hourly = b.span <= 26 * 3600e3, step = hourly ? 3600e3 : 86400e3;
+    const n = Math.max(2, Math.min(120, Math.round(b.span / step)));
+    const bucketVals = (key, base, filterT) => {
+      const arr = new Array(n).fill(0);
+      const put = (t, v) => { const i = Math.floor((t - base) / step); if (i >= 0 && i < n) arr[i] += v; };
+      if (key === 'sessions') S.forEach(x => filterT(x.a) && put(x.a, 1));
+      else if (key === 'visitors') { const seen = {}; S.forEach(x => { if (!filterT(x.a)) return; const i = Math.floor((x.a - base) / step); const k = i + '|' + x.v; if (!seen[k]) { seen[k] = 1; put(x.a, 1); } }); }
+      else if (key === 'tries') A.forEach(x => filterT(x.a) && x.k === 'try_click' && put(x.a, 1));
+      else if (key === 'signups') U.forEach(x => filterT(x.a) && put(x.a, 1));
+      else if (key === 'pageviews') P.forEach(x => filterT(x.a) && put(x.a, 1));
+      return arr;
+    };
+    const cutoff = Math.min(n, Math.ceil((now - from) / step));
+    const series = k => bucketVals(k, from, inCur);
+    const prevSeries = k => bucketVals(k, pf, inPrev);
+    return { b, c, p, cur, U, hourly, step, n, cutoff, series, prevSeries, live: d.live || 0 };
+  }
+
+  path(vals, max, n, upto, area) {
+    const W = 1000, H = 250, top = 10;
+    const pts = vals.slice(0, upto).map((v, i) => [n > 1 ? (i / (n - 1)) * W : 0, H - (max ? v / max : 0) * (H - top)]);
+    if (!pts.length) return '';
+    let d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], mx = (x0 + x1) / 2;
+      d += ' C' + mx.toFixed(1) + ' ' + y0.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + y1.toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1);
+    }
+    if (area) d += ' L' + pts[pts.length - 1][0].toFixed(1) + ' ' + H + ' L0 ' + H + ' Z';
+    return d;
+  }
+  spark(vals, upto) {
+    const v = vals.slice(0, Math.max(2, upto)), max = Math.max(1, ...v);
+    return v.map((y, i) => ((i / Math.max(1, v.length - 1)) * 120).toFixed(1) + ',' + (28 - (y / max) * 24).toFixed(1)).join(' ');
+  }
+  delta(cv, pv, invert) {
+    if (!pv && !cv) return { t: '—', col: '#5C6B62' };
+    if (!pv) return { t: 'new', col: '#166B3A' };
+    const d = (cv - pv) / pv, up = d >= 0, good = invert ? !up : up;
+    return { t: (up ? '↑ ' : '↓ ') + Math.abs(d * 100).toFixed(0) + '%', col: Math.abs(d) < 0.005 ? '#5C6B62' : good ? '#166B3A' : '#C24545' };
+  }
+  normSrc(src) {
+    const x = String(src || 'direct').toLowerCase();
+    if (/facebook|fb\.|^fb$|meta/.test(x)) return 'Facebook';
+    if (/instagram|^ig$/.test(x)) return 'Instagram';
+    if (/google/.test(x)) return 'Google';
+    if (/bing|duckduckgo|yahoo/.test(x)) return 'Other search';
+    if (/chatgpt|openai|perplexity|claude/.test(x)) return 'AI assistants';
+    if (/youtube/.test(x)) return 'YouTube';
+    if (x === 'direct') return 'Direct';
+    return x;
+  }
+  bars(map, total) {
+    const rows = Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 6), max = rows.length ? rows[0][1] : 1;
+    return rows.map(([k, v]) => ({ label: k, value: this.fmtNum(v), pct: this.fmtPct(total ? v / total : 0), w: Math.max(3, (v / max) * 100).toFixed(0) + '%' }));
+  }
+
+  exportCsv = () => {
+    const rows = (this.state.data && this.state.data.signups) || [];
+    const head = ['created_at', 'first_name', 'last_name', 'company', 'email', 'phone', 'team_size', 'plan', 'heard', 'customers', 'visits', 'quotes', 'invoices'];
+    const esc = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+    const csv = [head.join(',')].concat(rows.map(r => [r.created_at, r.first_name, r.last_name, r.company, r.email, r.phone, r.team_size, r.plan, r.heard, r.n_customers, r.n_visits, r.n_quotes, r.n_invoices].map(esc).join(','))).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    a.download = 'field-pilot-accounts-' + this.iso(new Date()) + '.csv';
+    a.click();
+  };
+
+  renderVals() {
+    const s = this.state;
+    const base = {
+      locked: s.locked, unlocked: !s.locked, pin: s.pin, pinError: s.pinError,
+      unlockLabel: s.checking ? 'Checking…' : 'Unlock',
+      setPin: e => { const v = e.target.value.replace(/\D/g, '').slice(0, 4); this.setState({ pin: v, pinError: '' }, () => { if (v.length === 4) this.unlock(); }); },
+      unlock: this.unlock
+    };
+    if (s.locked) return base;
+
+    const k = this.compute(), c = k.c, p = k.p, b = k.b;
+    const labels = { today: 'Today', yesterday: 'Yesterday', '7d': 'Last 7 days', '30d': 'Last 30 days', '90d': 'Last 90 days', custom: 'Custom range' };
+    const prevLabels = { today: 'yesterday', yesterday: 'day before', '7d': 'previous 7 days', '30d': 'previous 30 days', '90d': 'previous 90 days', custom: 'previous period' };
+    const endShown = new Date(+b.to - 1);
+    const rangeDates = k.hourly ? this.short(b.from) : this.short(b.from) + ' → ' + this.short(endShown);
+
+    const metricDefs = {
+      visitors: { label: 'Unique visitors', total: this.fmtNum(c.vis) },
+      sessions: { label: 'Sessions', total: this.fmtNum(c.sess) },
+      tries: { label: 'Try for free clicks', total: this.fmtNum(c.tries) },
+      signups: { label: 'Accounts created', total: this.fmtNum(c.sign) },
+      pageviews: { label: 'Page views', total: this.fmtNum(c.pv) }
+    };
+    const m = metricDefs[s.metric] ? s.metric : 'sessions';
+    const curV = k.series(m), prevV = k.prevSeries(m);
+    const max = Math.max(1, ...curV, ...prevV);
+    const niceMax = max <= 4 ? max : Math.ceil(max / 2) * 2;
+
+    const xl = [];
+    const tickN = k.hourly ? 6 : Math.min(7, k.n);
+    for (let i = 0; i < tickN; i++) {
+      const idx = Math.round((i / (tickN - 1)) * (k.n - 1));
+      const t = new Date(+b.from + idx * k.step);
+      xl.push(k.hourly ? String(t.getHours()).padStart(2, '0') + 'h' : this.short(t));
+    }
+
+    const kp = (label, value, dl, key, sp) => ({
+      label, value, delta: dl.t, dColor: dl.col,
+      spark: this.spark(sp || [0, 0], k.cutoff),
+      border: key && key === m ? '#1F8A4C' : '#E3E8E1', cursor: key ? 'pointer' : 'default',
+      pick: () => key && this.setState({ metric: key })
+    });
+    const durSeries = (() => { const a = new Array(k.n).fill(0), cnt = new Array(k.n).fill(0); k.cur.forEach(x => { const i = Math.floor((x.a - +b.from) / k.step); if (i >= 0 && i < k.n) { a[i] += (x.z - x.a) / 1000; cnt[i]++; } }); return a.map((v, i) => cnt[i] ? v / cnt[i] : 0); })();
+    const kpis = [
+      kp('Unique visitors', this.fmtNum(c.vis), this.delta(c.vis, p.vis), 'visitors', k.series('visitors')),
+      kp('Sessions', this.fmtNum(c.sess), this.delta(c.sess, p.sess), 'sessions', k.series('sessions')),
+      kp('Avg. session duration', this.fmtDur(c.dur), this.delta(c.dur, p.dur), null, durSeries),
+      kp('Try for free clicks', this.fmtNum(c.tries), this.delta(c.tries, p.tries), 'tries', k.series('tries')),
+      kp('Accounts created', this.fmtNum(c.sign), this.delta(c.sign, p.sign), 'signups', k.series('signups')),
+      kp('Conversion rate', this.fmtPct(c.conv), this.delta(c.conv, p.conv), null, k.series('signups')),
+      kp('Page views', this.fmtNum(c.pv), this.delta(c.pv, p.pv), 'pageviews', k.series('pageviews')),
+      kp('Pages / session', c.pps.toFixed(2), this.delta(c.pps, p.pps), null, k.series('pageviews')),
+      kp('Bounce rate', this.fmtPct(c.bounce), this.delta(c.bounce, p.bounce, true), null, null),
+      kp('Click-through to signup', this.fmtPct(c.tryRate), this.delta(c.tryRate, p.tryRate), null, k.series('tries')),
+      kp('New paid subscribers', this.fmtNum(c.paid), this.delta(c.paid, p.paid), null, null),
+      kp('Visitors now', this.fmtNum(k.live), { t: 'last 5 min', col: '#5C6B62' }, null, null)
+    ];
+
+    const top = Math.max(1, c.vis);
+    const fRows = [['Unique visitors', c.vis], ['Clicked “Try for free”', c.trySess], ['Reached the signup form', c.signupPage], ['Created an account', c.sign], ['Became paid', c.paid]];
+    const funnel = fRows.map((r, i) => ({ label: r[0], value: this.fmtNum(r[1]), pct: i === 0 ? '100%' : this.fmtPct(r[1] / top), w: Math.max(2, Math.min(100, (r[1] / top) * 100)).toFixed(0) + '%', bg: i % 2 ? '#F6F7F2' : 'transparent' }));
+
+    const srcMap = {}, campMap = {}; let mob = 0;
+    k.cur.forEach(x => { const n = this.normSrc(x.src); srcMap[n] = (srcMap[n] || 0) + 1; if (x.camp) campMap[x.camp] = (campMap[x.camp] || 0) + 1; if (x.dev === 'mobile') mob++; });
+    const campTotal = Object.values(campMap).reduce((a, v) => a + v, 0);
+    const pageMap = {}; const pageNames = { landing: 'Landing page', signup: 'Signup', login: 'Login', crm: 'CRM (app)', analytics: 'Analytics' };
+    ((s.data && s.data.pages) || []).forEach(x => { const t = Date.parse(x.t); if (t >= +b.from && t < +b.to) { const n = pageNames[x.p] || x.p; pageMap[n] = (pageMap[n] || 0) + 1; } });
+    const mobP = k.cur.length ? mob / k.cur.length : 0;
+
+    const all = k.U;
+    const totalPaid = all.filter(x => x.plan && x.plan !== 'solo_free');
+    const mrr = totalPaid.reduce((a, x) => a + (this.PRICES[x.plan] || 0), 0);
+    const q = s.search.trim().toLowerCase();
+    const list = all.filter(x => (s.scope === 'all' || (x.a >= +b.from && x.a < +b.to)))
+      .filter(x => !q || [x.first_name, x.last_name, x.company, x.email, x.phone].join(' ').toLowerCase().includes(q));
+    const planColor = pl => pl === 'solo_free' || !pl ? { bg: '#EEF2EC', fg: '#5C6B62' } : pl === 'business' ? { bg: '#0E2419', fg: '#fff' } : { bg: '#E8F4DA', fg: '#166B3A' };
+    const teamNames = { solo: 'Just me', crew: '2–5', biz: '6+' };
+    const fmtDT = t => t ? new Date(t).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—';
+    const signups = list.map(x => {
+      const open = s.openId === x.id, pc = planColor(x.plan), cust = x.customers || [];
+      const value = cust.reduce((a, cu) => a + (+cu.price || 0) * ({ weekly: 4.33, biweekly: 2.17, monthly: 1 }[cu.frequency] || 1), 0);
+      return {
+        created: fmtDT(x.created_at), owner: [x.first_name, x.last_name].filter(Boolean).join(' ') || '—', company: x.company || '—',
+        email: x.email || '—', phone: x.phone || '', team: teamNames[x.team_size] || x.team_size || '—',
+        plan: this.PLAN_NAMES[x.plan] || x.plan || 'Solo Free', planBg: pc.bg, planFg: pc.fg, heard: x.heard || '—',
+        nCustomers: this.fmtNum(x.n_customers || 0), nVisits: x.n_visits || 0, nQuotes: x.n_quotes || 0, nInvoices: x.n_invoices || 0,
+        lastLogin: fmtDT(x.last_sign_in_at), value: '$' + this.fmtNum(value), open, chev: open ? '▴' : '▾',
+        toggle: () => this.setState({ openId: open ? null : x.id }),
+        noCustomers: !cust.length,
+        customers: cust.map(cu => ({ name: cu.name || '—', addr: [cu.address, cu.city].filter(Boolean).join(', ') || '—', service: cu.service || '—', freq: (cu.frequency || '—').toUpperCase(), price: cu.price != null ? '$' + (+cu.price).toFixed(0) : '—' }))
+      };
+    });
+    const seg = on => on ? { bg: '#fff', fg: '#0E2419' } : { bg: 'transparent', fg: '#5C6B62' };
+
+    return Object.assign(base, {
+      lastRefresh: s.last ? s.last.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '—',
+      liveLabel: this.fmtNum(k.live) + ' live',
+      refresh: () => this.load(), lock: () => { try { sessionStorage.removeItem('fp_admin_code'); } catch (e) {} this.setState({ locked: true, code: '', data: null, demo: false }); },
+      notice: s.notice, canDemo: s.canDemo,
+      useDemo: () => this.setState({ demo: true, notice: 'Sample data — not your real numbers. Run the SQL migration to see live data.', canDemo: false }, () => this.load()),
+      rangeLabel: labels[s.range], prevLabel: prevLabels[s.range], rangeDates,
+      pickerOpen: s.pickerOpen, pickerBorder: s.pickerOpen ? '#1F8A4C' : '#E3E8E1',
+      togglePicker: () => this.setState({ pickerOpen: !s.pickerOpen }),
+      presets: ['today', 'yesterday', '7d', '30d', '90d'].map(key => ({ label: labels[key], fw: s.range === key ? 700 : 500, bg: s.range === key ? '#EEF2EC' : 'transparent', pick: () => this.setState({ range: key, pickerOpen: false }, () => this.load()) })),
+      cFrom: s.cFrom, cTo: s.cTo, todayISO: this.iso(new Date()),
+      setCFrom: e => this.setState({ cFrom: e.target.value }), setCTo: e => this.setState({ cTo: e.target.value }),
+      applyCustom: () => { if (!s.cFrom || !s.cTo) return; const a = s.cFrom <= s.cTo ? [s.cFrom, s.cTo] : [s.cTo, s.cFrom]; this.setState({ range: 'custom', cFrom: a[0], cTo: a[1], pickerOpen: false }, () => this.load()); },
+      kpis,
+      chartTitle: metricDefs[m].label + ' over time', chartTotal: metricDefs[m].total,
+      metricTabs: ['sessions', 'visitors', 'tries', 'signups'].map(key => ({ label: { sessions: 'Sessions', visitors: 'Visitors', tries: 'Try clicks', signups: 'Accounts' }[key], bg: key === m ? '#fff' : 'transparent', fg: key === m ? '#0E2419' : '#5C6B62', pick: () => this.setState({ metric: key }) })),
+      linePath: this.path(curV, niceMax, k.n, Math.max(1, k.cutoff), false),
+      areaPath: this.path(curV, niceMax, k.n, Math.max(1, k.cutoff), true),
+      prevPath: this.path(prevV, niceMax, k.n, k.n, false),
+      yMax: this.fmtNum(niceMax), yMid: niceMax >= 2 ? this.fmtNum(niceMax / 2) : '',
+      xLabels: xl,
+      funnel,
+      paidTotal: this.fmtNum(totalPaid.length), mrr: '$' + this.fmtNum(mrr), accountsTotal: this.fmtNum(all.length),
+      sources: this.bars(srcMap, k.cur.length), noSources: !k.cur.length,
+      campaigns: this.bars(campMap, campTotal), noCampaigns: !campTotal,
+      pages: Object.entries(pageMap).sort((a, b2) => b2[1] - a[1]).map(([label, v]) => ({ label, value: this.fmtNum(v) })),
+      mobilePct: this.fmtPct(mobP), desktopPct: this.fmtPct(k.cur.length ? 1 - mobP : 0),
+      signups, noSignups: !signups.length,
+      signupsMeta: signups.length + (s.scope === 'all' ? ' accounts · all time' : ' accounts · ' + labels[s.range].toLowerCase()) + ' · click a row for details',
+      scopeR: seg(s.scope === 'range'), scopeA: seg(s.scope === 'all'),
+      scopeRange: () => this.setState({ scope: 'range' }), scopeAll: () => this.setState({ scope: 'all' }),
+      search: s.search, setSearch: e => this.setState({ search: e.target.value }),
+      exportCsv: this.exportCsv
+    });
+  }
+}
+</script>
+</body>
+</html>
