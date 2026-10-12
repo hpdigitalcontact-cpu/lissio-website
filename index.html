@@ -81,7 +81,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   html { scroll-behavior: smooth; }
   @keyframes phoneScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+  /* Wide screens: keep content in a centred 1280px column, like the rest of the studio */
+  @media (min-width: 1440px) {
+    .lp-root .lp-nav, .lp-root .lp-hero, .lp-root .lp-banner, .lp-root .lp-logos, .lp-root .lp-sec, .lp-root .lp-stats {
+      padding-left: calc((100% - 1280px) / 2) !important; padding-right: calc((100% - 1280px) / 2) !important;
+    }
+    .lp-root .lp-gallery { margin-left: -64px !important; margin-right: -64px !important; }
+  }
+  /* Tablet */
+  @media (max-width: 960px) {
+    .lp-root .lp-hero { grid-template-columns: 1fr !important; }
+    .lp-root .lp-hero-img { height: 420px !important; }
+    .lp-root .lp-mvp-grid { grid-template-columns: 1fr !important; }
+    .lp-root .lp-contact-mini { flex-direction: column !important; align-items: stretch !important; }
+    .lp-root .lp-contact-mini-title { flex: none !important; text-align: center !important; }
+  }
   @media (max-width: 680px) {
+    .lp-root .lp-gallery { margin-left: -20px !important; margin-right: -20px !important; }
+    .lp-root .lp-gallery > div { padding-left: 20px !important; padding-right: 20px !important; }
+    .lp-root .lp-hero-badge { left: 12px !important; bottom: 12px !important; padding: 12px 16px !important; }
+    .lp-root .lp-hero-badge div:last-child { font-size: 20px !important; }
     .lp-root h1 { font-size: 30px !important; line-height: 1.18 !important; }
     .lp-root h2 { font-size: 23px !important; line-height: 1.22 !important; }
     .lp-root h3 { font-size: 16px !important; line-height: 1.3 !important; }
@@ -94,7 +113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .lp-tabbtn { font-size: 10.5px !important; padding: 11px 6px !important; letter-spacing: 0.01em !important; white-space: nowrap !important; }
     .lp-nav-cta { padding: 9px 14px !important; font-size: 12px !important; }
     .lp-hero { padding-top: 20px !important; padding-bottom: 24px !important; gap: 24px !important; }
-    .lp-hero-img { height: 300px !important; }
+    .lp-root .lp-hero-img { height: 300px !important; }
     .lp-hero-chip { font-size: 11px !important; padding: 6px 12px !important; margin-bottom: 16px !important; }
     .lp-hero p { font-size: 16px !important; margin-top: 12px !important; }
     .lp-cta-row { margin-top: 20px !important; }
@@ -147,7 +166,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- Hero -->
-    <div class="lp-hero" style="padding:clamp(40px,8vw,80px) clamp(16px,5vw,64px) clamp(36px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
+    <div class="lp-hero" style="padding:clamp(40px,8vw,80px) clamp(16px,5vw,64px) clamp(36px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
       <div>
         <div class="lp-hero-chip" style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; background:#F7E4D8; border:1px solid #E7BFA9; border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#BE4E2C; margin-bottom:28px;"><span style="width:7px; height:7px; border-radius:50%; background:#BE4E2C; display:inline-block;"></span>The only studio that shows you your app first</div>
         <h1 style="font-family:'Newsreader',serif; font-weight:400; font-size:{{ heroTitleSize }}; line-height:1.1; letter-spacing:-0.02em; margin:0;">See your app on your phone — <span style="font-style:italic; color:#BE4E2C;">before you spend a cent.</span></h1>
@@ -158,7 +177,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="lp-chips" style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">100% in-house team</span>
-          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Projects from $2,900</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Projects from $1,700</span>
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Fair &amp; transparent pricing</span>
         </div>
         <div class="lp-social" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
@@ -178,7 +197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="position:relative;">
         <div style="position:absolute; inset:8% 12%; background:radial-gradient(circle at 50% 40%, #E9B79F, transparent 70%); filter:blur(30px);"></div>
         <div class="lp-hero-img" style="position:relative; height:{{ heroImgHeight }}; border-radius:24px; background:#E4D8C6 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260724_162505_b6f3215e-ddd6-4802-82f5-357c61a3acc8.png') center/cover no-repeat;"></div>
-        <div style="position:absolute; left:-18px; bottom:36px; background:#F4ECE0; border:1px solid rgba(33,27,21,0.12); border-radius:14px; padding:16px 20px; box-shadow:0 16px 40px -18px rgba(60,40,20,0.45);"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8C7F70;">Your preview</div><div style="font-family:'Newsreader',serif; font-size:26px; color:#BE4E2C;">Free · Within 7 days</div></div>
+        <div class="lp-hero-badge" style="position:absolute; left:-18px; bottom:36px; background:#F4ECE0; border:1px solid rgba(33,27,21,0.12); border-radius:14px; padding:16px 20px; box-shadow:0 16px 40px -18px rgba(60,40,20,0.45);"><div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8C7F70;">Your preview</div><div style="font-family:'Newsreader',serif; font-size:26px; color:#BE4E2C;">Free · Within 7 days</div></div>
       </div>
     </div>
 
@@ -203,7 +222,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,48px); line-height:1.1; margin:0; letter-spacing:-0.01em;">From idea to a real app in your hand — for free.</h2>
         <p style="font-size:18px; line-height:1.55; color:#4A4239; margin:20px 0 0;">Most agencies sell you slides and quotes. We build first, then let you decide with the real thing.</p>
       </div>
-      <div style="display:grid; grid-template-columns:{{ mvpCols }}; gap:2px; background:rgba(33,27,21,0.1); border:1px solid rgba(33,27,21,0.1); border-radius:18px; overflow:hidden;">
+      <div class="lp-mvp-grid" style="display:grid; grid-template-columns:{{ mvpCols }}; gap:2px; background:rgba(33,27,21,0.1); border:1px solid rgba(33,27,21,0.1); border-radius:18px; overflow:hidden;">
         <div style="background:#F4ECE0; padding:clamp(24px,5vw,40px); display:flex; align-items:flex-start; gap:18px;"><div style="font-family:'Newsreader',serif; font-size:32px; color:#BE4E2C; flex-shrink:0;">01</div><div><h3 style="font-size:20px; margin:0 0 8px; font-weight:600;">Tell us the idea</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">A single 30-minute call. No brief, no deck required — just talk us through what you want to build.</p></div></div>
         <div style="background:#F4ECE0; padding:clamp(24px,5vw,40px); display:flex; align-items:flex-start; gap:18px;"><div style="font-family:'Newsreader',serif; font-size:32px; color:#BE4E2C; flex-shrink:0;">02</div><div><h3 style="font-size:20px; margin:0 0 8px; font-weight:600;">We build the MVP</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Within a week our team designs and builds a real, tappable version of your core idea — not a mockup.</p></div></div>
         <div style="background:#F4ECE0; padding:clamp(24px,5vw,40px); display:flex; align-items:flex-start; gap:18px;"><div style="font-family:'Newsreader',serif; font-size:32px; color:#BE4E2C; flex-shrink:0;">03</div><div><h3 style="font-size:20px; margin:0 0 8px; font-weight:600;">Try it on your phone</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">We install it on your own device. You hold it, tap through it, share it — free. Then decide if we build the rest.</p></div></div>
@@ -231,7 +250,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Fair pricing / in-house -->
     <div id="studio" class="lp-sec lp-pricing" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1);">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,5vw,56px); align-items:center; margin-bottom:clamp(28px,5vw,52px);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:clamp(24px,5vw,56px); align-items:center; margin-bottom:clamp(28px,5vw,52px);">
         <div class="lp-img-pricing" style="height:{{ pricingImgHeight }}; border-radius:20px; overflow:hidden;"><img src="assets/office-team.png" alt="The Lissio team at work in our studio" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#BE4E2C; margin-bottom:16px;">Fair pricing · Real team</div>
@@ -246,8 +265,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <!-- Selected work -->
-<div class="lp-sec lp-contact-mini" style="box-sizing:border-box; width:100%; padding:clamp(24px,4vw,36px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1); display:flex; align-items:center; gap:48px; max-width:1280px; margin:0 auto;">
+    <!-- Mini contact form -->
+    <div class="lp-sec lp-contact-mini" style="box-sizing:border-box; width:100%; padding:clamp(28px,4vw,44px) clamp(16px,5vw,64px); border-bottom:1px solid rgba(33,27,21,0.1); display:flex; align-items:center; gap:clamp(24px,4vw,48px);">
         <h2 class="lp-contact-mini-title" style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(22px,2.6vw,30px); margin:0; letter-spacing:-0.01em; flex:0 0 280px; min-width:0;">Tell us about your project</h2>
         <form action="https://formspree.io/f/maqraypg" method="POST" class="lp-contact-mini-form" style="flex:1; min-width:0; box-sizing:border-box; background:#F4ECE0; border:1px solid rgba(33,27,21,0.1); border-radius:14px; padding:clamp(16px,2.4vw,24px); display:flex; flex-direction:column; gap:12px;">
           <div class="lp-contact-mini-row" style="display:flex; gap:10px; min-width:0;">
@@ -260,7 +279,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <button type="submit" style="flex:0 0 auto; font-size:14px; padding:14px 28px; background:#BE4E2C; color:#F4ECE0; border:none; border-radius:100px; cursor:pointer; font-family:'Space Grotesk',sans-serif; white-space:nowrap;">Send message</button>
           </div>
         </form>
-        </form>
       </div>
 
     <div id="work" class="lp-sec lp-work" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
@@ -269,8 +287,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="https://calendly.com/llissiostudio/30min" target="_blank" rel="noopener" style="font-size:14px; color:#BE4E2C; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em;">See full projects on a call →</a>
       </div>
       <p style="font-size:13px; color:#8C7F70; margin:-28px 0 44px;">* Most projects shown here are under NDA — full case studies can be walked through on your discovery call.</p>
-      <div style="margin:0 -64px; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);">
-        <div style="display:flex; gap:26px; width:max-content; padding:26px 64px; align-items:center; animation:phoneScroll 85s linear infinite;" style-hover="animation-play-state:paused;">
+      <div class="lp-gallery" style="margin:0 calc(-1 * clamp(16px,5vw,64px)); overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);">
+        <div style="display:flex; gap:26px; width:max-content; padding:26px clamp(16px,5vw,64px); align-items:center; animation:phoneScroll 85s linear infinite;" style-hover="animation-play-state:paused;">
 
           
           
@@ -316,40 +334,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div style="display:flex; gap:10px; padding:10px; border-radius:12px; background:#1c1c19;"><div style="width:4px; border-radius:2px; background:#67635b;"></div><div><div style="font-size:11px; font-weight:600;">18:30 Mobility</div><div style="font-size:9px; color:#9C9691; margin-top:2px;">Coach Rui · Full</div></div></div>
               </div>
             </div></div>
-          </div>
-
-          <!-- PROJECT 3 · Loop — team collaboration SaaS -->
-          <div style="flex:0 0 560px; position:relative; padding-bottom:44px;">
-            <div style="border-radius:14px; overflow:hidden; box-shadow:0 30px 60px -24px rgba(0,0,0,0.35); background:#fff; font-family:'Manrope',sans-serif;">
-              <div style="height:34px; background:#F2F1F8; display:flex; align-items:center; padding:0 14px; gap:6px; border-bottom:1px solid #E4E2F0;"><i style="width:9px; height:9px; border-radius:50%; background:#e05c4c; display:block;"></i><i style="width:9px; height:9px; border-radius:50%; background:#e0b64c; display:block;"></i><i style="width:9px; height:9px; border-radius:50%; background:#4ca86e; display:block;"></i><span style="margin-left:10px; font-size:10px; color:#8a86a3; background:#fff; padding:3px 12px; border-radius:6px; border:1px solid #E4E2F0;">loop.app/atlas/sprint-24</span></div>
-              <div style="display:flex; height:420px;">
-                <div style="width:180px; background:#F7F6FC; border-right:1px solid #E9E7F5; padding:18px 14px;">
-                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;"><span style="width:20px; height:20px; border-radius:6px; background:#5B4FE8; display:inline-block;"></span><span style="font-size:13px; font-weight:800; color:#211E38;">Loop</span></div>
-                  <div style="font-size:10px; font-weight:700; color:#9490B0; margin-bottom:8px;">WORKSPACE</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0;">◆ Atlas redesign</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0; background:#EAE8F9; border-radius:6px; padding-left:8px;">◆ Sprint 24</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0;">◆ Marketing site</div>
-                  <div style="font-size:10px; font-weight:700; color:#9490B0; margin:14px 0 8px;">TEAM</div>
-                  <div style="display:flex; gap:-4px;"><span style="width:20px; height:20px; border-radius:50%; background:#C7C2F0; margin-right:-6px; border:2px solid #F7F6FC;"></span><span style="width:20px; height:20px; border-radius:50%; background:#F0C2C2; margin-right:-6px; border:2px solid #F7F6FC;"></span><span style="width:20px; height:20px; border-radius:50%; background:#C2E0F0; border:2px solid #F7F6FC;"></span></div>
-                </div>
-                <div style="flex:1; padding:18px 20px; background:#fff;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;"><span style="font-size:14px; font-weight:800; color:#211E38;">Sprint 24</span><span style="font-size:10px; color:#5B4FE8; font-weight:700; background:#EAE8F9; padding:5px 10px; border-radius:6px;">+ New task</span></div>
-                  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">TODO · 4</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; margin-bottom:8px; font-size:10px; color:#211E38;">Redesign empty states<div style="margin-top:6px; width:16px; height:16px; border-radius:50%; background:#F0C2C2;"></div></div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; font-size:10px; color:#211E38;">API rate limiting</div></div>
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">IN PROGRESS · 2</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; margin-bottom:8px; font-size:10px; color:#211E38; border-left:2px solid #5B4FE8;">Billing migration<div style="margin-top:6px; width:16px; height:16px; border-radius:50%; background:#C2E0F0;"></div></div></div>
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">DONE · 7</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; font-size:10px; color:#9490B0; text-decoration:line-through;">Onboarding v2</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div style="position:absolute; right:36px; bottom:-30px; width:210px; background:#fff; border-radius:14px; box-shadow:0 20px 40px -14px rgba(30,20,80,0.25); padding:12px 14px; font-family:'Manrope',sans-serif;">
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:18px; height:18px; border-radius:50%; background:#C7C2F0;"></span><span style="font-size:10px; font-weight:700; color:#211E38;">Priya</span><span style="font-size:9px; color:#9490B0; margin-left:auto;">2m</span></div>
-              <div style="font-size:11px; color:#4B4770;">shipped the billing migration to staging 🎉</div>
-            </div>
           </div>
 
           <!-- PROJECT 3 · Nook — messaging & community app -->
@@ -518,40 +502,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div></div>
           </div>
 
-          <!-- PROJECT 3 · Loop — team collaboration SaaS -->
-          <div aria-hidden="true" style="flex:0 0 560px; position:relative; padding-bottom:44px;">
-            <div style="border-radius:14px; overflow:hidden; box-shadow:0 30px 60px -24px rgba(0,0,0,0.35); background:#fff; font-family:'Manrope',sans-serif;">
-              <div style="height:34px; background:#F2F1F8; display:flex; align-items:center; padding:0 14px; gap:6px; border-bottom:1px solid #E4E2F0;"><i style="width:9px; height:9px; border-radius:50%; background:#e05c4c; display:block;"></i><i style="width:9px; height:9px; border-radius:50%; background:#e0b64c; display:block;"></i><i style="width:9px; height:9px; border-radius:50%; background:#4ca86e; display:block;"></i><span style="margin-left:10px; font-size:10px; color:#8a86a3; background:#fff; padding:3px 12px; border-radius:6px; border:1px solid #E4E2F0;">loop.app/atlas/sprint-24</span></div>
-              <div style="display:flex; height:420px;">
-                <div style="width:180px; background:#F7F6FC; border-right:1px solid #E9E7F5; padding:18px 14px;">
-                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;"><span style="width:20px; height:20px; border-radius:6px; background:#5B4FE8; display:inline-block;"></span><span style="font-size:13px; font-weight:800; color:#211E38;">Loop</span></div>
-                  <div style="font-size:10px; font-weight:700; color:#9490B0; margin-bottom:8px;">WORKSPACE</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0;">◆ Atlas redesign</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0; background:#EAE8F9; border-radius:6px; padding-left:8px;">◆ Sprint 24</div>
-                  <div style="font-size:11px; color:#4B4770; padding:6px 0;">◆ Marketing site</div>
-                  <div style="font-size:10px; font-weight:700; color:#9490B0; margin:14px 0 8px;">TEAM</div>
-                  <div style="display:flex; gap:-4px;"><span style="width:20px; height:20px; border-radius:50%; background:#C7C2F0; margin-right:-6px; border:2px solid #F7F6FC;"></span><span style="width:20px; height:20px; border-radius:50%; background:#F0C2C2; margin-right:-6px; border:2px solid #F7F6FC;"></span><span style="width:20px; height:20px; border-radius:50%; background:#C2E0F0; border:2px solid #F7F6FC;"></span></div>
-                </div>
-                <div style="flex:1; padding:18px 20px; background:#fff;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;"><span style="font-size:14px; font-weight:800; color:#211E38;">Sprint 24</span><span style="font-size:10px; color:#5B4FE8; font-weight:700; background:#EAE8F9; padding:5px 10px; border-radius:6px;">+ New task</span></div>
-                  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">TODO · 4</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; margin-bottom:8px; font-size:10px; color:#211E38;">Redesign empty states<div style="margin-top:6px; width:16px; height:16px; border-radius:50%; background:#F0C2C2;"></div></div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; font-size:10px; color:#211E38;">API rate limiting</div></div>
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">IN PROGRESS · 2</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; margin-bottom:8px; font-size:10px; color:#211E38; border-left:2px solid #5B4FE8;">Billing migration<div style="margin-top:6px; width:16px; height:16px; border-radius:50%; background:#C2E0F0;"></div></div></div>
-                    <div><div style="font-size:9px; font-weight:700; color:#9490B0; margin-bottom:8px;">DONE · 7</div>
-                      <div style="background:#F7F6FC; border-radius:8px; padding:10px; font-size:10px; color:#9490B0; text-decoration:line-through;">Onboarding v2</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div style="position:absolute; right:36px; bottom:-30px; width:210px; background:#fff; border-radius:14px; box-shadow:0 20px 40px -14px rgba(30,20,80,0.25); padding:12px 14px; font-family:'Manrope',sans-serif;">
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:18px; height:18px; border-radius:50%; background:#C7C2F0;"></span><span style="font-size:10px; font-weight:700; color:#211E38;">Priya</span><span style="font-size:9px; color:#9490B0; margin-left:auto;">2m</span></div>
-              <div style="font-size:11px; color:#4B4770;">shipped the billing migration to staging 🎉</div>
-            </div>
-          </div>
-
           <!-- PROJECT 3 · Nook — messaging & community app -->
           <div aria-hidden="true" style="flex:0 0 auto; display:flex; gap:14px; align-items:center;">
             <div style="width:230px; background:#111; border-radius:38px; padding:9px; box-shadow:0 30px 60px -24px rgba(0,0,0,0.4);"><div style="border-radius:30px; overflow:hidden; height:486px; background:#fff; display:flex; flex-direction:column; font-family:'Manrope',sans-serif;">
@@ -682,13 +632,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#E9B79F; margin-bottom:16px;">A partnership, not a delivery</div>
         <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,46px); line-height:1.1; margin:0; letter-spacing:-0.01em;">We don't ship an app and leave. We stay.</h2>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
         <div class="lp-img-partner" style="height:{{ partnerImgHeight }}; border-radius:20px; background:#3a2f24 url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175813_c41e1b4b-17d1-4245-9242-bb90a00af371.png') center/cover no-repeat;"></div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#E9B79F; margin-bottom:12px;">Client for 2 years</div>
           <h3 style="font-family:'Newsreader',serif; font-size:30px; font-weight:500; margin:0 0 16px;">Lumen — Sleep &amp; recovery</h3>
           <p style="font-size:16px; line-height:1.6; color:#D8CDBE; margin:0 0 28px;">We started with a free MVP preview. Two years on, we've shipped 18 releases together, grown the team's roadmap, and kept iterating on retention and performance — as one product team, not a vendor.</p>
-          <div style="display:flex; gap:36px; margin-bottom:32px;">
+          <div style="display:flex; flex-wrap:wrap; gap:clamp(20px,4vw,36px); margin-bottom:32px;">
             <div><div style="font-family:'Newsreader',serif; font-size:38px; color:#F4ECE0;">2×</div><div style="font-size:13px; color:#A99C8B;">Retention</div></div>
             <div><div style="font-family:'Newsreader',serif; font-size:38px; color:#F4ECE0;">18</div><div style="font-size:13px; color:#A99C8B;">Releases shipped</div></div>
             <div><div style="font-family:'Newsreader',serif; font-size:38px; color:#F4ECE0;">4.9</div><div style="font-size:13px; color:#A99C8B;">App Store rating</div></div>
@@ -733,7 +683,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Testimonials -->
     <div class="lp-sec lp-testi-wrap" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px);">
-      <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:44px; margin:0 0 44px; letter-spacing:-0.01em; text-align:center;">Founders who held their app first.</h2>
+      <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(26px,4vw,44px); line-height:1.1; margin:0 0 44px; letter-spacing:-0.01em; text-align:center;">Founders who held their app first.</h2>
       <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px; {{ scrollOverride }}">
         <div style="background:#EFE6D8; border-radius:16px; padding:32px;"><p style="font-size:16px; line-height:1.6; color:#211B15; margin:0 0 24px;">"I'd been quoted €40k by three agencies for a spec I couldn't picture. Lissio just handed me the app. That changed everything."</p><div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; background:#ccc center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175732_a61946df-3f18-4c05-9e8c-f2a2dece83d4.png');"></div><div><div style="font-size:15px; font-weight:600;">Camille Reyes</div><div style="font-size:13px; color:#8C7F70;">Founder, Norra</div></div></div></div>
         <div style="background:#EFE6D8; border-radius:16px; padding:32px;"><p style="font-size:16px; line-height:1.6; color:#211B15; margin:0 0 24px;">"The preview took six days. Six. My co-founder and I were tapping through our own product before we'd signed anything."</p><div style="display:flex; align-items:center; gap:12px;"><div style="width:44px; height:44px; border-radius:50%; background:#ccc center/cover no-repeat url('https://d8j0ntlcm91z4.cloudfront.net/user_34dR31Z7Keh1zAoATA5DboRHTKM/hf_20260707_175734_52c7d817-5826-4235-af20-3009bb33c2d4.png');"></div><div><div style="font-size:15px; font-weight:600;">Tom Vasseur</div><div style="font-size:13px; color:#8C7F70;">CEO, Overpass</div></div></div></div>
@@ -745,7 +695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="faq" class="lp-sec lp-faq" style="padding:clamp(48px,8vw,88px) clamp(16px,5vw,64px); background:#EFE6D8;">
       <div class="lp-faq-grid" style="display:grid; grid-template-columns:{{ faqCols }}; gap:clamp(24px,5vw,56px); align-items:start;">
         <div>
-          <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:44px; margin:0 0 20px; letter-spacing:-0.01em;">Questions?</h2>
+          <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(26px,4vw,44px); line-height:1.1; margin:0 0 20px; letter-spacing:-0.01em;">Questions?</h2>
           <p style="font-size:16px; line-height:1.6; color:#4A4239; margin:0 0 24px;">Everything you need to know about the free preview and working with us.</p>
           <a href="https://calendly.com/llissiostudio/30min" target="_blank" rel="noopener" style="font-size:15px; padding:15px 26px; background:#211B15; color:#F4ECE0; border-radius:100px; display:inline-block;">Book a call</a>
         </div>
@@ -766,7 +716,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div style="max-width:760px; margin:44px auto 0; background:#F4ECE0; border-radius:20px; overflow:hidden; box-shadow:0 30px 80px -30px rgba(0,0,0,0.5); text-align:left;">
         <div style="display:flex; padding:10px; gap:6px; background:#EFE6D8;">
-          <button onClick="{{ setTabCall }}" class="lp-tabbtn" style="flex:1; border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; paddingg:13px 16px; border-radius:12px; background:{{ tabCallBg }}; color:{{ tabCallColor }};">📅 Book a call</button>
+          <button onClick="{{ setTabCall }}" class="lp-tabbtn" style="flex:1; border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; padding:13px 16px; border-radius:12px; background:{{ tabCallBg }}; color:{{ tabCallColor }};">📅 Book a call</button>
           <button onClick="{{ setTabEmail }}" class="lp-tabbtn" style="flex:1; border:none; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; padding:13px 16px; border-radius:12px; background:{{ tabEmailBg }}; color:{{ tabEmailColor }};">✉ Send a message</button>
         </div>
 
