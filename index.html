@@ -97,6 +97,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .lp-root .lp-contact-mini-title { flex: none !important; text-align: center !important; }
   }
   @media (max-width: 680px) {
+    .lp-root .lp-hero-text { text-align: center !important; display: flex !important; flex-direction: column !important; align-items: center !important; }
+    .lp-root .lp-hero-text h1 { font-size: 34px !important; line-height: 1.12 !important; }
+    .lp-root .lp-hero-text p { margin-left: auto !important; margin-right: auto !important; }
+    .lp-root .lp-hero-chip { font-size: 10px !important; letter-spacing: 0.04em !important; line-height: 1.4 !important; text-align: left !important; }
+    .lp-root .lp-cta-row { flex-direction: column !important; width: 100% !important; gap: 10px !important; }
+    .lp-root .lp-cta-row a { width: 100% !important; justify-content: center !important; padding: 16px 20px !important; font-size: 15px !important; }
+    .lp-root .lp-chips { justify-content: center !important; }
+    .lp-root .lp-chip-extra { display: none !important; }
+    .lp-root .lp-social { flex-direction: column !important; align-items: center !important; gap: 10px !important; }
+    .lp-root .lp-social > div:last-child { text-align: center !important; }
+    .lp-root .lp-ig { justify-content: center !important; }
+    .lp-root .lp-contact-mini-row2 { flex-direction: column !important; align-items: stretch !important; }
+    .lp-root .lp-contact-mini-row2 textarea { min-height: 110px !important; }
+    .lp-root .lp-contact-mini-row2 button { width: 100% !important; }
+    .lp-root .lp-wa { padding: 0 !important; width: 56px !important; height: 56px !important; justify-content: center !important; right: 16px !important; bottom: 16px !important; border-radius: 50% !important; }
+    .lp-root .lp-wa-label { display: none !important; }
     .lp-root .lp-gallery { margin-left: -20px !important; margin-right: -20px !important; }
     .lp-root .lp-gallery > div { padding-left: 20px !important; padding-right: 20px !important; }
     .lp-root .lp-hero-badge { left: 12px !important; bottom: 12px !important; padding: 12px 16px !important; }
@@ -167,18 +183,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Hero -->
     <div class="lp-hero" style="padding:clamp(40px,8vw,80px) clamp(16px,5vw,64px) clamp(36px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:clamp(24px,5vw,56px); align-items:center;">
-      <div>
+      <div class="lp-hero-text">
         <div class="lp-hero-chip" style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; background:#F7E4D8; border:1px solid #E7BFA9; border-radius:100px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:#BE4E2C; margin-bottom:28px;"><span style="width:7px; height:7px; border-radius:50%; background:#BE4E2C; display:inline-block;"></span>The only studio that shows you your app first</div>
         <h1 style="font-family:'Newsreader',serif; font-weight:400; font-size:{{ heroTitleSize }}; line-height:1.1; letter-spacing:-0.02em; margin:0;">See your app on your phone — <span style="font-style:italic; color:#BE4E2C;">before you spend a cent.</span></h1>
         <p style="font-size:20px; line-height:1.55; color:#4A4239; max-width:520px; margin:20px 0 0;">We build a real, interactive MVP of your idea and put it straight in your hand. Try it, tap through it, feel it — completely free. Love it? Then we build the rest.</p>
         <div class="lp-cta-row" style="display:flex; gap:14px; margin-top:36px; flex-wrap:{{ ctaWrap }};">
-          <a href="https://calendly.com/llissiostudio/30min" target="_blank" rel="noopener" style="font-size:16px; padding:17px 30px; background:#BE4E2C; color:#F4ECE0; border-radius:100px;">Book a call with us</a>
-          <a href="https://wa.me/33777375418" target="_blank" rel="noopener" style="font-size:16px; padding:17px 30px; border:1px solid #211B15; border-radius:100px; display:inline-flex; align-items:center; gap:8px;">💬 Contact us</a>
+          <a href="https://calendly.com/llissiostudio/30min" target="_blank" rel="noopener" style="font-size:16px; font-weight:500; padding:17px 30px; background:#BE4E2C; color:#F4ECE0; border-radius:100px; display:inline-flex; align-items:center; justify-content:center; line-height:1; text-align:center;">Book a call with us</a>
+          <a href="https://wa.me/33777375418" target="_blank" rel="noopener" style="font-size:16px; font-weight:500; padding:17px 30px; border:1px solid #211B15; border-radius:100px; display:inline-flex; align-items:center; justify-content:center; gap:8px; line-height:1; text-align:center;">💬 Contact us</a>
         </div>
         <div class="lp-chips" style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
           <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">100% in-house team</span>
-          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Projects from $1,700</span>
-          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">Fair &amp; transparent pricing</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;">8+ years of experience</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5A5148; background:#EFE6D8; border:1px solid rgba(33,27,21,0.1); padding:7px 14px; border-radius:100px;" class="lp-chip-extra">Fair &amp; transparent pricing</span>
         </div>
         <div class="lp-social" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
           <div style="display:flex;">
@@ -189,7 +205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div style="font-size:14px; color:#4A4239; line-height:1.4;"><strong style="color:#211B15;">240+ founders</strong> have previewed their app with us<br><span style="color:#BE4E2C;">★★★★★</span> <span style="color:#8C7F70;">4.9 average</span></div>
         </div>
-        <a href="https://www.instagram.com/lissiostudio/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:13px; color:#4A4239;">
+        <a class="lp-ig" href="https://www.instagram.com/lissiostudio/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:13px; color:#4A4239;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BE4E2C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1"></circle></svg>
           Followed by <strong style="color:#211B15;">20K+</strong> on Instagram
         </a>
@@ -255,7 +271,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div>
           <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#BE4E2C; margin-bottom:16px;">Fair pricing · Real team</div>
           <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,4.5vw,46px); line-height:1.1; margin:0 0 20px; letter-spacing:-0.01em;">Fair prices, because nothing is outsourced.</h2>
-          <p style="font-size:19px; line-height:1.6; color:#4A4239; margin:0;">Design, development, testing — every part of your app is built by our own team, under one roof, in our Paris studio. No subcontractors, no middlemen, no markup. That's how we keep pricing honest and timelines we can actually hold — with projects starting from just $2,900.</p>
+          <p style="font-size:19px; line-height:1.6; color:#4A4239; margin:0;">Design, development, testing — every part of your app is built by our own team, under one roof, in our Paris studio. No subcontractors, no middlemen, no markup. That's how we keep pricing honest and timelines we can actually hold.</p>
         </div>
       </div>
       <div class="lp-scroll" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; {{ scrollOverride }}">
@@ -274,7 +290,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <input type="email" name="email" required="" placeholder="Email" style="flex:1; min-width:0; box-sizing:border-box; padding:12px 14px; border:1px solid rgba(33,27,21,0.15); border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:14px; background:#fff; color:#211B15;">
             <input type="tel" name="phone" required="" placeholder="Phone number" style="flex:1; min-width:0; box-sizing:border-box; padding:12px 14px; border:1px solid rgba(33,27,21,0.15); border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:14px; background:#fff; color:#211B15;">
           </div>
-          <div style="display:flex; gap:12px; align-items:flex-end; min-width:0;">
+          <div class="lp-contact-mini-row2" style="display:flex; gap:12px; align-items:flex-end; min-width:0;">
             <textarea name="body" required="" rows="3" placeholder="What are you building?" style="flex:1; min-width:0; box-sizing:border-box; padding:14px; border:1px solid rgba(33,27,21,0.15); border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:15px; background:#fff; color:#211B15; resize:vertical;"></textarea>
             <button type="submit" style="flex:0 0 auto; font-size:14px; padding:14px 28px; background:#BE4E2C; color:#F4ECE0; border:none; border-radius:100px; cursor:pointer; font-family:'Space Grotesk',sans-serif; white-space:nowrap;">Send message</button>
           </div>
@@ -703,7 +719,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div style="background:#EFE6D8; padding:26px 4px;"><h3 style="font-size:19px; margin:0 0 10px; font-weight:600;">Is the MVP preview really free?</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Yes. We build a real, interactive version of your core idea and install it on your phone at no cost. If you decide not to continue, you keep it — no strings.</p></div>
           <div style="background:#EFE6D8; padding:26px 4px;"><h3 style="font-size:19px; margin:0 0 10px; font-weight:600;">How long until I can try it?</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Usually within a week of our first call. You'll have something tappable in your hand in days, not months.</p></div>
           <div style="background:#EFE6D8; padding:26px 4px;"><h3 style="font-size:19px; margin:0 0 10px; font-weight:600;">What do you build?</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Native and cross-platform mobile apps (iOS &amp; Android), from first sketch to store launch — and the growth work that follows.</p></div>
-          <div style="background:#EFE6D8; padding:26px 4px;"><h3 style="font-size:19px; margin:0 0 10px; font-weight:600;">How much does it cost?</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Projects start from $2,900, scoped to your MVP after the free preview — no hidden fees, no surprise invoices.</p></div>
           <div style="background:#EFE6D8; padding:26px 4px;"><h3 style="font-size:19px; margin:0 0 10px; font-weight:600;">Who do you work with?</h3><p style="font-size:15px; line-height:1.6; color:#4A4239; margin:0;">Founders, startups and teams — whether you're validating a first MVP or growing an existing product over the long term.</p></div>
         </div>
       </div>
@@ -778,9 +793,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- WhatsApp floating button -->
-    <a href="https://wa.me/33777375418" target="_blank" rel="noopener" style="position:fixed; right:20px; bottom:20px; z-index:998; display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:14px 22px 14px 16px; border-radius:100px; box-shadow:0 12px 30px -10px rgba(0,0,0,0.4); font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">
+    <a class="lp-wa" aria-label="Talk with us on WhatsApp" href="https://wa.me/33777375418" target="_blank" rel="noopener" style="position:fixed; right:20px; bottom:20px; z-index:998; display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:14px 22px 14px 16px; border-radius:100px; box-shadow:0 12px 30px -10px rgba(0,0,0,0.4); font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600;">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.004 2C6.486 2 2.01 6.476 2.01 11.994c0 2.116.685 4.077 1.85 5.674L2.5 22l4.46-1.317a9.94 9.94 0 0 0 5.044 1.362c5.518 0 9.994-4.476 9.994-9.994C22 6.476 17.522 2 12.004 2zm0 18.187a8.17 8.17 0 0 1-4.166-1.14l-.299-.177-2.646.781.79-2.583-.194-.31a8.15 8.15 0 0 1-1.257-4.364c0-4.513 3.673-8.187 8.187-8.187 4.513 0 8.187 3.674 8.187 8.187 0 4.513-3.674 8.187-8.187 8.187z"></path></svg>
-      Talk with us
+      <span class="lp-wa-label">Talk with us</span>
     </a>
 
 </section>
